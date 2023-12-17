@@ -5,55 +5,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 import concurrent.futures
 from datetime import date
+import logging
 
 dotenv_path = os.path.join(Path(__file__).resolve().parent.parent, '.env')
 load_dotenv(dotenv_path)
 
 # Get today's date
 today_date = date.today()
-
-# Format and display the date
-# formatted_date = today_date.strftime('%Y-%m-%d')
-formatted_date = "2023-12-13"
-
-
-def download_in_chunks(url, **kwargs):
-
-	def download_chunk(url, start_byte, end_byte, headers={}):
-		h = {"Range": f"bytes={start_byte}-{end_byte}"}
-		headers.update(**kwargs)
-		response = requests.get(url, headers=headers)
-		return response.content
-
-	req = requests.head(url, headers=kwargs)
-	# total_bytes = int(req.get('Content-Length', 0))
-
-	print(dir(req))
-	print(req.request.headers)
-	print(req.request.headers)
-	# print(req.response.headers)
-	# print(f"Data length: {total_bytes}")
-	sys.exit()
-
-	# Number of threads (you can adjust this based on your needs)
-	num_threads = 3
-
-	# Calculate the range for each thread
-	chunk_size = total_bytes // num_threads
-	ranges = [(i * chunk_size, (i + 1) * chunk_size - 1) for i in range(num_threads - 1)]
-	ranges.append(((num_threads - 1) * chunk_size, total_bytes - 1))
-
-	with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
-		# Use executor.map to apply the function to each range concurrently
-		results = list(executor.map(lambda r: download_chunk(url, *r, headers=headers), ranges))
-
-	# Process the results as needed
-	full_data = b"".join(results)
-	print(f"Total downloaded bytes: {len(full_data)}")
-	print(f"{full_data}")
-
-	return full_data
-
 
 def get_water_sales(warehouse_code, date):
 	pass
@@ -63,7 +21,7 @@ class ICGSalesData:
 
 	BASE_URL = os.getenv("ICG_HOST")
 	TOKEN_ENDPOINT = f"{BASE_URL}/token"
-	SALES_DATA_ENDPOINT = f"{BASE_URL}/api/FoodConcept/Sales/{formatted_date}"
+	SALES_DATA_ENDPOINT = f"{BASE_URL}/api/FoodConcept/Sales/"
 
 	def __init__(self, ):
 		pass
@@ -104,18 +62,22 @@ class ICGSalesData:
 			return auth_user_token
 		else:
 			# Print an error message if the request was not successful
-			print(f"Error: Unable to fetch token. Status code: {response.status_code}")
-			print(response.text)
+			logging.error(f"Error: Unable to fetch token. Status code: {response.status_code}")
+			logging.debug(response.text)
 
-	def get_today_sales(self, ):
+	def get_sales(self, sale_date=None):
+		sale_date = sale_date or date.today().strftime('%Y-%m-%d')
+		sales_endpoint = f"{self.SALES_DATA_ENDPOINT}{sale_date}"
+
+		logging.info(f"Fetching sales data for {sale_date}...")
+		logging.debug(f"Fetching sales from URL: {sales_endpoint}")
+
 		token = self.obtain_token()
-		print(f"Fetching sales data...")
 		headers = {
 			"Authorization": f"Bearer {token}"
 		}
-
 		# Make a request to the endpoint
-		response = requests.get(self.SALES_DATA_ENDPOINT, headers=headers)
+		response = requests.get(sales_endpoint, headers=headers)
 		
 		# Check if the request was successful (status code 200)
 		if response:
@@ -124,7 +86,7 @@ class ICGSalesData:
 			return data
 		else:
 			# Print an error message if the request was not successful
-			print(f"Error: {response}")
+			logging.error(f"Error: {response}")
 			return None
 
 	def group_data_by_warehouse(self, sales_data):
@@ -140,3 +102,33 @@ class ICGSalesData:
 			grouped_data[warehouse_name] = {'items': warehouse_data, 'total_amount': total_amount}
 		
 		return grouped_data
+
+	def download_in_chunks(self, url, **kwargs):
+
+		def download_chunk(url, start_byte, end_byte, headers={}):
+			h = {"Range": f"bytes={start_byte}-{end_byte}"}
+			headers.update(**kwargs)
+			response = requests.get(url, headers=headers)
+			return response.content
+
+		req = requests.head(url, headers=kwargs)
+		total_bytes = int(req.get('Content-Length', 0))
+
+		# Number of threads (you can adjust this based on your needs)
+		num_threads = 3
+
+		# Calculate the range for each thread
+		chunk_size = total_bytes // num_threads
+		ranges = [(i * chunk_size, (i + 1) * chunk_size - 1) for i in range(num_threads - 1)]
+		ranges.append(((num_threads - 1) * chunk_size, total_bytes - 1))
+
+		with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+			# Use executor.map to apply the function to each range concurrently
+			results = list(executor.map(lambda r: download_chunk(url, *r, headers=headers), ranges))
+
+		# Process the results as needed
+		full_data = b"".join(results)
+		print(f"Total downloaded bytes: {len(full_data)}")
+		print(f"{full_data}")
+
+		return full_data

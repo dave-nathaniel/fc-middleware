@@ -42,11 +42,13 @@ class Sales(models.Model):
 	def gross_sale_after_water(self,):
 		return self.gross_total - self.water_sales
 
-	def calculated_figures(self, ):
-		gross_sale_after_water = Decimal(str(self.gross_sale_after_water()))
-		vat = self.store.vat / ((self.store.vat + self.store.consumption_tax) + 100) * gross_sale_after_water
+	def calculate(self, ):
+		tax_denominator = 100 + self.store.vat + self.store.consumption_tax + self.store.tourism_development_levy
 
-		calculated = {
+		gross_sale_after_water = Decimal(str(self.gross_sale_after_water()))
+		vat = self.store.vat / tax_denominator * gross_sale_after_water
+
+		calculated_sales_data = {
 			"vat": to_float(vat),
 			"consumption_tax": to_float(((gross_sale_after_water - vat) / (100 + self.store.consumption_tax)) * self.store.consumption_tax),
 			"tourism_development_levy": to_float(((gross_sale_after_water - vat) / (100 + self.store.tourism_development_levy)) * self.store.tourism_development_levy),
@@ -58,12 +60,6 @@ class Sales(models.Model):
 			"mgmt_fee_hr": 0.00,
 			"variable_rent": 0.00,
 		}
-
-		return calculated
-
-	def save(self, *args, **kwargs):
-		# Set calculated fields
-		calculated_sales_data = self.calculated_figures()
 
 		sales_tax = sum(calculated_sales_data.values())
 		net_sales = self.gross_total - sales_tax
@@ -80,6 +76,10 @@ class Sales(models.Model):
 		calculated_sales_data["mgmt_fee_hr"] = (to_float(self.store.mgmt_fee_hr) * mgmt_fee) / 100
 
 		self.calculated_sales_data = calculated_sales_data
+
+		return calculated_sales_data
+
+	def save(self, *args, **kwargs):
 
 		self.store_percentages = {
 			"vat_percentage": to_float(self.store.vat),

@@ -9419,3 +9419,2310 @@
 2023-12-14 07:40:30,328 - INFO - Total Amount: 1464950.0
 2023-12-14 07:40:30,328 - INFO - Sales data for ABUJA, UTAKO inserted successfully.
 2023-12-14 07:40:30,328 - INFO - Posting to ByD for this store was disabled.
+2023-12-14 18:24:49,830 - INFO - Store: LAGOS, ILUPEJU
+2023-12-14 18:24:49,832 - INFO - Initial Total: 61114250.0
+2023-12-14 18:26:16,089 - INFO - Store: LAGOS, ILUPEJU
+2023-12-14 18:26:16,090 - INFO - Initial Total: 61114250.0
+2023-12-14 18:27:35,020 - INFO - Store: LAGOS, ILUPEJU
+2023-12-14 18:27:35,021 - INFO - Initial Total: 61114250.0
+2023-12-14 18:29:30,248 - INFO - Store: LAGOS, ILUPEJU
+2023-12-14 18:29:30,249 - INFO - Initial Total: 61114250.0
+2023-12-14 18:29:30,251 - INFO - Total Amount: 61114250.0
+2023-12-14 18:29:30,251 - INFO - Sales data for LAGOS, ILUPEJU inserted successfully.
+2023-12-14 18:29:30,252 - INFO - Sending to ByD.
+2023-12-14 18:29:30,253 - ERROR - Something went wrong: 'calculated_sales_data'
+2023-12-14 18:37:15,538 - INFO - Store: LAGOS, ILUPEJU
+2023-12-14 18:37:15,540 - INFO - Initial Total: 61114250.0
+2023-12-14 18:37:15,543 - INFO - Total Amount: 61114250.0
+2023-12-14 18:37:15,544 - INFO - Sales data for LAGOS, ILUPEJU inserted successfully.
+2023-12-14 18:37:15,545 - INFO - Sending to ByD.
+2023-12-14 18:37:15,546 - ERROR - Something went wrong: 'calculated_sales_data'
+2023-12-15 07:57:17,182 - INFO - Store: BENUE, OLD OTUKPO
+2023-12-15 07:57:17,183 - INFO - Initial Total: 1431350.0
+2023-12-15 07:57:17,189 - INFO - Total Amount: 1431350.0
+2023-12-15 07:57:17,190 - INFO - Sales data for BENUE, OLD OTUKPO inserted successfully.
+2023-12-15 07:57:17,190 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,191 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,191 - ERROR - Warehouse: 01
+2023-12-15 07:57:17,192 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,192 - ERROR - Warehouse: 02
+2023-12-15 07:57:17,194 - INFO - Store: ILORIN, MM WAY
+2023-12-15 07:57:17,194 - INFO - Initial Total: 327700.0
+2023-12-15 07:57:17,197 - INFO - Total Amount: 327700.0
+2023-12-15 07:57:17,197 - INFO - Sales data for ILORIN, MM WAY inserted successfully.
+2023-12-15 07:57:17,197 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,199 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,199 - ERROR - Warehouse: 04
+2023-12-15 07:57:17,200 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,200 - ERROR - Warehouse: 05
+2023-12-15 07:57:17,202 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,202 - ERROR - Warehouse: 06
+2023-12-15 07:57:17,203 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,203 - ERROR - Warehouse: 6Z
+2023-12-15 07:57:17,204 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,204 - ERROR - Warehouse: 70
+2023-12-15 07:57:17,205 - INFO - Store: ABIA, FACTORY RD, ABA
+2023-12-15 07:57:17,206 - INFO - Initial Total: 1315500.0
+2023-12-15 07:57:17,209 - INFO - Total Amount: 1315500.0
+2023-12-15 07:57:17,210 - INFO - Sales data for ABIA, FACTORY RD, ABA inserted successfully.
+2023-12-15 07:57:17,210 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,211 - INFO - Store: ABIA, AZIKIWE RD, UMUAHIA
+2023-12-15 07:57:17,211 - INFO - Initial Total: 1374150.0
+2023-12-15 07:57:17,214 - INFO - Total Amount: 1374150.0
+2023-12-15 07:57:17,214 - INFO - Sales data for ABIA, AZIKIWE RD, UMUAHIA inserted successfully.
+2023-12-15 07:57:17,214 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,216 - INFO - Store: ABIA, ABA-OWERRI RD
+2023-12-15 07:57:17,216 - INFO - Initial Total: 1427400.0
+2023-12-15 07:57:17,219 - INFO - Total Amount: 1427400.0
+2023-12-15 07:57:17,219 - INFO - Sales data for ABIA, ABA-OWERRI RD inserted successfully.
+2023-12-15 07:57:17,219 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,221 - INFO - Store: ABIA, ADAZI RD
+2023-12-15 07:57:17,221 - INFO - Initial Total: 544400.0
+2023-12-15 07:57:17,224 - INFO - Total Amount: 544400.0
+2023-12-15 07:57:17,224 - INFO - Sales data for ABIA, ADAZI RD inserted successfully.
+2023-12-15 07:57:17,224 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,225 - INFO - Store: ABIA, OGBOR HILLS
+2023-12-15 07:57:17,225 - INFO - Initial Total: 1535350.0
+2023-12-15 07:57:17,229 - INFO - Total Amount: 1535350.0
+2023-12-15 07:57:17,229 - INFO - Sales data for ABIA, OGBOR HILLS inserted successfully.
+2023-12-15 07:57:17,229 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,230 - INFO - Store: ANAMBRA, AWKA RD, ONITSHA
+2023-12-15 07:57:17,230 - INFO - Initial Total: 1684350.0
+2023-12-15 07:57:17,233 - INFO - Total Amount: 1684350.0
+2023-12-15 07:57:17,233 - INFO - Sales data for ANAMBRA, AWKA RD, ONITSHA inserted successfully.
+2023-12-15 07:57:17,233 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,234 - INFO - Store: ANAMBRA, ZIK AVENUE, AWKA
+2023-12-15 07:57:17,234 - INFO - Initial Total: 1477250.0
+2023-12-15 07:57:17,237 - INFO - Total Amount: 1477250.0
+2023-12-15 07:57:17,237 - INFO - Sales data for ANAMBRA, ZIK AVENUE, AWKA inserted successfully.
+2023-12-15 07:57:17,237 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,238 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,238 - ERROR - Warehouse: B7
+2023-12-15 07:57:17,239 - INFO - Store: EBONYI, WATERWORKS, ABAKALIKI
+2023-12-15 07:57:17,239 - INFO - Initial Total: 580800.0
+2023-12-15 07:57:17,242 - INFO - Total Amount: 580800.0
+2023-12-15 07:57:17,242 - INFO - Sales data for EBONYI, WATERWORKS, ABAKALIKI inserted successfully.
+2023-12-15 07:57:17,242 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,244 - INFO - Store: ENUGU, CHIME AVENUE
+2023-12-15 07:57:17,244 - INFO - Initial Total: 997000.0
+2023-12-15 07:57:17,246 - INFO - Total Amount: 997000.0
+2023-12-15 07:57:17,247 - INFO - Sales data for ENUGU, CHIME AVENUE inserted successfully.
+2023-12-15 07:57:17,247 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,248 - INFO - Store: ENUGU, NSUKKA
+2023-12-15 07:57:17,248 - INFO - Initial Total: 1605500.0
+2023-12-15 07:57:17,251 - INFO - Total Amount: 1605500.0
+2023-12-15 07:57:17,251 - INFO - Sales data for ENUGU, NSUKKA inserted successfully.
+2023-12-15 07:57:17,251 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,252 - INFO - Store: ENUGU, POLO MALL
+2023-12-15 07:57:17,252 - INFO - Initial Total: 463550.0
+2023-12-15 07:57:17,255 - INFO - Total Amount: 463550.0
+2023-12-15 07:57:17,255 - INFO - Sales data for ENUGU, POLO MALL inserted successfully.
+2023-12-15 07:57:17,255 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,257 - INFO - Store: ENUGU, ABAKPA
+2023-12-15 07:57:17,257 - INFO - Initial Total: 689850.0
+2023-12-15 07:57:17,259 - INFO - Total Amount: 689850.0
+2023-12-15 07:57:17,259 - INFO - Sales data for ENUGU, ABAKPA inserted successfully.
+2023-12-15 07:57:17,259 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,260 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,261 - ERROR - Warehouse: BD
+2023-12-15 07:57:17,261 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,261 - ERROR - Warehouse: BE
+2023-12-15 07:57:17,262 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:17,262 - ERROR - Warehouse: BF
+2023-12-15 07:57:17,263 - INFO - Store: IMO, OKIGWE
+2023-12-15 07:57:17,263 - INFO - Initial Total: 1711150.0
+2023-12-15 07:57:17,266 - INFO - Total Amount: 1711150.0
+2023-12-15 07:57:17,266 - INFO - Sales data for IMO, OKIGWE inserted successfully.
+2023-12-15 07:57:17,266 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:17,270 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 07:57:17,270 - INFO - Initial Total: 1968966.0
+2023-12-15 07:57:17,270 - INFO - LAGOS, ILUPEJU Staff Meal: 42466.0
+2023-12-15 07:57:17,270 - INFO - Total After Staff Meal: 1926500.0
+2023-12-15 07:57:17,273 - INFO - Total Amount: 1968966.0
+2023-12-15 07:57:17,273 - INFO - Sales data for LAGOS, ILUPEJU inserted successfully.
+2023-12-15 07:57:17,273 - INFO - Sending to ByD.
+2023-12-15 07:57:20,913 - INFO - 
+
+2023-12-15 07:57:22,229 - INFO - 
+
+2023-12-15 07:57:23,715 - INFO - 
+
+2023-12-15 07:57:25,174 - INFO - 
+
+2023-12-15 07:57:26,563 - INFO - 
+
+2023-12-15 07:57:27,689 - INFO - 
+
+2023-12-15 07:57:27,690 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,690 - ERROR - Warehouse: I1
+2023-12-15 07:57:27,691 - INFO - Store: LAGOS, MOBIL OGBA
+2023-12-15 07:57:27,691 - INFO - Initial Total: 1456300.0
+2023-12-15 07:57:27,694 - INFO - Total Amount: 1456300.0
+2023-12-15 07:57:27,694 - INFO - Sales data for LAGOS, MOBIL OGBA inserted successfully.
+2023-12-15 07:57:27,694 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,696 - INFO - Store: LAGOS, AJAH
+2023-12-15 07:57:27,696 - INFO - Initial Total: 1277700.0
+2023-12-15 07:57:27,698 - INFO - Total Amount: 1277700.0
+2023-12-15 07:57:27,698 - INFO - Sales data for LAGOS, AJAH inserted successfully.
+2023-12-15 07:57:27,698 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,700 - INFO - Store: LAGOS, AJOSE ADEOGUN
+2023-12-15 07:57:27,700 - INFO - Initial Total: 3227800.0
+2023-12-15 07:57:27,703 - INFO - Total Amount: 3227800.0
+2023-12-15 07:57:27,703 - INFO - Sales data for LAGOS, AJOSE ADEOGUN inserted successfully.
+2023-12-15 07:57:27,703 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,704 - INFO - Store: LAGOS, AKOWONJO
+2023-12-15 07:57:27,704 - INFO - Initial Total: 1356150.0
+2023-12-15 07:57:27,707 - INFO - Total Amount: 1356150.0
+2023-12-15 07:57:27,707 - INFO - Sales data for LAGOS, AKOWONJO inserted successfully.
+2023-12-15 07:57:27,707 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,708 - INFO - Store: LAGOS, AWOLOWO
+2023-12-15 07:57:27,708 - INFO - Initial Total: 2550950.0
+2023-12-15 07:57:27,711 - INFO - Total Amount: 2550950.0
+2023-12-15 07:57:27,711 - INFO - Sales data for LAGOS, AWOLOWO inserted successfully.
+2023-12-15 07:57:27,711 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,712 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,712 - ERROR - Warehouse: I7
+2023-12-15 07:57:27,713 - INFO - Store: LAGOS, DOMINO E-CENTRE
+2023-12-15 07:57:27,713 - INFO - Initial Total: 484550.0
+2023-12-15 07:57:27,716 - INFO - Total Amount: 484550.0
+2023-12-15 07:57:27,716 - INFO - Sales data for LAGOS, DOMINO E-CENTRE inserted successfully.
+2023-12-15 07:57:27,716 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,717 - INFO - Store: LAGOS, IRE-AKARI
+2023-12-15 07:57:27,717 - INFO - Initial Total: 972400.0
+2023-12-15 07:57:27,720 - INFO - Total Amount: 972400.0
+2023-12-15 07:57:27,720 - INFO - Sales data for LAGOS, IRE-AKARI inserted successfully.
+2023-12-15 07:57:27,720 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,721 - INFO - Store: LAGOS, JIBOWU
+2023-12-15 07:57:27,721 - INFO - Initial Total: 1892150.0
+2023-12-15 07:57:27,724 - INFO - Total Amount: 1892150.0
+2023-12-15 07:57:27,724 - INFO - Sales data for LAGOS, JIBOWU inserted successfully.
+2023-12-15 07:57:27,724 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,725 - INFO - Store: LAGOS, LEKKI PHASE 1
+2023-12-15 07:57:27,725 - INFO - Initial Total: 2684050.0
+2023-12-15 07:57:27,729 - INFO - Total Amount: 2684050.0
+2023-12-15 07:57:27,729 - INFO - Sales data for LAGOS, LEKKI PHASE 1 inserted successfully.
+2023-12-15 07:57:27,729 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,730 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,730 - ERROR - Warehouse: ID
+2023-12-15 07:57:27,731 - INFO - Store: LAGOS, OKE-AFA
+2023-12-15 07:57:27,731 - INFO - Initial Total: 1542600.0
+2023-12-15 07:57:27,737 - INFO - Total Amount: 1542600.0
+2023-12-15 07:57:27,737 - INFO - Sales data for LAGOS, OKE-AFA inserted successfully.
+2023-12-15 07:57:27,737 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,738 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,739 - ERROR - Warehouse: IF
+2023-12-15 07:57:27,739 - INFO - Store: LAGOS, OPEBI
+2023-12-15 07:57:27,740 - INFO - Initial Total: 2131349.0
+2023-12-15 07:57:27,740 - INFO - LAGOS, OPEBI Staff Meal: 19399.0
+2023-12-15 07:57:27,740 - INFO - Total After Staff Meal: 2111950.0
+2023-12-15 07:57:27,746 - INFO - Total Amount: 2131349.0
+2023-12-15 07:57:27,746 - INFO - Sales data for LAGOS, OPEBI inserted successfully.
+2023-12-15 07:57:27,746 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,747 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,747 - ERROR - Warehouse: IH
+2023-12-15 07:57:27,748 - INFO - Store: LAGOS, FESTAC
+2023-12-15 07:57:27,748 - INFO - Initial Total: 1428950.0
+2023-12-15 07:57:27,753 - INFO - Total Amount: 1428950.0
+2023-12-15 07:57:27,753 - INFO - Sales data for LAGOS, FESTAC inserted successfully.
+2023-12-15 07:57:27,753 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,754 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,754 - ERROR - Warehouse: IK
+2023-12-15 07:57:27,755 - INFO - Store: LAGOS, ENTOURAGE MALL
+2023-12-15 07:57:27,756 - INFO - Initial Total: 1447100.0
+2023-12-15 07:57:27,759 - INFO - Total Amount: 1447100.0
+2023-12-15 07:57:27,759 - INFO - Sales data for LAGOS, ENTOURAGE MALL inserted successfully.
+2023-12-15 07:57:27,759 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,760 - INFO - Store: LAGOS, VGC
+2023-12-15 07:57:27,760 - INFO - Initial Total: 1575800.0
+2023-12-15 07:57:27,763 - INFO - Total Amount: 1575800.0
+2023-12-15 07:57:27,763 - INFO - Sales data for LAGOS, VGC inserted successfully.
+2023-12-15 07:57:27,763 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,764 - INFO - Store: LAGOS, TEJUOSHO
+2023-12-15 07:57:27,764 - INFO - Initial Total: 812400.0
+2023-12-15 07:57:27,766 - INFO - Total Amount: 812400.0
+2023-12-15 07:57:27,766 - INFO - Sales data for LAGOS, TEJUOSHO inserted successfully.
+2023-12-15 07:57:27,766 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,769 - INFO - Store: LAGOS, ONIRU
+2023-12-15 07:57:27,769 - INFO - Initial Total: 2626500.0
+2023-12-15 07:57:27,772 - INFO - Total Amount: 2626500.0
+2023-12-15 07:57:27,772 - INFO - Sales data for LAGOS, ONIRU inserted successfully.
+2023-12-15 07:57:27,772 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,773 - INFO - Store: LAGOS, ABULE EGBA
+2023-12-15 07:57:27,774 - INFO - Initial Total: 2403000.0
+2023-12-15 07:57:27,777 - INFO - Total Amount: 2403000.0
+2023-12-15 07:57:27,777 - INFO - Sales data for LAGOS, ABULE EGBA inserted successfully.
+2023-12-15 07:57:27,777 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,778 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,778 - ERROR - Warehouse: IQ
+2023-12-15 07:57:27,779 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,779 - ERROR - Warehouse: IR
+2023-12-15 07:57:27,780 - INFO - Store: LAGOS, SKYMALL
+2023-12-15 07:57:27,780 - INFO - Initial Total: 1165250.0
+2023-12-15 07:57:27,782 - INFO - Total Amount: 1165250.0
+2023-12-15 07:57:27,782 - INFO - Sales data for LAGOS, SKYMALL inserted successfully.
+2023-12-15 07:57:27,782 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,784 - INFO - Store: LAGOS, AWOLOWO 2
+2023-12-15 07:57:27,784 - INFO - Initial Total: 997800.0
+2023-12-15 07:57:27,786 - INFO - Total Amount: 997800.0
+2023-12-15 07:57:27,786 - INFO - Sales data for LAGOS, AWOLOWO 2 inserted successfully.
+2023-12-15 07:57:27,787 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,788 - INFO - Store: LAGOS, IDIMU
+2023-12-15 07:57:27,788 - INFO - Initial Total: 1047550.0
+2023-12-15 07:57:27,791 - INFO - Total Amount: 1047550.0
+2023-12-15 07:57:27,791 - INFO - Sales data for LAGOS, IDIMU inserted successfully.
+2023-12-15 07:57:27,791 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,792 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,792 - ERROR - Warehouse: IV
+2023-12-15 07:57:27,793 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,793 - ERROR - Warehouse: IW
+2023-12-15 07:57:27,794 - INFO - Store: LAGOS, OSOLOWAY
+2023-12-15 07:57:27,794 - INFO - Initial Total: 775800.0
+2023-12-15 07:57:27,798 - INFO - Total Amount: 775800.0
+2023-12-15 07:57:27,798 - INFO - Sales data for LAGOS, OSOLOWAY inserted successfully.
+2023-12-15 07:57:27,798 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,799 - INFO - Store: LAGOS, IKORODU
+2023-12-15 07:57:27,799 - INFO - Initial Total: 2038900.0
+2023-12-15 07:57:27,802 - INFO - Total Amount: 2038900.0
+2023-12-15 07:57:27,802 - INFO - Sales data for LAGOS, IKORODU inserted successfully.
+2023-12-15 07:57:27,802 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,803 - INFO - Store: LAGOS, FREEDOMWAY
+2023-12-15 07:57:27,803 - INFO - Initial Total: 2042150.0
+2023-12-15 07:57:27,806 - INFO - Total Amount: 2042150.0
+2023-12-15 07:57:27,806 - INFO - Sales data for LAGOS, FREEDOMWAY inserted successfully.
+2023-12-15 07:57:27,806 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,807 - INFO - Store: LAGOS, LATEEF JAKANDE
+2023-12-15 07:57:27,807 - INFO - Initial Total: 1381500.0
+2023-12-15 07:57:27,810 - INFO - Total Amount: 1381500.0
+2023-12-15 07:57:27,810 - INFO - Sales data for LAGOS, LATEEF JAKANDE inserted successfully.
+2023-12-15 07:57:27,810 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,811 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,811 - ERROR - Warehouse: J2
+2023-12-15 07:57:27,812 - INFO - Store: LAGOS, OBA AKRAN
+2023-12-15 07:57:27,812 - INFO - Initial Total: 2191350.0
+2023-12-15 07:57:27,816 - INFO - Total Amount: 2191350.0
+2023-12-15 07:57:27,816 - INFO - Sales data for LAGOS, OBA AKRAN inserted successfully.
+2023-12-15 07:57:27,816 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,816 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:27,816 - ERROR - Warehouse: J4
+2023-12-15 07:57:27,817 - INFO - Store: LAGOS, AGUNGI
+2023-12-15 07:57:27,817 - INFO - Initial Total: 2173750.0
+2023-12-15 07:57:27,821 - INFO - Total Amount: 2173750.0
+2023-12-15 07:57:27,821 - INFO - Sales data for LAGOS, AGUNGI inserted successfully.
+2023-12-15 07:57:27,821 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,822 - INFO - Store: LAGOS, ALIMOSHO
+2023-12-15 07:57:27,822 - INFO - Initial Total: 731700.0
+2023-12-15 07:57:27,825 - INFO - Total Amount: 731700.0
+2023-12-15 07:57:27,825 - INFO - Sales data for LAGOS, ALIMOSHO inserted successfully.
+2023-12-15 07:57:27,825 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:27,826 - INFO - Store: LAGOS, JOEL OGUNNAIKE
+2023-12-15 07:57:27,826 - INFO - Initial Total: 1737250.0
+2023-12-15 07:57:27,829 - INFO - Total Amount: 1737250.0
+2023-12-15 07:57:27,829 - INFO - Sales data for LAGOS, JOEL OGUNNAIKE inserted successfully.
+2023-12-15 07:57:27,829 - INFO - Sending to ByD.
+2023-12-15 07:57:29,128 - INFO - 
+
+2023-12-15 07:57:30,602 - INFO - 
+
+2023-12-15 07:57:32,009 - INFO - 
+
+2023-12-15 07:57:33,409 - INFO - 
+
+2023-12-15 07:57:34,801 - INFO - 
+
+2023-12-15 07:57:35,944 - INFO - 
+
+2023-12-15 07:57:35,945 - INFO - Store: LAGOS, EJIGBO
+2023-12-15 07:57:35,945 - INFO - Initial Total: 1146200.0
+2023-12-15 07:57:35,948 - INFO - Total Amount: 1146200.0
+2023-12-15 07:57:35,948 - INFO - Sales data for LAGOS, EJIGBO inserted successfully.
+2023-12-15 07:57:35,948 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,949 - INFO - Store: LAGOS, IDI-IROKO RD
+2023-12-15 07:57:35,949 - INFO - Initial Total: 2046600.0
+2023-12-15 07:57:35,953 - INFO - Total Amount: 2046600.0
+2023-12-15 07:57:35,953 - INFO - Sales data for LAGOS, IDI-IROKO RD inserted successfully.
+2023-12-15 07:57:35,953 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,954 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:35,954 - ERROR - Warehouse: JA
+2023-12-15 07:57:35,955 - INFO - Store: LAGOS, IKOTUN
+2023-12-15 07:57:35,955 - INFO - Initial Total: 1227300.0
+2023-12-15 07:57:35,958 - INFO - Total Amount: 1227300.0
+2023-12-15 07:57:35,958 - INFO - Sales data for LAGOS, IKOTUN inserted successfully.
+2023-12-15 07:57:35,958 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,959 - INFO - Store: LAGOS, IPAJA RD
+2023-12-15 07:57:35,959 - INFO - Initial Total: 1837150.0
+2023-12-15 07:57:35,962 - INFO - Total Amount: 1837150.0
+2023-12-15 07:57:35,962 - INFO - Sales data for LAGOS, IPAJA RD inserted successfully.
+2023-12-15 07:57:35,962 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,964 - INFO - Store: LAGOS, HEYDEN IPAJA
+2023-12-15 07:57:35,964 - INFO - Initial Total: 621250.0
+2023-12-15 07:57:35,966 - INFO - Total Amount: 621250.0
+2023-12-15 07:57:35,967 - INFO - Sales data for LAGOS, HEYDEN IPAJA inserted successfully.
+2023-12-15 07:57:35,967 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,968 - INFO - Store: LAGOS, BADORE
+2023-12-15 07:57:35,968 - INFO - Initial Total: 1680000.0
+2023-12-15 07:57:35,972 - INFO - Total Amount: 1680000.0
+2023-12-15 07:57:35,972 - INFO - Sales data for LAGOS, BADORE inserted successfully.
+2023-12-15 07:57:35,972 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,972 - INFO - Store: LAGOS, TOTAL LEKKI
+2023-12-15 07:57:35,972 - INFO - Initial Total: 1104350.0
+2023-12-15 07:57:35,976 - INFO - Total Amount: 1104350.0
+2023-12-15 07:57:35,976 - INFO - Sales data for LAGOS, TOTAL LEKKI inserted successfully.
+2023-12-15 07:57:35,976 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,977 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:35,977 - ERROR - Warehouse: JH
+2023-12-15 07:57:35,978 - INFO - Store: LAGOS, CONOIL IKEJA
+2023-12-15 07:57:35,978 - INFO - Initial Total: 790800.0
+2023-12-15 07:57:35,980 - INFO - Total Amount: 790800.0
+2023-12-15 07:57:35,980 - INFO - Sales data for LAGOS, CONOIL IKEJA inserted successfully.
+2023-12-15 07:57:35,981 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,982 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:35,982 - ERROR - Warehouse: JJ
+2023-12-15 07:57:35,983 - INFO - Store: LAGOS, EKORO
+2023-12-15 07:57:35,983 - INFO - Initial Total: 1182950.0
+2023-12-15 07:57:35,986 - INFO - Total Amount: 1182950.0
+2023-12-15 07:57:35,986 - INFO - Sales data for LAGOS, EKORO inserted successfully.
+2023-12-15 07:57:35,986 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,988 - INFO - Store: LAGOS, OKOTA
+2023-12-15 07:57:35,988 - INFO - Initial Total: 1621750.0
+2023-12-15 07:57:35,990 - INFO - Total Amount: 1621750.0
+2023-12-15 07:57:35,990 - INFO - Sales data for LAGOS, OKOTA inserted successfully.
+2023-12-15 07:57:35,990 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,992 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:35,992 - ERROR - Warehouse: M0
+2023-12-15 07:57:35,992 - INFO - Store: AKWA IBOM, IKOT EKPENE RD
+2023-12-15 07:57:35,993 - INFO - Initial Total: 1462750.0
+2023-12-15 07:57:35,996 - INFO - Total Amount: 1462750.0
+2023-12-15 07:57:35,996 - INFO - Sales data for AKWA IBOM, IKOT EKPENE RD inserted successfully.
+2023-12-15 07:57:35,996 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:35,997 - INFO - Store: AKWA IBOM, ABAK RD
+2023-12-15 07:57:35,997 - INFO - Initial Total: 1006450.0
+2023-12-15 07:57:36,000 - INFO - Total Amount: 1006450.0
+2023-12-15 07:57:36,000 - INFO - Sales data for AKWA IBOM, ABAK RD inserted successfully.
+2023-12-15 07:57:36,000 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:36,001 - INFO - Store: Akwa Ibom, Aka Rd
+2023-12-15 07:57:36,001 - INFO - Initial Total: 749450.0
+2023-12-15 07:57:36,003 - INFO - Total Amount: 749450.0
+2023-12-15 07:57:36,003 - INFO - Sales data for Akwa Ibom, Aka Rd inserted successfully.
+2023-12-15 07:57:36,003 - INFO - Sending to ByD.
+2023-12-15 07:57:37,295 - INFO - 
+
+2023-12-15 07:57:38,711 - INFO - 
+
+2023-12-15 07:57:40,247 - INFO - 
+
+2023-12-15 07:57:41,635 - INFO - 
+
+2023-12-15 07:57:43,086 - INFO - 
+
+2023-12-15 07:57:43,087 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:43,087 - ERROR - Warehouse: M5
+2023-12-15 07:57:43,088 - INFO - Store: BAYELSA, YENAGOA
+2023-12-15 07:57:43,088 - INFO - Initial Total: 1658500.0
+2023-12-15 07:57:43,091 - INFO - Total Amount: 1658500.0
+2023-12-15 07:57:43,091 - INFO - Sales data for BAYELSA, YENAGOA inserted successfully.
+2023-12-15 07:57:43,091 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:43,093 - INFO - Store: BAYELSA, OPOLO
+2023-12-15 07:57:43,093 - INFO - Initial Total: 1512100.0
+2023-12-15 07:57:43,097 - INFO - Total Amount: 1512100.0
+2023-12-15 07:57:43,097 - INFO - Sales data for BAYELSA, OPOLO inserted successfully.
+2023-12-15 07:57:43,097 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:43,097 - INFO - Store: BAYELSA, TOMBIA
+2023-12-15 07:57:43,098 - INFO - Initial Total: 2308300.0
+2023-12-15 07:57:43,101 - INFO - Total Amount: 2308300.0
+2023-12-15 07:57:43,101 - INFO - Sales data for BAYELSA, TOMBIA inserted successfully.
+2023-12-15 07:57:43,101 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:43,102 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 07:57:43,102 - INFO - Initial Total: 1571250.0
+2023-12-15 07:57:43,105 - INFO - Total Amount: 1571250.0
+2023-12-15 07:57:43,105 - INFO - Sales data for CALABAR, NDIDEM inserted successfully.
+2023-12-15 07:57:43,105 - INFO - Sending to ByD.
+2023-12-15 07:57:46,211 - INFO - 
+
+2023-12-15 07:57:47,532 - INFO - 
+
+2023-12-15 07:57:48,823 - INFO - 
+
+2023-12-15 07:57:50,161 - INFO - 
+
+2023-12-15 07:57:51,559 - INFO - 
+
+2023-12-15 07:57:52,625 - INFO - 
+
+2023-12-15 07:57:52,626 - INFO - Store: DELTA, EFFURUN
+2023-12-15 07:57:52,626 - INFO - Initial Total: 1071900.0
+2023-12-15 07:57:52,629 - INFO - Total Amount: 1071900.0
+2023-12-15 07:57:52,629 - INFO - Sales data for DELTA, EFFURUN inserted successfully.
+2023-12-15 07:57:52,629 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,631 - INFO - Store: DELTA, SAPELE-WARRI RD
+2023-12-15 07:57:52,631 - INFO - Initial Total: 911150.0
+2023-12-15 07:57:52,633 - INFO - Total Amount: 911150.0
+2023-12-15 07:57:52,633 - INFO - Sales data for DELTA, SAPELE-WARRI RD inserted successfully.
+2023-12-15 07:57:52,634 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,635 - INFO - Store: DELTA, ISOKO RD
+2023-12-15 07:57:52,635 - INFO - Initial Total: 1133100.0
+2023-12-15 07:57:52,638 - INFO - Total Amount: 1133100.0
+2023-12-15 07:57:52,638 - INFO - Sales data for DELTA, ISOKO RD inserted successfully.
+2023-12-15 07:57:52,638 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,639 - INFO - Store: DELTA, OKPE RD
+2023-12-15 07:57:52,639 - INFO - Initial Total: 524300.0
+2023-12-15 07:57:52,642 - INFO - Total Amount: 524300.0
+2023-12-15 07:57:52,642 - INFO - Sales data for DELTA, OKPE RD inserted successfully.
+2023-12-15 07:57:52,642 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,643 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:52,643 - ERROR - Warehouse: ME
+2023-12-15 07:57:52,644 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:52,644 - ERROR - Warehouse: MF
+2023-12-15 07:57:52,645 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:52,645 - ERROR - Warehouse: MG
+2023-12-15 07:57:52,646 - INFO - Store: EDO, SAKPOMBA
+2023-12-15 07:57:52,646 - INFO - Initial Total: 280700.0
+2023-12-15 07:57:52,649 - INFO - Total Amount: 280700.0
+2023-12-15 07:57:52,649 - INFO - Sales data for EDO, SAKPOMBA inserted successfully.
+2023-12-15 07:57:52,649 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,650 - INFO - Store: EDO, SILUKO
+2023-12-15 07:57:52,650 - INFO - Initial Total: 726900.0
+2023-12-15 07:57:52,653 - INFO - Total Amount: 726900.0
+2023-12-15 07:57:52,653 - INFO - Sales data for EDO, SILUKO inserted successfully.
+2023-12-15 07:57:52,653 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,654 - INFO - Store: RIVERS, ABACHA RD
+2023-12-15 07:57:52,654 - INFO - Initial Total: 1671650.0
+2023-12-15 07:57:52,657 - INFO - Total Amount: 1671650.0
+2023-12-15 07:57:52,657 - INFO - Sales data for RIVERS, ABACHA RD inserted successfully.
+2023-12-15 07:57:52,657 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,658 - INFO - Store: RIVERS, RUMUBIAKANI
+2023-12-15 07:57:52,658 - INFO - Initial Total: 970850.0
+2023-12-15 07:57:52,663 - INFO - Total Amount: 970850.0
+2023-12-15 07:57:52,663 - INFO - Sales data for RIVERS, RUMUBIAKANI inserted successfully.
+2023-12-15 07:57:52,663 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,664 - INFO - Store: RIVERS, TRANS AMADI
+2023-12-15 07:57:52,664 - INFO - Initial Total: 573900.0
+2023-12-15 07:57:52,667 - INFO - Total Amount: 573900.0
+2023-12-15 07:57:52,667 - INFO - Sales data for RIVERS, TRANS AMADI inserted successfully.
+2023-12-15 07:57:52,667 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:57:52,668 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:52,668 - ERROR - Warehouse: MN
+2023-12-15 07:57:52,669 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:57:52,669 - ERROR - Warehouse: MO
+2023-12-15 07:57:52,670 - INFO - Store: RIVERS, DOX RD
+2023-12-15 07:57:52,671 - INFO - Initial Total: 1240550.0
+2023-12-15 07:57:52,673 - INFO - Total Amount: 1240550.0
+2023-12-15 07:57:52,673 - INFO - Sales data for RIVERS, DOX RD inserted successfully.
+2023-12-15 07:57:52,673 - INFO - Sending to ByD.
+2023-12-15 07:57:54,128 - INFO - 
+
+2023-12-15 07:57:55,504 - INFO - 
+
+2023-12-15 07:57:56,779 - INFO - 
+
+2023-12-15 07:57:58,223 - INFO - 
+
+2023-12-15 07:57:59,659 - INFO - 
+
+2023-12-15 07:58:01,079 - INFO - 
+
+2023-12-15 07:58:01,080 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,080 - ERROR - Warehouse: MQ
+2023-12-15 07:58:01,081 - INFO - Store: RIVERS, WOJI
+2023-12-15 07:58:01,081 - INFO - Initial Total: 1219150.0
+2023-12-15 07:58:01,084 - INFO - Total Amount: 1219150.0
+2023-12-15 07:58:01,084 - INFO - Sales data for RIVERS, WOJI inserted successfully.
+2023-12-15 07:58:01,085 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,086 - INFO - Store: RIVERS, RUKPOKWU
+2023-12-15 07:58:01,086 - INFO - Initial Total: 1821700.0
+2023-12-15 07:58:01,089 - INFO - Total Amount: 1821700.0
+2023-12-15 07:58:01,089 - INFO - Sales data for RIVERS, RUKPOKWU inserted successfully.
+2023-12-15 07:58:01,089 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,090 - INFO - Store: RIVERS, ONNE
+2023-12-15 07:58:01,090 - INFO - Initial Total: 812050.0
+2023-12-15 07:58:01,093 - INFO - Total Amount: 812050.0
+2023-12-15 07:58:01,093 - INFO - Sales data for RIVERS, ONNE inserted successfully.
+2023-12-15 07:58:01,093 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,095 - INFO - Store: RIVERS, RUMUOLA
+2023-12-15 07:58:01,095 - INFO - Initial Total: 1160250.0
+2023-12-15 07:58:01,098 - INFO - Total Amount: 1160250.0
+2023-12-15 07:58:01,098 - INFO - Sales data for RIVERS, RUMUOLA inserted successfully.
+2023-12-15 07:58:01,098 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,099 - INFO - Store: RIVERS, IWOFE
+2023-12-15 07:58:01,099 - INFO - Initial Total: 1358000.0
+2023-12-15 07:58:01,101 - INFO - Total Amount: 1358000.0
+2023-12-15 07:58:01,102 - INFO - Sales data for RIVERS, IWOFE inserted successfully.
+2023-12-15 07:58:01,102 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,103 - INFO - Store: RIVERS, OYIGBO
+2023-12-15 07:58:01,103 - INFO - Initial Total: 974850.0
+2023-12-15 07:58:01,105 - INFO - Total Amount: 974850.0
+2023-12-15 07:58:01,105 - INFO - Sales data for RIVERS, OYIGBO inserted successfully.
+2023-12-15 07:58:01,105 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,107 - INFO - Store: RIVERS, ONNE RD, GRA
+2023-12-15 07:58:01,107 - INFO - Initial Total: 927850.0
+2023-12-15 07:58:01,109 - INFO - Total Amount: 927850.0
+2023-12-15 07:58:01,109 - INFO - Sales data for RIVERS, ONNE RD, GRA inserted successfully.
+2023-12-15 07:58:01,109 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,110 - INFO - Store: RIVERS, UST
+2023-12-15 07:58:01,110 - INFO - Initial Total: 810350.0
+2023-12-15 07:58:01,114 - INFO - Total Amount: 810350.0
+2023-12-15 07:58:01,114 - INFO - Sales data for RIVERS, UST inserted successfully.
+2023-12-15 07:58:01,114 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,115 - INFO - Store: RIVERS, D-LINE
+2023-12-15 07:58:01,115 - INFO - Initial Total: 810600.0
+2023-12-15 07:58:01,117 - INFO - Total Amount: 810600.0
+2023-12-15 07:58:01,117 - INFO - Sales data for RIVERS, D-LINE inserted successfully.
+2023-12-15 07:58:01,118 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,119 - INFO - Store: RIVERS, OMOKU
+2023-12-15 07:58:01,119 - INFO - Initial Total: 932600.0
+2023-12-15 07:58:01,123 - INFO - Total Amount: 932600.0
+2023-12-15 07:58:01,123 - INFO - Sales data for RIVERS, OMOKU inserted successfully.
+2023-12-15 07:58:01,123 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,124 - INFO - Store: OGUN, OKE-ILEWO
+2023-12-15 07:58:01,124 - INFO - Initial Total: 1158350.0
+2023-12-15 07:58:01,127 - INFO - Total Amount: 1158350.0
+2023-12-15 07:58:01,127 - INFO - Sales data for OGUN, OKE-ILEWO inserted successfully.
+2023-12-15 07:58:01,127 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,128 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,128 - ERROR - Warehouse: Q1
+2023-12-15 07:58:01,129 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,129 - ERROR - Warehouse: Q2
+2023-12-15 07:58:01,130 - INFO - Store: OGUN, SOKENU
+2023-12-15 07:58:01,131 - INFO - Initial Total: 834600.0
+2023-12-15 07:58:01,133 - INFO - Total Amount: 834600.0
+2023-12-15 07:58:01,133 - INFO - Sales data for OGUN, SOKENU inserted successfully.
+2023-12-15 07:58:01,133 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,136 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,136 - ERROR - Warehouse: Q4
+2023-12-15 07:58:01,137 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,137 - ERROR - Warehouse: Q5
+2023-12-15 07:58:01,138 - INFO - Store: OYO, OGBOMOSHO
+2023-12-15 07:58:01,138 - INFO - Initial Total: 770000.0
+2023-12-15 07:58:01,140 - INFO - Total Amount: 770000.0
+2023-12-15 07:58:01,140 - INFO - Sales data for OYO, OGBOMOSHO inserted successfully.
+2023-12-15 07:58:01,140 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,142 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,142 - ERROR - Warehouse: Q7
+2023-12-15 07:58:01,143 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,143 - ERROR - Warehouse: Q8
+2023-12-15 07:58:01,143 - INFO - Store: IBADAN, MOKOLA
+2023-12-15 07:58:01,143 - INFO - Initial Total: 1413050.0
+2023-12-15 07:58:01,146 - INFO - Total Amount: 1413050.0
+2023-12-15 07:58:01,146 - INFO - Sales data for IBADAN, MOKOLA inserted successfully.
+2023-12-15 07:58:01,146 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,148 - INFO - Store: IBADAN, BODIJA
+2023-12-15 07:58:01,148 - INFO - Initial Total: 1403150.0
+2023-12-15 07:58:01,151 - INFO - Total Amount: 1403150.0
+2023-12-15 07:58:01,151 - INFO - Sales data for IBADAN, BODIJA inserted successfully.
+2023-12-15 07:58:01,151 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,152 - INFO - Store: IBADAN, IDI-APE (IWO RD)
+2023-12-15 07:58:01,153 - INFO - Initial Total: 1201900.0
+2023-12-15 07:58:01,155 - INFO - Total Amount: 1201900.0
+2023-12-15 07:58:01,155 - INFO - Sales data for IBADAN, IDI-APE (IWO RD) inserted successfully.
+2023-12-15 07:58:01,155 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,156 - INFO - Store: IBADAN, VENTURA MALL
+2023-12-15 07:58:01,156 - INFO - Initial Total: 832150.0
+2023-12-15 07:58:01,159 - INFO - Total Amount: 832150.0
+2023-12-15 07:58:01,159 - INFO - Sales data for IBADAN, VENTURA MALL inserted successfully.
+2023-12-15 07:58:01,159 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,160 - INFO - Store: IBADAN, AKOBO
+2023-12-15 07:58:01,161 - INFO - Initial Total: 1401300.0
+2023-12-15 07:58:01,163 - INFO - Total Amount: 1401300.0
+2023-12-15 07:58:01,164 - INFO - Sales data for IBADAN, AKOBO inserted successfully.
+2023-12-15 07:58:01,164 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,165 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,165 - ERROR - Warehouse: QE
+2023-12-15 07:58:01,166 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,167 - ERROR - Warehouse: QF
+2023-12-15 07:58:01,168 - INFO - Store: ABUJA, AMINU KANO
+2023-12-15 07:58:01,168 - INFO - Initial Total: 2433300.0
+2023-12-15 07:58:01,170 - INFO - Total Amount: 2433300.0
+2023-12-15 07:58:01,171 - INFO - Sales data for ABUJA, AMINU KANO inserted successfully.
+2023-12-15 07:58:01,171 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,172 - INFO - Store: ABUJA, OANDO ZONE 6
+2023-12-15 07:58:01,172 - INFO - Initial Total: 2002700.0
+2023-12-15 07:58:01,175 - INFO - Total Amount: 2002700.0
+2023-12-15 07:58:01,175 - INFO - Sales data for ABUJA, OANDO ZONE 6 inserted successfully.
+2023-12-15 07:58:01,175 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,176 - INFO - Store: ABUJA, AREA 8
+2023-12-15 07:58:01,176 - INFO - Initial Total: 2909750.0
+2023-12-15 07:58:01,181 - INFO - Total Amount: 2909750.0
+2023-12-15 07:58:01,181 - INFO - Sales data for ABUJA, AREA 8 inserted successfully.
+2023-12-15 07:58:01,181 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,182 - INFO - Store: ABUJA, KUBWA
+2023-12-15 07:58:01,182 - INFO - Initial Total: 1620050.0
+2023-12-15 07:58:01,185 - INFO - Total Amount: 1620050.0
+2023-12-15 07:58:01,185 - INFO - Sales data for ABUJA, KUBWA inserted successfully.
+2023-12-15 07:58:01,185 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,186 - INFO - Store: ABUJA, GWARIMPA
+2023-12-15 07:58:01,186 - INFO - Initial Total: 2466650.0
+2023-12-15 07:58:01,189 - INFO - Total Amount: 2466650.0
+2023-12-15 07:58:01,189 - INFO - Sales data for ABUJA, GWARIMPA inserted successfully.
+2023-12-15 07:58:01,189 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,190 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,191 - ERROR - Warehouse: V6
+2023-12-15 07:58:01,191 - INFO - Store: ABUJA, GARKI
+2023-12-15 07:58:01,191 - INFO - Initial Total: 1693250.0
+2023-12-15 07:58:01,194 - INFO - Total Amount: 1693250.0
+2023-12-15 07:58:01,194 - INFO - Sales data for ABUJA, GARKI inserted successfully.
+2023-12-15 07:58:01,194 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,196 - INFO - Store: ABUJA, LUGBE
+2023-12-15 07:58:01,196 - INFO - Initial Total: 1080950.0
+2023-12-15 07:58:01,199 - INFO - Total Amount: 1080950.0
+2023-12-15 07:58:01,199 - INFO - Sales data for ABUJA, LUGBE inserted successfully.
+2023-12-15 07:58:01,199 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,200 - INFO - Store: ABUJA, GADO NASKO, KUBWA 2
+2023-12-15 07:58:01,200 - INFO - Initial Total: 1529800.0
+2023-12-15 07:58:01,202 - INFO - Total Amount: 1529800.0
+2023-12-15 07:58:01,202 - INFO - Sales data for ABUJA, GADO NASKO, KUBWA 2 inserted successfully.
+2023-12-15 07:58:01,202 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,203 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,203 - ERROR - Warehouse: VA
+2023-12-15 07:58:01,204 - INFO - Store: ABUJA, DEI-DEI
+2023-12-15 07:58:01,204 - INFO - Initial Total: 937950.0
+2023-12-15 07:58:01,207 - INFO - Total Amount: 937950.0
+2023-12-15 07:58:01,207 - INFO - Sales data for ABUJA, DEI-DEI inserted successfully.
+2023-12-15 07:58:01,207 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,208 - INFO - Store: ABUJA, APO RESETTLEMENT
+2023-12-15 07:58:01,208 - INFO - Initial Total: 2117850.0
+2023-12-15 07:58:01,211 - INFO - Total Amount: 2117850.0
+2023-12-15 07:58:01,211 - INFO - Sales data for ABUJA, APO RESETTLEMENT inserted successfully.
+2023-12-15 07:58:01,211 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,212 - INFO - Store: ABUJA, KARU
+2023-12-15 07:58:01,212 - INFO - Initial Total: 1307750.0
+2023-12-15 07:58:01,216 - INFO - Total Amount: 1307750.0
+2023-12-15 07:58:01,216 - INFO - Sales data for ABUJA, KARU inserted successfully.
+2023-12-15 07:58:01,216 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,216 - INFO - Store: ABUJA, GWAGWALADA
+2023-12-15 07:58:01,217 - INFO - Initial Total: 1314700.0
+2023-12-15 07:58:01,220 - INFO - Total Amount: 1314700.0
+2023-12-15 07:58:01,220 - INFO - Sales data for ABUJA, GWAGWALADA inserted successfully.
+2023-12-15 07:58:01,220 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,221 - INFO - Store: ABUJA, LIFE-CAMP
+2023-12-15 07:58:01,221 - INFO - Initial Total: 1495450.0
+2023-12-15 07:58:01,223 - INFO - Total Amount: 1495450.0
+2023-12-15 07:58:01,223 - INFO - Sales data for ABUJA, LIFE-CAMP inserted successfully.
+2023-12-15 07:58:01,224 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,225 - INFO - Store: ABUJA, IDU
+2023-12-15 07:58:01,225 - INFO - Initial Total: 1804750.0
+2023-12-15 07:58:01,227 - INFO - Total Amount: 1804750.0
+2023-12-15 07:58:01,227 - INFO - Sales data for ABUJA, IDU inserted successfully.
+2023-12-15 07:58:01,227 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,228 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,229 - ERROR - Warehouse: VJ
+2023-12-15 07:58:01,230 - INFO - Store: KADUNA, YAKUBU GOWON
+2023-12-15 07:58:01,230 - INFO - Initial Total: 1555900.0
+2023-12-15 07:58:01,234 - INFO - Total Amount: 1555900.0
+2023-12-15 07:58:01,234 - INFO - Sales data for KADUNA, YAKUBU GOWON inserted successfully.
+2023-12-15 07:58:01,234 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,235 - INFO - Store: KADUNA, BARNAWA
+2023-12-15 07:58:01,236 - INFO - Initial Total: 992050.0
+2023-12-15 07:58:01,238 - INFO - Total Amount: 992050.0
+2023-12-15 07:58:01,238 - INFO - Sales data for KADUNA, BARNAWA inserted successfully.
+2023-12-15 07:58:01,238 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,240 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,240 - ERROR - Warehouse: VM
+2023-12-15 07:58:01,241 - INFO - Store: KADUNA, CONSTITUTION RD
+2023-12-15 07:58:01,241 - INFO - Initial Total: 890850.0
+2023-12-15 07:58:01,243 - INFO - Total Amount: 890850.0
+2023-12-15 07:58:01,244 - INFO - Sales data for KADUNA, CONSTITUTION RD inserted successfully.
+2023-12-15 07:58:01,244 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,245 - INFO - Store: KADUNA, KACHIA RD
+2023-12-15 07:58:01,245 - INFO - Initial Total: 755850.0
+2023-12-15 07:58:01,248 - INFO - Total Amount: 755850.0
+2023-12-15 07:58:01,248 - INFO - Sales data for KADUNA, KACHIA RD inserted successfully.
+2023-12-15 07:58:01,248 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,249 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,249 - ERROR - Warehouse: VP
+2023-12-15 07:58:01,250 - INFO - Store: KANO, MM WAY
+2023-12-15 07:58:01,250 - INFO - Initial Total: 1221250.0
+2023-12-15 07:58:01,252 - INFO - Total Amount: 1221250.0
+2023-12-15 07:58:01,252 - INFO - Sales data for KANO, MM WAY inserted successfully.
+2023-12-15 07:58:01,252 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,254 - INFO - Store: KANO, AIRPORT RD
+2023-12-15 07:58:01,254 - INFO - Initial Total: 1241200.0
+2023-12-15 07:58:01,256 - INFO - Total Amount: 1241200.0
+2023-12-15 07:58:01,257 - INFO - Sales data for KANO, AIRPORT RD inserted successfully.
+2023-12-15 07:58:01,257 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,258 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,258 - ERROR - Warehouse: VS
+2023-12-15 07:58:01,259 - INFO - Store: KANO, KATSINA RD
+2023-12-15 07:58:01,259 - INFO - Initial Total: 822700.0
+2023-12-15 07:58:01,261 - INFO - Total Amount: 822700.0
+2023-12-15 07:58:01,261 - INFO - Sales data for KANO, KATSINA RD inserted successfully.
+2023-12-15 07:58:01,261 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,262 - INFO - Store: KANO, HOTORO
+2023-12-15 07:58:01,262 - INFO - Initial Total: 454550.0
+2023-12-15 07:58:01,265 - INFO - Total Amount: 454550.0
+2023-12-15 07:58:01,265 - INFO - Sales data for KANO, HOTORO inserted successfully.
+2023-12-15 07:58:01,265 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,266 - INFO - Store: KANO, IBRAHIM TAIWO
+2023-12-15 07:58:01,266 - INFO - Initial Total: 394100.0
+2023-12-15 07:58:01,269 - INFO - Total Amount: 394100.0
+2023-12-15 07:58:01,269 - INFO - Sales data for KANO, IBRAHIM TAIWO inserted successfully.
+2023-12-15 07:58:01,269 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,270 - INFO - Store: NASARAWA, NYANYA
+2023-12-15 07:58:01,270 - INFO - Initial Total: 2234300.0
+2023-12-15 07:58:01,273 - INFO - Total Amount: 2234300.0
+2023-12-15 07:58:01,273 - INFO - Sales data for NASARAWA, NYANYA inserted successfully.
+2023-12-15 07:58:01,273 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,274 - INFO - Store: NASARAWA, LAFIA
+2023-12-15 07:58:01,274 - INFO - Initial Total: 1915700.0
+2023-12-15 07:58:01,277 - INFO - Total Amount: 1915700.0
+2023-12-15 07:58:01,277 - INFO - Sales data for NASARAWA, LAFIA inserted successfully.
+2023-12-15 07:58:01,277 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,277 - INFO - Store: NASARAWA, KEFFI
+2023-12-15 07:58:01,277 - INFO - Initial Total: 1576550.0
+2023-12-15 07:58:01,281 - INFO - Total Amount: 1576550.0
+2023-12-15 07:58:01,281 - INFO - Sales data for NASARAWA, KEFFI inserted successfully.
+2023-12-15 07:58:01,281 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,282 - INFO - Store: NIGER, SULEJA
+2023-12-15 07:58:01,282 - INFO - Initial Total: 788400.0
+2023-12-15 07:58:01,287 - INFO - Total Amount: 788400.0
+2023-12-15 07:58:01,287 - INFO - Sales data for NIGER, SULEJA inserted successfully.
+2023-12-15 07:58:01,287 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,288 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-15 07:58:01,288 - ERROR - Warehouse: X0
+2023-12-15 07:58:01,289 - INFO - Store: SOKOTO, BANK RD
+2023-12-15 07:58:01,289 - INFO - Initial Total: 1220850.0
+2023-12-15 07:58:01,292 - INFO - Total Amount: 1220850.0
+2023-12-15 07:58:01,292 - INFO - Sales data for SOKOTO, BANK RD inserted successfully.
+2023-12-15 07:58:01,292 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 07:58:01,293 - INFO - Store: ABUJA, UTAKO
+2023-12-15 07:58:01,293 - INFO - Initial Total: 1685850.0
+2023-12-15 07:58:01,297 - INFO - Total Amount: 1685850.0
+2023-12-15 07:58:01,297 - INFO - Sales data for ABUJA, UTAKO inserted successfully.
+2023-12-15 07:58:01,297 - INFO - Posting to ByD for this store was disabled.
+2023-12-15 09:50:06,390 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 09:50:06,391 - INFO - Initial Total: 1149800.0
+2023-12-15 09:51:18,968 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 09:51:18,969 - INFO - Initial Total: 1149800.0
+2023-12-15 09:55:36,146 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 09:55:36,147 - INFO - Initial Total: 1800657.0
+2023-12-15 09:55:36,147 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 09:55:36,147 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 10:00:43,568 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 10:00:43,569 - INFO - Initial Total: 1149800.0
+2023-12-15 10:02:40,658 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 10:02:40,659 - INFO - Initial Total: 1149800.0
+2023-12-15 10:05:36,661 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 10:05:36,662 - INFO - Initial Total: 1149800.0
+2023-12-15 10:05:36,662 - ERROR - An error occurred: 'Sales' object has no attribute 'consumption_tax'
+2023-12-15 10:05:36,663 - INFO - Sending to ByD.
+2023-12-15 10:05:36,672 - ERROR - Something went wrong: local variable 'sale_data' referenced before assignment
+2023-12-15 10:06:03,647 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 10:06:03,648 - INFO - Initial Total: 1149800.0
+2023-12-15 10:10:44,589 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 10:10:44,590 - INFO - Initial Total: 1800657.0
+2023-12-15 10:10:44,591 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 10:10:44,592 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 10:13:56,463 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 10:13:56,464 - INFO - Initial Total: 1800657.0
+2023-12-15 10:13:56,464 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 10:13:56,464 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 10:32:25,404 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 10:32:25,405 - INFO - Initial Total: 1800657.0
+2023-12-15 10:32:25,405 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 10:32:25,405 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 10:32:25,407 - ERROR - An error occurred: 'Sales' object is not subscriptable
+2023-12-15 10:32:25,407 - INFO - Sending to ByD.
+2023-12-15 10:32:53,496 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 10:32:53,496 - INFO - Initial Total: 1800657.0
+2023-12-15 10:32:53,497 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 10:32:53,497 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 11:05:48,884 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 11:05:48,885 - INFO - Initial Total: 1800657.0
+2023-12-15 11:05:48,885 - INFO - LAGOS, ILUPEJU Staff Meal: 32507.0
+2023-12-15 11:05:48,886 - INFO - Total After Staff Meal: 1768150.0
+2023-12-15 11:16:02,955 - INFO - Store: CALABAR, NDIDEM
+2023-12-15 11:16:02,956 - INFO - Initial Total: 1571250.0
+2023-12-15 18:26:01,714 - INFO - Store: LAGOS, ILUPEJU
+2023-12-15 18:26:01,715 - INFO - Initial Total: 1968966.0
+2023-12-15 18:26:01,715 - INFO - LAGOS, ILUPEJU Staff Meal: 42466.0
+2023-12-15 18:26:01,715 - INFO - Total After Staff Meal: 1926500.0
+2023-12-16 13:09:41,615 - INFO - Store: BENUE, OLD OTUKPO
+2023-12-16 13:09:41,616 - INFO - Initial Total: 1622500.0
+2023-12-16 13:09:41,633 - INFO - Total Amount: 1622500.0
+2023-12-16 13:09:41,634 - INFO - Sales data for BENUE, OLD OTUKPO inserted successfully.
+2023-12-16 13:09:41,634 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,637 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,637 - ERROR - Warehouse: 01
+2023-12-16 13:09:41,639 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,639 - ERROR - Warehouse: 02
+2023-12-16 13:09:41,641 - INFO - Store: ILORIN, MM WAY
+2023-12-16 13:09:41,641 - INFO - Initial Total: 713400.0
+2023-12-16 13:09:41,645 - INFO - Total Amount: 713400.0
+2023-12-16 13:09:41,645 - INFO - Sales data for ILORIN, MM WAY inserted successfully.
+2023-12-16 13:09:41,645 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,646 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,647 - ERROR - Warehouse: 04
+2023-12-16 13:09:41,649 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,649 - ERROR - Warehouse: 05
+2023-12-16 13:09:41,650 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,651 - ERROR - Warehouse: 06
+2023-12-16 13:09:41,652 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,652 - ERROR - Warehouse: 6Z
+2023-12-16 13:09:41,653 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,654 - ERROR - Warehouse: 70
+2023-12-16 13:09:41,655 - INFO - Store: ABIA, FACTORY RD, ABA
+2023-12-16 13:09:41,655 - INFO - Initial Total: 1096500.0
+2023-12-16 13:09:41,658 - INFO - Total Amount: 1096500.0
+2023-12-16 13:09:41,659 - INFO - Sales data for ABIA, FACTORY RD, ABA inserted successfully.
+2023-12-16 13:09:41,659 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,660 - INFO - Store: ABIA, AZIKIWE RD, UMUAHIA
+2023-12-16 13:09:41,661 - INFO - Initial Total: 1835450.0
+2023-12-16 13:09:41,664 - INFO - Total Amount: 1835450.0
+2023-12-16 13:09:41,665 - INFO - Sales data for ABIA, AZIKIWE RD, UMUAHIA inserted successfully.
+2023-12-16 13:09:41,665 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,667 - INFO - Store: ABIA, ABA-OWERRI RD
+2023-12-16 13:09:41,667 - INFO - Initial Total: 1145600.0
+2023-12-16 13:09:41,670 - INFO - Total Amount: 1145600.0
+2023-12-16 13:09:41,671 - INFO - Sales data for ABIA, ABA-OWERRI RD inserted successfully.
+2023-12-16 13:09:41,671 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,672 - INFO - Store: ABIA, ADAZI RD
+2023-12-16 13:09:41,673 - INFO - Initial Total: 837600.0
+2023-12-16 13:09:41,676 - INFO - Total Amount: 837600.0
+2023-12-16 13:09:41,676 - INFO - Sales data for ABIA, ADAZI RD inserted successfully.
+2023-12-16 13:09:41,676 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,678 - INFO - Store: ABIA, OGBOR HILLS
+2023-12-16 13:09:41,678 - INFO - Initial Total: 1169500.0
+2023-12-16 13:09:41,681 - INFO - Total Amount: 1169500.0
+2023-12-16 13:09:41,681 - INFO - Sales data for ABIA, OGBOR HILLS inserted successfully.
+2023-12-16 13:09:41,682 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,684 - INFO - Store: ANAMBRA, AWKA RD, ONITSHA
+2023-12-16 13:09:41,684 - INFO - Initial Total: 1668400.0
+2023-12-16 13:09:41,686 - INFO - Total Amount: 1668400.0
+2023-12-16 13:09:41,687 - INFO - Sales data for ANAMBRA, AWKA RD, ONITSHA inserted successfully.
+2023-12-16 13:09:41,687 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,688 - INFO - Store: ANAMBRA, ZIK AVENUE, AWKA
+2023-12-16 13:09:41,688 - INFO - Initial Total: 1546650.0
+2023-12-16 13:09:41,691 - INFO - Total Amount: 1546650.0
+2023-12-16 13:09:41,691 - INFO - Sales data for ANAMBRA, ZIK AVENUE, AWKA inserted successfully.
+2023-12-16 13:09:41,691 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,692 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,692 - ERROR - Warehouse: B7
+2023-12-16 13:09:41,693 - INFO - Store: EBONYI, WATERWORKS, ABAKALIKI
+2023-12-16 13:09:41,694 - INFO - Initial Total: 589700.0
+2023-12-16 13:09:41,699 - INFO - Total Amount: 589700.0
+2023-12-16 13:09:41,699 - INFO - Sales data for EBONYI, WATERWORKS, ABAKALIKI inserted successfully.
+2023-12-16 13:09:41,699 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,701 - INFO - Store: ENUGU, CHIME AVENUE
+2023-12-16 13:09:41,701 - INFO - Initial Total: 955200.0
+2023-12-16 13:09:41,705 - INFO - Total Amount: 955200.0
+2023-12-16 13:09:41,705 - INFO - Sales data for ENUGU, CHIME AVENUE inserted successfully.
+2023-12-16 13:09:41,705 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,706 - INFO - Store: ENUGU, NSUKKA
+2023-12-16 13:09:41,707 - INFO - Initial Total: 1689850.0
+2023-12-16 13:09:41,709 - INFO - Total Amount: 1689850.0
+2023-12-16 13:09:41,709 - INFO - Sales data for ENUGU, NSUKKA inserted successfully.
+2023-12-16 13:09:41,710 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,711 - INFO - Store: ENUGU, POLO MALL
+2023-12-16 13:09:41,712 - INFO - Initial Total: 480200.0
+2023-12-16 13:09:41,715 - INFO - Total Amount: 480200.0
+2023-12-16 13:09:41,715 - INFO - Sales data for ENUGU, POLO MALL inserted successfully.
+2023-12-16 13:09:41,715 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,717 - INFO - Store: ENUGU, ABAKPA
+2023-12-16 13:09:41,717 - INFO - Initial Total: 627800.0
+2023-12-16 13:09:41,720 - INFO - Total Amount: 627800.0
+2023-12-16 13:09:41,720 - INFO - Sales data for ENUGU, ABAKPA inserted successfully.
+2023-12-16 13:09:41,720 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,722 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,722 - ERROR - Warehouse: BD
+2023-12-16 13:09:41,724 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,724 - ERROR - Warehouse: BE
+2023-12-16 13:09:41,725 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:41,725 - ERROR - Warehouse: BF
+2023-12-16 13:09:41,727 - INFO - Store: IMO, OKIGWE
+2023-12-16 13:09:41,727 - INFO - Initial Total: 1761600.0
+2023-12-16 13:09:41,733 - INFO - Total Amount: 1761600.0
+2023-12-16 13:09:41,733 - INFO - Sales data for IMO, OKIGWE inserted successfully.
+2023-12-16 13:09:41,733 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:41,735 - INFO - Store: LAGOS, ILUPEJU
+2023-12-16 13:09:41,735 - INFO - Initial Total: 2414242.0
+2023-12-16 13:09:41,735 - INFO - LAGOS, ILUPEJU Staff Meal: 57292.0
+2023-12-16 13:09:41,735 - INFO - Total After Staff Meal: 2356950.0
+2023-12-16 13:09:41,739 - INFO - Total Amount: 2414242.0
+2023-12-16 13:09:41,739 - INFO - Sales data for LAGOS, ILUPEJU inserted successfully.
+2023-12-16 13:09:41,739 - INFO - Sending to ByD.
+2023-12-16 13:09:44,387 - INFO - 
+
+2023-12-16 13:09:45,708 - INFO - 
+
+2023-12-16 13:09:47,008 - INFO - 
+
+2023-12-16 13:09:48,430 - INFO - 
+
+2023-12-16 13:09:49,985 - INFO - 
+
+2023-12-16 13:09:51,793 - INFO - 
+
+2023-12-16 13:09:51,795 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,795 - ERROR - Warehouse: I1
+2023-12-16 13:09:51,796 - INFO - Store: LAGOS, MOBIL OGBA
+2023-12-16 13:09:51,797 - INFO - Initial Total: 1583550.0
+2023-12-16 13:09:51,807 - INFO - Total Amount: 1583550.0
+2023-12-16 13:09:51,807 - INFO - Sales data for LAGOS, MOBIL OGBA inserted successfully.
+2023-12-16 13:09:51,807 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,809 - INFO - Store: LAGOS, AJAH
+2023-12-16 13:09:51,809 - INFO - Initial Total: 1530350.0
+2023-12-16 13:09:51,812 - INFO - Total Amount: 1530350.0
+2023-12-16 13:09:51,812 - INFO - Sales data for LAGOS, AJAH inserted successfully.
+2023-12-16 13:09:51,812 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,813 - INFO - Store: LAGOS, AJOSE ADEOGUN
+2023-12-16 13:09:51,814 - INFO - Initial Total: 3258550.0
+2023-12-16 13:09:51,817 - INFO - Total Amount: 3258550.0
+2023-12-16 13:09:51,817 - INFO - Sales data for LAGOS, AJOSE ADEOGUN inserted successfully.
+2023-12-16 13:09:51,817 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,819 - INFO - Store: LAGOS, AKOWONJO
+2023-12-16 13:09:51,819 - INFO - Initial Total: 1244800.0
+2023-12-16 13:09:51,822 - INFO - Total Amount: 1244800.0
+2023-12-16 13:09:51,822 - INFO - Sales data for LAGOS, AKOWONJO inserted successfully.
+2023-12-16 13:09:51,822 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,824 - INFO - Store: LAGOS, AWOLOWO
+2023-12-16 13:09:51,824 - INFO - Initial Total: 2292950.0
+2023-12-16 13:09:51,827 - INFO - Total Amount: 2292950.0
+2023-12-16 13:09:51,827 - INFO - Sales data for LAGOS, AWOLOWO inserted successfully.
+2023-12-16 13:09:51,827 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,829 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,829 - ERROR - Warehouse: I7
+2023-12-16 13:09:51,831 - INFO - Store: LAGOS, DOMINO E-CENTRE
+2023-12-16 13:09:51,831 - INFO - Initial Total: 797450.0
+2023-12-16 13:09:51,836 - INFO - Total Amount: 797450.0
+2023-12-16 13:09:51,836 - INFO - Sales data for LAGOS, DOMINO E-CENTRE inserted successfully.
+2023-12-16 13:09:51,836 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,838 - INFO - Store: LAGOS, IRE-AKARI
+2023-12-16 13:09:51,838 - INFO - Initial Total: 1151700.0
+2023-12-16 13:09:51,842 - INFO - Total Amount: 1151700.0
+2023-12-16 13:09:51,842 - INFO - Sales data for LAGOS, IRE-AKARI inserted successfully.
+2023-12-16 13:09:51,842 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,844 - INFO - Store: LAGOS, JIBOWU
+2023-12-16 13:09:51,844 - INFO - Initial Total: 1690900.0
+2023-12-16 13:09:51,847 - INFO - Total Amount: 1690900.0
+2023-12-16 13:09:51,847 - INFO - Sales data for LAGOS, JIBOWU inserted successfully.
+2023-12-16 13:09:51,847 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,850 - INFO - Store: LAGOS, LEKKI PHASE 1
+2023-12-16 13:09:51,850 - INFO - Initial Total: 3059800.0
+2023-12-16 13:09:51,854 - INFO - Total Amount: 3059800.0
+2023-12-16 13:09:51,854 - INFO - Sales data for LAGOS, LEKKI PHASE 1 inserted successfully.
+2023-12-16 13:09:51,854 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,856 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,856 - ERROR - Warehouse: ID
+2023-12-16 13:09:51,858 - INFO - Store: LAGOS, OKE-AFA
+2023-12-16 13:09:51,858 - INFO - Initial Total: 1620350.0
+2023-12-16 13:09:51,862 - INFO - Total Amount: 1620350.0
+2023-12-16 13:09:51,862 - INFO - Sales data for LAGOS, OKE-AFA inserted successfully.
+2023-12-16 13:09:51,863 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,866 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,866 - ERROR - Warehouse: IF
+2023-12-16 13:09:51,872 - INFO - Store: LAGOS, OPEBI
+2023-12-16 13:09:51,872 - INFO - Initial Total: 2829978.0
+2023-12-16 13:09:51,872 - INFO - LAGOS, OPEBI Staff Meal: 18278.0
+2023-12-16 13:09:51,872 - INFO - Total After Staff Meal: 2811700.0
+2023-12-16 13:09:51,877 - INFO - Total Amount: 2829978.0
+2023-12-16 13:09:51,877 - INFO - Sales data for LAGOS, OPEBI inserted successfully.
+2023-12-16 13:09:51,877 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,878 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,879 - ERROR - Warehouse: IH
+2023-12-16 13:09:51,880 - INFO - Store: LAGOS, FESTAC
+2023-12-16 13:09:51,881 - INFO - Initial Total: 1261150.0
+2023-12-16 13:09:51,884 - INFO - Total Amount: 1261150.0
+2023-12-16 13:09:51,884 - INFO - Sales data for LAGOS, FESTAC inserted successfully.
+2023-12-16 13:09:51,884 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,885 - INFO - Store: LAGOS, IKEJA MALL
+2023-12-16 13:09:51,885 - INFO - Initial Total: 3753300.0
+2023-12-16 13:09:51,888 - INFO - Total Amount: 3753300.0
+2023-12-16 13:09:51,888 - INFO - Sales data for LAGOS, IKEJA MALL inserted successfully.
+2023-12-16 13:09:51,888 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,890 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,890 - ERROR - Warehouse: IK
+2023-12-16 13:09:51,892 - INFO - Store: LAGOS, ENTOURAGE MALL
+2023-12-16 13:09:51,892 - INFO - Initial Total: 1300400.0
+2023-12-16 13:09:51,895 - INFO - Total Amount: 1300400.0
+2023-12-16 13:09:51,895 - INFO - Sales data for LAGOS, ENTOURAGE MALL inserted successfully.
+2023-12-16 13:09:51,895 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,897 - INFO - Store: LAGOS, VGC
+2023-12-16 13:09:51,897 - INFO - Initial Total: 1858200.0
+2023-12-16 13:09:51,901 - INFO - Total Amount: 1858200.0
+2023-12-16 13:09:51,901 - INFO - Sales data for LAGOS, VGC inserted successfully.
+2023-12-16 13:09:51,901 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,903 - INFO - Store: LAGOS, TEJUOSHO
+2023-12-16 13:09:51,903 - INFO - Initial Total: 912450.0
+2023-12-16 13:09:51,907 - INFO - Total Amount: 912450.0
+2023-12-16 13:09:51,907 - INFO - Sales data for LAGOS, TEJUOSHO inserted successfully.
+2023-12-16 13:09:51,907 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,909 - INFO - Store: LAGOS, ONIRU
+2023-12-16 13:09:51,909 - INFO - Initial Total: 2652650.0
+2023-12-16 13:09:51,913 - INFO - Total Amount: 2652650.0
+2023-12-16 13:09:51,913 - INFO - Sales data for LAGOS, ONIRU inserted successfully.
+2023-12-16 13:09:51,913 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,915 - INFO - Store: LAGOS, ABULE EGBA
+2023-12-16 13:09:51,915 - INFO - Initial Total: 2205550.0
+2023-12-16 13:09:51,919 - INFO - Total Amount: 2205550.0
+2023-12-16 13:09:51,919 - INFO - Sales data for LAGOS, ABULE EGBA inserted successfully.
+2023-12-16 13:09:51,919 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,921 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,921 - ERROR - Warehouse: IQ
+2023-12-16 13:09:51,923 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,923 - ERROR - Warehouse: IR
+2023-12-16 13:09:51,925 - INFO - Store: LAGOS, SKYMALL
+2023-12-16 13:09:51,926 - INFO - Initial Total: 1222200.0
+2023-12-16 13:09:51,929 - INFO - Total Amount: 1222200.0
+2023-12-16 13:09:51,929 - INFO - Sales data for LAGOS, SKYMALL inserted successfully.
+2023-12-16 13:09:51,929 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,931 - INFO - Store: LAGOS, AWOLOWO 2
+2023-12-16 13:09:51,931 - INFO - Initial Total: 1043600.0
+2023-12-16 13:09:51,934 - INFO - Total Amount: 1043600.0
+2023-12-16 13:09:51,934 - INFO - Sales data for LAGOS, AWOLOWO 2 inserted successfully.
+2023-12-16 13:09:51,934 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,936 - INFO - Store: LAGOS, IDIMU
+2023-12-16 13:09:51,936 - INFO - Initial Total: 1138700.0
+2023-12-16 13:09:51,940 - INFO - Total Amount: 1138700.0
+2023-12-16 13:09:51,940 - INFO - Sales data for LAGOS, IDIMU inserted successfully.
+2023-12-16 13:09:51,940 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,942 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,942 - ERROR - Warehouse: IV
+2023-12-16 13:09:51,944 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,944 - ERROR - Warehouse: IW
+2023-12-16 13:09:51,946 - INFO - Store: LAGOS, OSOLOWAY
+2023-12-16 13:09:51,946 - INFO - Initial Total: 1848300.0
+2023-12-16 13:09:51,949 - INFO - Total Amount: 1848300.0
+2023-12-16 13:09:51,949 - INFO - Sales data for LAGOS, OSOLOWAY inserted successfully.
+2023-12-16 13:09:51,949 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,951 - INFO - Store: LAGOS, IKORODU
+2023-12-16 13:09:51,951 - INFO - Initial Total: 2074800.0
+2023-12-16 13:09:51,953 - INFO - Total Amount: 2074800.0
+2023-12-16 13:09:51,954 - INFO - Sales data for LAGOS, IKORODU inserted successfully.
+2023-12-16 13:09:51,954 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,956 - INFO - Store: LAGOS, FREEDOMWAY
+2023-12-16 13:09:51,956 - INFO - Initial Total: 2591000.0
+2023-12-16 13:09:51,959 - INFO - Total Amount: 2591000.0
+2023-12-16 13:09:51,960 - INFO - Sales data for LAGOS, FREEDOMWAY inserted successfully.
+2023-12-16 13:09:51,960 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,962 - INFO - Store: LAGOS, LATEEF JAKANDE
+2023-12-16 13:09:51,962 - INFO - Initial Total: 1321900.0
+2023-12-16 13:09:51,966 - INFO - Total Amount: 1321900.0
+2023-12-16 13:09:51,966 - INFO - Sales data for LAGOS, LATEEF JAKANDE inserted successfully.
+2023-12-16 13:09:51,966 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,967 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,967 - ERROR - Warehouse: J2
+2023-12-16 13:09:51,968 - INFO - Store: LAGOS, OBA AKRAN
+2023-12-16 13:09:51,969 - INFO - Initial Total: 1575650.0
+2023-12-16 13:09:51,972 - INFO - Total Amount: 1575650.0
+2023-12-16 13:09:51,972 - INFO - Sales data for LAGOS, OBA AKRAN inserted successfully.
+2023-12-16 13:09:51,972 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,974 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:51,975 - ERROR - Warehouse: J4
+2023-12-16 13:09:51,977 - INFO - Store: LAGOS, AGUNGI
+2023-12-16 13:09:51,977 - INFO - Initial Total: 2251100.0
+2023-12-16 13:09:51,980 - INFO - Total Amount: 2251100.0
+2023-12-16 13:09:51,981 - INFO - Sales data for LAGOS, AGUNGI inserted successfully.
+2023-12-16 13:09:51,981 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,982 - INFO - Store: LAGOS, ALIMOSHO
+2023-12-16 13:09:51,982 - INFO - Initial Total: 1085700.0
+2023-12-16 13:09:51,985 - INFO - Total Amount: 1085700.0
+2023-12-16 13:09:51,986 - INFO - Sales data for LAGOS, ALIMOSHO inserted successfully.
+2023-12-16 13:09:51,986 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:51,988 - INFO - Store: LAGOS, JOEL OGUNNAIKE
+2023-12-16 13:09:51,988 - INFO - Initial Total: 1931450.0
+2023-12-16 13:09:51,991 - INFO - Total Amount: 1931450.0
+2023-12-16 13:09:51,992 - INFO - Sales data for LAGOS, JOEL OGUNNAIKE inserted successfully.
+2023-12-16 13:09:51,992 - INFO - Sending to ByD.
+2023-12-16 13:09:53,577 - INFO - 
+
+2023-12-16 13:09:55,565 - INFO - 
+
+2023-12-16 13:09:58,659 - ERROR - Something went wrong: HTTPSConnectionPool(host='my350679.sapbydesign.com', port=443): Max retries exceeded with url: /sap/bc/srt/scs/sap/manageaccountingentryin (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000002173C267820>, 'Connection to my350679.sapbydesign.com timed out. (connect timeout=3)'))
+2023-12-16 13:09:58,661 - INFO - Store: LAGOS, EJIGBO
+2023-12-16 13:09:58,661 - INFO - Initial Total: 1203300.0
+2023-12-16 13:09:58,687 - INFO - Total Amount: 1203300.0
+2023-12-16 13:09:58,687 - INFO - Sales data for LAGOS, EJIGBO inserted successfully.
+2023-12-16 13:09:58,687 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,689 - INFO - Store: LAGOS, IDI-IROKO RD
+2023-12-16 13:09:58,689 - INFO - Initial Total: 1769700.0
+2023-12-16 13:09:58,692 - INFO - Total Amount: 1769700.0
+2023-12-16 13:09:58,693 - INFO - Sales data for LAGOS, IDI-IROKO RD inserted successfully.
+2023-12-16 13:09:58,693 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,694 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:58,694 - ERROR - Warehouse: JA
+2023-12-16 13:09:58,696 - INFO - Store: LAGOS, IKOTUN
+2023-12-16 13:09:58,696 - INFO - Initial Total: 1406900.0
+2023-12-16 13:09:58,700 - INFO - Total Amount: 1406900.0
+2023-12-16 13:09:58,700 - INFO - Sales data for LAGOS, IKOTUN inserted successfully.
+2023-12-16 13:09:58,700 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,702 - INFO - Store: LAGOS, IPAJA RD
+2023-12-16 13:09:58,702 - INFO - Initial Total: 2185950.0
+2023-12-16 13:09:58,705 - INFO - Total Amount: 2185950.0
+2023-12-16 13:09:58,705 - INFO - Sales data for LAGOS, IPAJA RD inserted successfully.
+2023-12-16 13:09:58,705 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,707 - INFO - Store: LAGOS, HEYDEN IPAJA
+2023-12-16 13:09:58,707 - INFO - Initial Total: 766500.0
+2023-12-16 13:09:58,710 - INFO - Total Amount: 766500.0
+2023-12-16 13:09:58,710 - INFO - Sales data for LAGOS, HEYDEN IPAJA inserted successfully.
+2023-12-16 13:09:58,710 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,711 - INFO - Store: LAGOS, BADORE
+2023-12-16 13:09:58,711 - INFO - Initial Total: 1748450.0
+2023-12-16 13:09:58,714 - INFO - Total Amount: 1748450.0
+2023-12-16 13:09:58,714 - INFO - Sales data for LAGOS, BADORE inserted successfully.
+2023-12-16 13:09:58,715 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,716 - INFO - Store: LAGOS, TOTAL LEKKI
+2023-12-16 13:09:58,717 - INFO - Initial Total: 1029250.0
+2023-12-16 13:09:58,720 - INFO - Total Amount: 1029250.0
+2023-12-16 13:09:58,720 - INFO - Sales data for LAGOS, TOTAL LEKKI inserted successfully.
+2023-12-16 13:09:58,720 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,722 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:58,722 - ERROR - Warehouse: JH
+2023-12-16 13:09:58,724 - INFO - Store: LAGOS, CONOIL IKEJA
+2023-12-16 13:09:58,724 - INFO - Initial Total: 1331550.0
+2023-12-16 13:09:58,727 - INFO - Total Amount: 1331550.0
+2023-12-16 13:09:58,728 - INFO - Sales data for LAGOS, CONOIL IKEJA inserted successfully.
+2023-12-16 13:09:58,728 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,729 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:58,729 - ERROR - Warehouse: JJ
+2023-12-16 13:09:58,731 - INFO - Store: LAGOS, EKORO
+2023-12-16 13:09:58,732 - INFO - Initial Total: 1286750.0
+2023-12-16 13:09:58,735 - INFO - Total Amount: 1286750.0
+2023-12-16 13:09:58,735 - INFO - Sales data for LAGOS, EKORO inserted successfully.
+2023-12-16 13:09:58,735 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,737 - INFO - Store: LAGOS, OKOTA
+2023-12-16 13:09:58,737 - INFO - Initial Total: 2140600.0
+2023-12-16 13:09:58,741 - INFO - Total Amount: 2140600.0
+2023-12-16 13:09:58,741 - INFO - Sales data for LAGOS, OKOTA inserted successfully.
+2023-12-16 13:09:58,741 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,743 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:09:58,743 - ERROR - Warehouse: M0
+2023-12-16 13:09:58,744 - INFO - Store: AKWA IBOM, IKOT EKPENE RD
+2023-12-16 13:09:58,745 - INFO - Initial Total: 1427300.0
+2023-12-16 13:09:58,748 - INFO - Total Amount: 1427300.0
+2023-12-16 13:09:58,748 - INFO - Sales data for AKWA IBOM, IKOT EKPENE RD inserted successfully.
+2023-12-16 13:09:58,748 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,750 - INFO - Store: AKWA IBOM, ABAK RD
+2023-12-16 13:09:58,750 - INFO - Initial Total: 1243600.0
+2023-12-16 13:09:58,753 - INFO - Total Amount: 1243600.0
+2023-12-16 13:09:58,753 - INFO - Sales data for AKWA IBOM, ABAK RD inserted successfully.
+2023-12-16 13:09:58,754 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:09:58,755 - INFO - Store: Akwa Ibom, Aka Rd
+2023-12-16 13:09:58,756 - INFO - Initial Total: 733550.0
+2023-12-16 13:09:58,760 - INFO - Total Amount: 733550.0
+2023-12-16 13:09:58,760 - INFO - Sales data for Akwa Ibom, Aka Rd inserted successfully.
+2023-12-16 13:09:58,760 - INFO - Sending to ByD.
+2023-12-16 13:10:00,305 - INFO - 
+
+2023-12-16 13:10:01,891 - INFO - 
+
+2023-12-16 13:10:03,399 - INFO - 
+
+2023-12-16 13:10:04,720 - INFO - 
+
+2023-12-16 13:10:06,074 - INFO - 
+
+2023-12-16 13:10:06,081 - INFO - Store: AKWA IBOM, NWANIBA
+2023-12-16 13:10:06,081 - INFO - Initial Total: 1006550.0
+2023-12-16 13:10:06,085 - INFO - Total Amount: 1006550.0
+2023-12-16 13:10:06,085 - INFO - Sales data for AKWA IBOM, NWANIBA inserted successfully.
+2023-12-16 13:10:06,085 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,087 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,087 - ERROR - Warehouse: M5
+2023-12-16 13:10:06,088 - INFO - Store: BAYELSA, YENAGOA
+2023-12-16 13:10:06,089 - INFO - Initial Total: 1894150.0
+2023-12-16 13:10:06,092 - INFO - Total Amount: 1894150.0
+2023-12-16 13:10:06,092 - INFO - Sales data for BAYELSA, YENAGOA inserted successfully.
+2023-12-16 13:10:06,092 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,094 - INFO - Store: BAYELSA, OPOLO
+2023-12-16 13:10:06,094 - INFO - Initial Total: 1519600.0
+2023-12-16 13:10:06,098 - INFO - Total Amount: 1519600.0
+2023-12-16 13:10:06,098 - INFO - Sales data for BAYELSA, OPOLO inserted successfully.
+2023-12-16 13:10:06,098 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,100 - INFO - Store: BAYELSA, TOMBIA
+2023-12-16 13:10:06,100 - INFO - Initial Total: 2511700.0
+2023-12-16 13:10:06,103 - INFO - Total Amount: 2511700.0
+2023-12-16 13:10:06,104 - INFO - Sales data for BAYELSA, TOMBIA inserted successfully.
+2023-12-16 13:10:06,104 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,106 - INFO - Store: DELTA, EFFURUN
+2023-12-16 13:10:06,106 - INFO - Initial Total: 1090300.0
+2023-12-16 13:10:06,109 - INFO - Total Amount: 1090300.0
+2023-12-16 13:10:06,110 - INFO - Sales data for DELTA, EFFURUN inserted successfully.
+2023-12-16 13:10:06,110 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,112 - INFO - Store: DELTA, SAPELE-WARRI RD
+2023-12-16 13:10:06,112 - INFO - Initial Total: 992400.0
+2023-12-16 13:10:06,115 - INFO - Total Amount: 992400.0
+2023-12-16 13:10:06,115 - INFO - Sales data for DELTA, SAPELE-WARRI RD inserted successfully.
+2023-12-16 13:10:06,115 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,117 - INFO - Store: DELTA, ISOKO RD
+2023-12-16 13:10:06,117 - INFO - Initial Total: 1021900.0
+2023-12-16 13:10:06,121 - INFO - Total Amount: 1021900.0
+2023-12-16 13:10:06,121 - INFO - Sales data for DELTA, ISOKO RD inserted successfully.
+2023-12-16 13:10:06,121 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,123 - INFO - Store: DELTA, OKPE RD
+2023-12-16 13:10:06,123 - INFO - Initial Total: 608150.0
+2023-12-16 13:10:06,127 - INFO - Total Amount: 608150.0
+2023-12-16 13:10:06,127 - INFO - Sales data for DELTA, OKPE RD inserted successfully.
+2023-12-16 13:10:06,127 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,129 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,129 - ERROR - Warehouse: ME
+2023-12-16 13:10:06,131 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,131 - ERROR - Warehouse: MF
+2023-12-16 13:10:06,133 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,133 - ERROR - Warehouse: MG
+2023-12-16 13:10:06,135 - INFO - Store: EDO, SAKPOMBA
+2023-12-16 13:10:06,135 - INFO - Initial Total: 691300.0
+2023-12-16 13:10:06,139 - INFO - Total Amount: 691300.0
+2023-12-16 13:10:06,139 - INFO - Sales data for EDO, SAKPOMBA inserted successfully.
+2023-12-16 13:10:06,139 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,141 - INFO - Store: EDO, SILUKO
+2023-12-16 13:10:06,141 - INFO - Initial Total: 802800.0
+2023-12-16 13:10:06,144 - INFO - Total Amount: 802800.0
+2023-12-16 13:10:06,145 - INFO - Sales data for EDO, SILUKO inserted successfully.
+2023-12-16 13:10:06,145 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,146 - INFO - Store: RIVERS, ABACHA RD
+2023-12-16 13:10:06,147 - INFO - Initial Total: 4000100.0
+2023-12-16 13:10:06,151 - INFO - Total Amount: 4000100.0
+2023-12-16 13:10:06,151 - INFO - Sales data for RIVERS, ABACHA RD inserted successfully.
+2023-12-16 13:10:06,151 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,154 - INFO - Store: RIVERS, RUMUBIAKANI
+2023-12-16 13:10:06,154 - INFO - Initial Total: 812400.0
+2023-12-16 13:10:06,159 - INFO - Total Amount: 812400.0
+2023-12-16 13:10:06,159 - INFO - Sales data for RIVERS, RUMUBIAKANI inserted successfully.
+2023-12-16 13:10:06,159 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,161 - INFO - Store: RIVERS, TRANS AMADI
+2023-12-16 13:10:06,161 - INFO - Initial Total: 1072200.0
+2023-12-16 13:10:06,165 - INFO - Total Amount: 1072200.0
+2023-12-16 13:10:06,165 - INFO - Sales data for RIVERS, TRANS AMADI inserted successfully.
+2023-12-16 13:10:06,165 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:06,167 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,167 - ERROR - Warehouse: MN
+2023-12-16 13:10:06,169 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:06,169 - ERROR - Warehouse: MO
+2023-12-16 13:10:06,170 - INFO - Store: RIVERS, DOX RD
+2023-12-16 13:10:06,171 - INFO - Initial Total: 1364600.0
+2023-12-16 13:10:06,174 - INFO - Total Amount: 1364600.0
+2023-12-16 13:10:06,174 - INFO - Sales data for RIVERS, DOX RD inserted successfully.
+2023-12-16 13:10:06,174 - INFO - Sending to ByD.
+2023-12-16 13:10:07,495 - INFO - 
+
+2023-12-16 13:10:08,916 - INFO - 
+
+2023-12-16 13:10:10,211 - INFO - 
+
+2023-12-16 13:10:11,489 - INFO - 
+
+2023-12-16 13:10:12,809 - INFO - 
+
+2023-12-16 13:10:14,076 - INFO - 
+
+2023-12-16 13:10:14,077 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,078 - ERROR - Warehouse: MQ
+2023-12-16 13:10:14,079 - INFO - Store: RIVERS, WOJI
+2023-12-16 13:10:14,080 - INFO - Initial Total: 1434300.0
+2023-12-16 13:10:14,097 - INFO - Total Amount: 1434300.0
+2023-12-16 13:10:14,097 - INFO - Sales data for RIVERS, WOJI inserted successfully.
+2023-12-16 13:10:14,097 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,099 - INFO - Store: RIVERS, RUKPOKWU
+2023-12-16 13:10:14,099 - INFO - Initial Total: 2164100.0
+2023-12-16 13:10:14,102 - INFO - Total Amount: 2164100.0
+2023-12-16 13:10:14,102 - INFO - Sales data for RIVERS, RUKPOKWU inserted successfully.
+2023-12-16 13:10:14,102 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,104 - INFO - Store: RIVERS, ONNE
+2023-12-16 13:10:14,104 - INFO - Initial Total: 867400.0
+2023-12-16 13:10:14,107 - INFO - Total Amount: 867400.0
+2023-12-16 13:10:14,108 - INFO - Sales data for RIVERS, ONNE inserted successfully.
+2023-12-16 13:10:14,108 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,109 - INFO - Store: RIVERS, RUMUOLA
+2023-12-16 13:10:14,110 - INFO - Initial Total: 2200400.0
+2023-12-16 13:10:14,113 - INFO - Total Amount: 2200400.0
+2023-12-16 13:10:14,113 - INFO - Sales data for RIVERS, RUMUOLA inserted successfully.
+2023-12-16 13:10:14,113 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,115 - INFO - Store: RIVERS, IWOFE
+2023-12-16 13:10:14,115 - INFO - Initial Total: 1877250.0
+2023-12-16 13:10:14,118 - INFO - Total Amount: 1877250.0
+2023-12-16 13:10:14,118 - INFO - Sales data for RIVERS, IWOFE inserted successfully.
+2023-12-16 13:10:14,118 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,120 - INFO - Store: RIVERS, OYIGBO
+2023-12-16 13:10:14,120 - INFO - Initial Total: 1125150.0
+2023-12-16 13:10:14,124 - INFO - Total Amount: 1125150.0
+2023-12-16 13:10:14,124 - INFO - Sales data for RIVERS, OYIGBO inserted successfully.
+2023-12-16 13:10:14,124 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,126 - INFO - Store: RIVERS, ONNE RD, GRA
+2023-12-16 13:10:14,126 - INFO - Initial Total: 1549500.0
+2023-12-16 13:10:14,129 - INFO - Total Amount: 1549500.0
+2023-12-16 13:10:14,129 - INFO - Sales data for RIVERS, ONNE RD, GRA inserted successfully.
+2023-12-16 13:10:14,130 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,131 - INFO - Store: RIVERS, UST
+2023-12-16 13:10:14,132 - INFO - Initial Total: 918700.0
+2023-12-16 13:10:14,135 - INFO - Total Amount: 918700.0
+2023-12-16 13:10:14,135 - INFO - Sales data for RIVERS, UST inserted successfully.
+2023-12-16 13:10:14,135 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,137 - INFO - Store: RIVERS, D-LINE
+2023-12-16 13:10:14,137 - INFO - Initial Total: 751300.0
+2023-12-16 13:10:14,140 - INFO - Total Amount: 751300.0
+2023-12-16 13:10:14,141 - INFO - Sales data for RIVERS, D-LINE inserted successfully.
+2023-12-16 13:10:14,141 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,143 - INFO - Store: RIVERS, OMOKU
+2023-12-16 13:10:14,143 - INFO - Initial Total: 1217700.0
+2023-12-16 13:10:14,148 - INFO - Total Amount: 1217700.0
+2023-12-16 13:10:14,148 - INFO - Sales data for RIVERS, OMOKU inserted successfully.
+2023-12-16 13:10:14,148 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,149 - INFO - Store: OGUN, OKE-ILEWO
+2023-12-16 13:10:14,149 - INFO - Initial Total: 1256650.0
+2023-12-16 13:10:14,153 - INFO - Total Amount: 1256650.0
+2023-12-16 13:10:14,153 - INFO - Sales data for OGUN, OKE-ILEWO inserted successfully.
+2023-12-16 13:10:14,153 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,155 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,155 - ERROR - Warehouse: Q1
+2023-12-16 13:10:14,156 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,157 - ERROR - Warehouse: Q2
+2023-12-16 13:10:14,158 - INFO - Store: OGUN, SOKENU
+2023-12-16 13:10:14,158 - INFO - Initial Total: 801200.0
+2023-12-16 13:10:14,161 - INFO - Total Amount: 801200.0
+2023-12-16 13:10:14,161 - INFO - Sales data for OGUN, SOKENU inserted successfully.
+2023-12-16 13:10:14,162 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,163 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,163 - ERROR - Warehouse: Q4
+2023-12-16 13:10:14,164 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,165 - ERROR - Warehouse: Q5
+2023-12-16 13:10:14,166 - INFO - Store: OYO, OGBOMOSHO
+2023-12-16 13:10:14,166 - INFO - Initial Total: 975500.0
+2023-12-16 13:10:14,170 - INFO - Total Amount: 975500.0
+2023-12-16 13:10:14,170 - INFO - Sales data for OYO, OGBOMOSHO inserted successfully.
+2023-12-16 13:10:14,170 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,172 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,172 - ERROR - Warehouse: Q7
+2023-12-16 13:10:14,173 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,174 - ERROR - Warehouse: Q8
+2023-12-16 13:10:14,175 - INFO - Store: IBADAN, MOKOLA
+2023-12-16 13:10:14,176 - INFO - Initial Total: 1248650.0
+2023-12-16 13:10:14,179 - INFO - Total Amount: 1248650.0
+2023-12-16 13:10:14,179 - INFO - Sales data for IBADAN, MOKOLA inserted successfully.
+2023-12-16 13:10:14,179 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,181 - INFO - Store: IBADAN, BODIJA
+2023-12-16 13:10:14,181 - INFO - Initial Total: 1662550.0
+2023-12-16 13:10:14,184 - INFO - Total Amount: 1662550.0
+2023-12-16 13:10:14,184 - INFO - Sales data for IBADAN, BODIJA inserted successfully.
+2023-12-16 13:10:14,184 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,185 - INFO - Store: IBADAN, IDI-APE (IWO RD)
+2023-12-16 13:10:14,185 - INFO - Initial Total: 1272100.0
+2023-12-16 13:10:14,189 - INFO - Total Amount: 1272100.0
+2023-12-16 13:10:14,189 - INFO - Sales data for IBADAN, IDI-APE (IWO RD) inserted successfully.
+2023-12-16 13:10:14,189 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,191 - INFO - Store: IBADAN, VENTURA MALL
+2023-12-16 13:10:14,191 - INFO - Initial Total: 979250.0
+2023-12-16 13:10:14,194 - INFO - Total Amount: 979250.0
+2023-12-16 13:10:14,195 - INFO - Sales data for IBADAN, VENTURA MALL inserted successfully.
+2023-12-16 13:10:14,195 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,196 - INFO - Store: IBADAN, AKOBO
+2023-12-16 13:10:14,196 - INFO - Initial Total: 1234600.0
+2023-12-16 13:10:14,200 - INFO - Total Amount: 1234600.0
+2023-12-16 13:10:14,200 - INFO - Sales data for IBADAN, AKOBO inserted successfully.
+2023-12-16 13:10:14,200 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,202 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,202 - ERROR - Warehouse: QE
+2023-12-16 13:10:14,204 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,204 - ERROR - Warehouse: QF
+2023-12-16 13:10:14,207 - INFO - Store: ABUJA, AMINU KANO
+2023-12-16 13:10:14,207 - INFO - Initial Total: 3506800.0
+2023-12-16 13:10:14,211 - INFO - Total Amount: 3506800.0
+2023-12-16 13:10:14,211 - INFO - Sales data for ABUJA, AMINU KANO inserted successfully.
+2023-12-16 13:10:14,211 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,212 - INFO - Store: ABUJA, OANDO ZONE 6
+2023-12-16 13:10:14,212 - INFO - Initial Total: 2318300.0
+2023-12-16 13:10:14,215 - INFO - Total Amount: 2318300.0
+2023-12-16 13:10:14,215 - INFO - Sales data for ABUJA, OANDO ZONE 6 inserted successfully.
+2023-12-16 13:10:14,215 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,216 - INFO - Store: ABUJA, AREA 8
+2023-12-16 13:10:14,217 - INFO - Initial Total: 1979800.0
+2023-12-16 13:10:14,221 - INFO - Total Amount: 1979800.0
+2023-12-16 13:10:14,221 - INFO - Sales data for ABUJA, AREA 8 inserted successfully.
+2023-12-16 13:10:14,221 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,223 - INFO - Store: ABUJA, KUBWA
+2023-12-16 13:10:14,223 - INFO - Initial Total: 1938950.0
+2023-12-16 13:10:14,226 - INFO - Total Amount: 1938950.0
+2023-12-16 13:10:14,226 - INFO - Sales data for ABUJA, KUBWA inserted successfully.
+2023-12-16 13:10:14,227 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,228 - INFO - Store: ABUJA, GWARIMPA
+2023-12-16 13:10:14,228 - INFO - Initial Total: 2460500.0
+2023-12-16 13:10:14,231 - INFO - Total Amount: 2460500.0
+2023-12-16 13:10:14,231 - INFO - Sales data for ABUJA, GWARIMPA inserted successfully.
+2023-12-16 13:10:14,231 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,232 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,232 - ERROR - Warehouse: V6
+2023-12-16 13:10:14,234 - INFO - Store: ABUJA, GARKI
+2023-12-16 13:10:14,234 - INFO - Initial Total: 1618600.0
+2023-12-16 13:10:14,237 - INFO - Total Amount: 1618600.0
+2023-12-16 13:10:14,238 - INFO - Sales data for ABUJA, GARKI inserted successfully.
+2023-12-16 13:10:14,238 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,239 - INFO - Store: ABUJA, LUGBE
+2023-12-16 13:10:14,240 - INFO - Initial Total: 1534550.0
+2023-12-16 13:10:14,243 - INFO - Total Amount: 1534550.0
+2023-12-16 13:10:14,243 - INFO - Sales data for ABUJA, LUGBE inserted successfully.
+2023-12-16 13:10:14,243 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,244 - INFO - Store: ABUJA, GADO NASKO, KUBWA 2
+2023-12-16 13:10:14,245 - INFO - Initial Total: 1889450.0
+2023-12-16 13:10:14,248 - INFO - Total Amount: 1889450.0
+2023-12-16 13:10:14,248 - INFO - Sales data for ABUJA, GADO NASKO, KUBWA 2 inserted successfully.
+2023-12-16 13:10:14,248 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,250 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,250 - ERROR - Warehouse: VA
+2023-12-16 13:10:14,252 - INFO - Store: ABUJA, DEI-DEI
+2023-12-16 13:10:14,252 - INFO - Initial Total: 941550.0
+2023-12-16 13:10:14,259 - INFO - Total Amount: 941550.0
+2023-12-16 13:10:14,259 - INFO - Sales data for ABUJA, DEI-DEI inserted successfully.
+2023-12-16 13:10:14,259 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,260 - INFO - Store: ABUJA, APO RESETTLEMENT
+2023-12-16 13:10:14,260 - INFO - Initial Total: 1539550.0
+2023-12-16 13:10:14,266 - INFO - Total Amount: 1539550.0
+2023-12-16 13:10:14,266 - INFO - Sales data for ABUJA, APO RESETTLEMENT inserted successfully.
+2023-12-16 13:10:14,266 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,267 - INFO - Store: ABUJA, KARU
+2023-12-16 13:10:14,267 - INFO - Initial Total: 2720400.0
+2023-12-16 13:10:14,273 - INFO - Total Amount: 2720400.0
+2023-12-16 13:10:14,273 - INFO - Sales data for ABUJA, KARU inserted successfully.
+2023-12-16 13:10:14,273 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,275 - INFO - Store: ABUJA, GWAGWALADA
+2023-12-16 13:10:14,275 - INFO - Initial Total: 1546400.0
+2023-12-16 13:10:14,280 - INFO - Total Amount: 1546400.0
+2023-12-16 13:10:14,280 - INFO - Sales data for ABUJA, GWAGWALADA inserted successfully.
+2023-12-16 13:10:14,280 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,282 - INFO - Store: ABUJA, LIFE-CAMP
+2023-12-16 13:10:14,282 - INFO - Initial Total: 1640100.0
+2023-12-16 13:10:14,287 - INFO - Total Amount: 1640100.0
+2023-12-16 13:10:14,287 - INFO - Sales data for ABUJA, LIFE-CAMP inserted successfully.
+2023-12-16 13:10:14,288 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,289 - INFO - Store: ABUJA, IDU
+2023-12-16 13:10:14,290 - INFO - Initial Total: 1732750.0
+2023-12-16 13:10:14,294 - INFO - Total Amount: 1732750.0
+2023-12-16 13:10:14,294 - INFO - Sales data for ABUJA, IDU inserted successfully.
+2023-12-16 13:10:14,295 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,296 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,296 - ERROR - Warehouse: VJ
+2023-12-16 13:10:14,297 - INFO - Store: KADUNA, YAKUBU GOWON
+2023-12-16 13:10:14,297 - INFO - Initial Total: 1449750.0
+2023-12-16 13:10:14,305 - INFO - Total Amount: 1449750.0
+2023-12-16 13:10:14,305 - INFO - Sales data for KADUNA, YAKUBU GOWON inserted successfully.
+2023-12-16 13:10:14,305 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,307 - INFO - Store: KADUNA, BARNAWA
+2023-12-16 13:10:14,307 - INFO - Initial Total: 1203400.0
+2023-12-16 13:10:14,313 - INFO - Total Amount: 1203400.0
+2023-12-16 13:10:14,313 - INFO - Sales data for KADUNA, BARNAWA inserted successfully.
+2023-12-16 13:10:14,313 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,314 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,314 - ERROR - Warehouse: VM
+2023-12-16 13:10:14,316 - INFO - Store: KADUNA, CONSTITUTION RD
+2023-12-16 13:10:14,317 - INFO - Initial Total: 1028450.0
+2023-12-16 13:10:14,322 - INFO - Total Amount: 1028450.0
+2023-12-16 13:10:14,323 - INFO - Sales data for KADUNA, CONSTITUTION RD inserted successfully.
+2023-12-16 13:10:14,323 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,325 - INFO - Store: KADUNA, KACHIA RD
+2023-12-16 13:10:14,325 - INFO - Initial Total: 793650.0
+2023-12-16 13:10:14,333 - INFO - Total Amount: 793650.0
+2023-12-16 13:10:14,333 - INFO - Sales data for KADUNA, KACHIA RD inserted successfully.
+2023-12-16 13:10:14,334 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,335 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,335 - ERROR - Warehouse: VP
+2023-12-16 13:10:14,337 - INFO - Store: KANO, MM WAY
+2023-12-16 13:10:14,337 - INFO - Initial Total: 1431950.0
+2023-12-16 13:10:14,344 - INFO - Total Amount: 1431950.0
+2023-12-16 13:10:14,344 - INFO - Sales data for KANO, MM WAY inserted successfully.
+2023-12-16 13:10:14,344 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,346 - INFO - Store: KANO, AIRPORT RD
+2023-12-16 13:10:14,346 - INFO - Initial Total: 1087400.0
+2023-12-16 13:10:14,351 - INFO - Total Amount: 1087400.0
+2023-12-16 13:10:14,351 - INFO - Sales data for KANO, AIRPORT RD inserted successfully.
+2023-12-16 13:10:14,351 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,353 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,353 - ERROR - Warehouse: VS
+2023-12-16 13:10:14,355 - INFO - Store: KANO, KATSINA RD
+2023-12-16 13:10:14,355 - INFO - Initial Total: 926150.0
+2023-12-16 13:10:14,360 - INFO - Total Amount: 926150.0
+2023-12-16 13:10:14,360 - INFO - Sales data for KANO, KATSINA RD inserted successfully.
+2023-12-16 13:10:14,361 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,362 - INFO - Store: KANO, HOTORO
+2023-12-16 13:10:14,362 - INFO - Initial Total: 494700.0
+2023-12-16 13:10:14,367 - INFO - Total Amount: 494700.0
+2023-12-16 13:10:14,367 - INFO - Sales data for KANO, HOTORO inserted successfully.
+2023-12-16 13:10:14,368 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,369 - INFO - Store: KANO, IBRAHIM TAIWO
+2023-12-16 13:10:14,370 - INFO - Initial Total: 461300.0
+2023-12-16 13:10:14,375 - INFO - Total Amount: 461300.0
+2023-12-16 13:10:14,375 - INFO - Sales data for KANO, IBRAHIM TAIWO inserted successfully.
+2023-12-16 13:10:14,375 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,376 - INFO - Store: NASARAWA, NYANYA
+2023-12-16 13:10:14,376 - INFO - Initial Total: 1796000.0
+2023-12-16 13:10:14,382 - INFO - Total Amount: 1796000.0
+2023-12-16 13:10:14,382 - INFO - Sales data for NASARAWA, NYANYA inserted successfully.
+2023-12-16 13:10:14,382 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,384 - INFO - Store: NASARAWA, LAFIA
+2023-12-16 13:10:14,384 - INFO - Initial Total: 2064250.0
+2023-12-16 13:10:14,389 - INFO - Total Amount: 2064250.0
+2023-12-16 13:10:14,390 - INFO - Sales data for NASARAWA, LAFIA inserted successfully.
+2023-12-16 13:10:14,390 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,392 - INFO - Store: NASARAWA, KEFFI
+2023-12-16 13:10:14,392 - INFO - Initial Total: 1498700.0
+2023-12-16 13:10:14,401 - INFO - Total Amount: 1498700.0
+2023-12-16 13:10:14,401 - INFO - Sales data for NASARAWA, KEFFI inserted successfully.
+2023-12-16 13:10:14,401 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,404 - INFO - Store: NIGER, SULEJA
+2023-12-16 13:10:14,405 - INFO - Initial Total: 1072000.0
+2023-12-16 13:10:14,414 - INFO - Total Amount: 1072000.0
+2023-12-16 13:10:14,415 - INFO - Sales data for NIGER, SULEJA inserted successfully.
+2023-12-16 13:10:14,415 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,417 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-16 13:10:14,417 - ERROR - Warehouse: X0
+2023-12-16 13:10:14,419 - INFO - Store: SOKOTO, BANK RD
+2023-12-16 13:10:14,420 - INFO - Initial Total: 1328100.0
+2023-12-16 13:10:14,425 - INFO - Total Amount: 1328100.0
+2023-12-16 13:10:14,425 - INFO - Sales data for SOKOTO, BANK RD inserted successfully.
+2023-12-16 13:10:14,425 - INFO - Posting to ByD for this store was disabled.
+2023-12-16 13:10:14,427 - INFO - Store: ABUJA, UTAKO
+2023-12-16 13:10:14,427 - INFO - Initial Total: 1722550.0
+2023-12-16 13:10:14,432 - INFO - Total Amount: 1722550.0
+2023-12-16 13:10:14,432 - INFO - Sales data for ABUJA, UTAKO inserted successfully.
+2023-12-16 13:10:14,433 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,328 - INFO - Store: BENUE, OLD OTUKPO
+2023-12-17 10:18:43,330 - INFO - Initial Total: 1496800.0
+2023-12-17 10:18:43,343 - INFO - Total Amount: 1496800.0
+2023-12-17 10:18:43,343 - INFO - Sales data for BENUE, OLD OTUKPO inserted successfully.
+2023-12-17 10:18:43,344 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,348 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,349 - ERROR - Warehouse: 01
+2023-12-17 10:18:43,352 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,353 - ERROR - Warehouse: 02
+2023-12-17 10:18:43,355 - INFO - Store: ILORIN, MM WAY
+2023-12-17 10:18:43,356 - INFO - Initial Total: 720700.0
+2023-12-17 10:18:43,360 - INFO - Total Amount: 720700.0
+2023-12-17 10:18:43,360 - INFO - Sales data for ILORIN, MM WAY inserted successfully.
+2023-12-17 10:18:43,361 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,367 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,367 - ERROR - Warehouse: 04
+2023-12-17 10:18:43,370 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,370 - ERROR - Warehouse: 05
+2023-12-17 10:18:43,372 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,373 - ERROR - Warehouse: 06
+2023-12-17 10:18:43,375 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,376 - ERROR - Warehouse: 6Z
+2023-12-17 10:18:43,378 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,379 - ERROR - Warehouse: 70
+2023-12-17 10:18:43,382 - INFO - Store: ABIA, FACTORY RD, ABA
+2023-12-17 10:18:43,382 - INFO - Initial Total: 1044900.0
+2023-12-17 10:18:43,387 - INFO - Total Amount: 1044900.0
+2023-12-17 10:18:43,387 - INFO - Sales data for ABIA, FACTORY RD, ABA inserted successfully.
+2023-12-17 10:18:43,387 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,389 - INFO - Store: ABIA, AZIKIWE RD, UMUAHIA
+2023-12-17 10:18:43,389 - INFO - Initial Total: 1380300.0
+2023-12-17 10:18:43,394 - INFO - Total Amount: 1380300.0
+2023-12-17 10:18:43,394 - INFO - Sales data for ABIA, AZIKIWE RD, UMUAHIA inserted successfully.
+2023-12-17 10:18:43,394 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,396 - INFO - Store: ABIA, ABA-OWERRI RD
+2023-12-17 10:18:43,397 - INFO - Initial Total: 1391700.0
+2023-12-17 10:18:43,403 - INFO - Total Amount: 1391700.0
+2023-12-17 10:18:43,403 - INFO - Sales data for ABIA, ABA-OWERRI RD inserted successfully.
+2023-12-17 10:18:43,404 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,406 - INFO - Store: ABIA, ADAZI RD
+2023-12-17 10:18:43,407 - INFO - Initial Total: 937500.0
+2023-12-17 10:18:43,422 - INFO - Total Amount: 937500.0
+2023-12-17 10:18:43,422 - INFO - Sales data for ABIA, ADAZI RD inserted successfully.
+2023-12-17 10:18:43,422 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,427 - INFO - Store: ABIA, OGBOR HILLS
+2023-12-17 10:18:43,427 - INFO - Initial Total: 1102600.0
+2023-12-17 10:18:43,433 - INFO - Total Amount: 1102600.0
+2023-12-17 10:18:43,433 - INFO - Sales data for ABIA, OGBOR HILLS inserted successfully.
+2023-12-17 10:18:43,433 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,436 - INFO - Store: ANAMBRA, AWKA RD, ONITSHA
+2023-12-17 10:18:43,436 - INFO - Initial Total: 2040200.0
+2023-12-17 10:18:43,441 - INFO - Total Amount: 2040200.0
+2023-12-17 10:18:43,441 - INFO - Sales data for ANAMBRA, AWKA RD, ONITSHA inserted successfully.
+2023-12-17 10:18:43,441 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,443 - INFO - Store: ANAMBRA, ZIK AVENUE, AWKA
+2023-12-17 10:18:43,444 - INFO - Initial Total: 1362750.0
+2023-12-17 10:18:43,451 - INFO - Total Amount: 1362750.0
+2023-12-17 10:18:43,452 - INFO - Sales data for ANAMBRA, ZIK AVENUE, AWKA inserted successfully.
+2023-12-17 10:18:43,452 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,459 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,459 - ERROR - Warehouse: B7
+2023-12-17 10:18:43,470 - INFO - Store: EBONYI, WATERWORKS, ABAKALIKI
+2023-12-17 10:18:43,470 - INFO - Initial Total: 584000.0
+2023-12-17 10:18:43,481 - INFO - Total Amount: 584000.0
+2023-12-17 10:18:43,481 - INFO - Sales data for EBONYI, WATERWORKS, ABAKALIKI inserted successfully.
+2023-12-17 10:18:43,481 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,484 - INFO - Store: ENUGU, CHIME AVENUE
+2023-12-17 10:18:43,484 - INFO - Initial Total: 1106900.0
+2023-12-17 10:18:43,489 - INFO - Total Amount: 1106900.0
+2023-12-17 10:18:43,490 - INFO - Sales data for ENUGU, CHIME AVENUE inserted successfully.
+2023-12-17 10:18:43,490 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,502 - INFO - Store: ENUGU, NSUKKA
+2023-12-17 10:18:43,502 - INFO - Initial Total: 1513800.0
+2023-12-17 10:18:43,506 - INFO - Total Amount: 1513800.0
+2023-12-17 10:18:43,506 - INFO - Sales data for ENUGU, NSUKKA inserted successfully.
+2023-12-17 10:18:43,506 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,508 - INFO - Store: ENUGU, POLO MALL
+2023-12-17 10:18:43,508 - INFO - Initial Total: 880050.0
+2023-12-17 10:18:43,513 - INFO - Total Amount: 880050.0
+2023-12-17 10:18:43,513 - INFO - Sales data for ENUGU, POLO MALL inserted successfully.
+2023-12-17 10:18:43,514 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,517 - INFO - Store: ENUGU, ABAKPA
+2023-12-17 10:18:43,517 - INFO - Initial Total: 571300.0
+2023-12-17 10:18:43,522 - INFO - Total Amount: 571300.0
+2023-12-17 10:18:43,522 - INFO - Sales data for ENUGU, ABAKPA inserted successfully.
+2023-12-17 10:18:43,522 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,526 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,527 - ERROR - Warehouse: BD
+2023-12-17 10:18:43,528 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,529 - ERROR - Warehouse: BE
+2023-12-17 10:18:43,534 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:43,535 - ERROR - Warehouse: BF
+2023-12-17 10:18:43,538 - INFO - Store: IMO, OKIGWE
+2023-12-17 10:18:43,538 - INFO - Initial Total: 1154250.0
+2023-12-17 10:18:43,542 - INFO - Total Amount: 1154250.0
+2023-12-17 10:18:43,542 - INFO - Sales data for IMO, OKIGWE inserted successfully.
+2023-12-17 10:18:43,542 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:43,548 - INFO - Store: LAGOS, ILUPEJU
+2023-12-17 10:18:43,548 - INFO - Initial Total: 1675800.0
+2023-12-17 10:18:43,552 - INFO - Total Amount: 1675800.0
+2023-12-17 10:18:43,552 - INFO - Sales data for LAGOS, ILUPEJU inserted successfully.
+2023-12-17 10:18:43,552 - INFO - Sending to ByD.
+2023-12-17 10:18:48,501 - INFO - 
+
+2023-12-17 10:18:49,980 - INFO - 
+
+2023-12-17 10:18:51,321 - INFO - 
+
+2023-12-17 10:18:52,830 - INFO - 
+
+2023-12-17 10:18:54,322 - INFO - 
+
+2023-12-17 10:18:55,774 - INFO - 
+
+2023-12-17 10:18:55,781 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,781 - ERROR - Warehouse: I1
+2023-12-17 10:18:55,788 - INFO - Store: LAGOS, MOBIL OGBA
+2023-12-17 10:18:55,788 - INFO - Initial Total: 1410000.0
+2023-12-17 10:18:55,797 - INFO - Total Amount: 1410000.0
+2023-12-17 10:18:55,798 - INFO - Sales data for LAGOS, MOBIL OGBA inserted successfully.
+2023-12-17 10:18:55,799 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,805 - INFO - Store: LAGOS, AJAH
+2023-12-17 10:18:55,806 - INFO - Initial Total: 1613300.0
+2023-12-17 10:18:55,814 - INFO - Total Amount: 1613300.0
+2023-12-17 10:18:55,815 - INFO - Sales data for LAGOS, AJAH inserted successfully.
+2023-12-17 10:18:55,815 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,822 - INFO - Store: LAGOS, AJOSE ADEOGUN
+2023-12-17 10:18:55,823 - INFO - Initial Total: 2111700.0
+2023-12-17 10:18:55,832 - INFO - Total Amount: 2111700.0
+2023-12-17 10:18:55,832 - INFO - Sales data for LAGOS, AJOSE ADEOGUN inserted successfully.
+2023-12-17 10:18:55,833 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,841 - INFO - Store: LAGOS, AKOWONJO
+2023-12-17 10:18:55,841 - INFO - Initial Total: 1394250.0
+2023-12-17 10:18:55,848 - INFO - Total Amount: 1394250.0
+2023-12-17 10:18:55,849 - INFO - Sales data for LAGOS, AKOWONJO inserted successfully.
+2023-12-17 10:18:55,849 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,854 - INFO - Store: LAGOS, AWOLOWO
+2023-12-17 10:18:55,854 - INFO - Initial Total: 1928700.0
+2023-12-17 10:18:55,862 - INFO - Total Amount: 1928700.0
+2023-12-17 10:18:55,862 - INFO - Sales data for LAGOS, AWOLOWO inserted successfully.
+2023-12-17 10:18:55,863 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,867 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,868 - ERROR - Warehouse: I7
+2023-12-17 10:18:55,874 - INFO - Store: LAGOS, IRE-AKARI
+2023-12-17 10:18:55,874 - INFO - Initial Total: 1062800.0
+2023-12-17 10:18:55,892 - INFO - Total Amount: 1062800.0
+2023-12-17 10:18:55,893 - INFO - Sales data for LAGOS, IRE-AKARI inserted successfully.
+2023-12-17 10:18:55,893 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,899 - INFO - Store: LAGOS, JIBOWU
+2023-12-17 10:18:55,899 - INFO - Initial Total: 2497700.0
+2023-12-17 10:18:55,908 - INFO - Total Amount: 2497700.0
+2023-12-17 10:18:55,909 - INFO - Sales data for LAGOS, JIBOWU inserted successfully.
+2023-12-17 10:18:55,909 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,914 - INFO - Store: LAGOS, LEKKI PHASE 1
+2023-12-17 10:18:55,915 - INFO - Initial Total: 2907450.0
+2023-12-17 10:18:55,925 - INFO - Total Amount: 2907450.0
+2023-12-17 10:18:55,925 - INFO - Sales data for LAGOS, LEKKI PHASE 1 inserted successfully.
+2023-12-17 10:18:55,926 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,931 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,931 - ERROR - Warehouse: ID
+2023-12-17 10:18:55,939 - INFO - Store: LAGOS, OKE-AFA
+2023-12-17 10:18:55,939 - INFO - Initial Total: 1518700.0
+2023-12-17 10:18:55,948 - INFO - Total Amount: 1518700.0
+2023-12-17 10:18:55,950 - INFO - Sales data for LAGOS, OKE-AFA inserted successfully.
+2023-12-17 10:18:55,950 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,956 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,957 - ERROR - Warehouse: IF
+2023-12-17 10:18:55,963 - INFO - Store: LAGOS, OPEBI
+2023-12-17 10:18:55,964 - INFO - Initial Total: 3052450.0
+2023-12-17 10:18:55,971 - INFO - Total Amount: 3052450.0
+2023-12-17 10:18:55,971 - INFO - Sales data for LAGOS, OPEBI inserted successfully.
+2023-12-17 10:18:55,972 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,975 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,975 - ERROR - Warehouse: IH
+2023-12-17 10:18:55,977 - INFO - Store: LAGOS, FESTAC
+2023-12-17 10:18:55,978 - INFO - Initial Total: 1428150.0
+2023-12-17 10:18:55,982 - INFO - Total Amount: 1428150.0
+2023-12-17 10:18:55,982 - INFO - Sales data for LAGOS, FESTAC inserted successfully.
+2023-12-17 10:18:55,982 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,985 - INFO - Store: LAGOS, IKEJA MALL
+2023-12-17 10:18:55,985 - INFO - Initial Total: 4160850.0
+2023-12-17 10:18:55,989 - INFO - Total Amount: 4160850.0
+2023-12-17 10:18:55,989 - INFO - Sales data for LAGOS, IKEJA MALL inserted successfully.
+2023-12-17 10:18:55,989 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:55,991 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:55,991 - ERROR - Warehouse: IK
+2023-12-17 10:18:55,994 - INFO - Store: LAGOS, ENTOURAGE MALL
+2023-12-17 10:18:55,994 - INFO - Initial Total: 1354500.0
+2023-12-17 10:18:55,997 - INFO - Total Amount: 1354500.0
+2023-12-17 10:18:55,998 - INFO - Sales data for LAGOS, ENTOURAGE MALL inserted successfully.
+2023-12-17 10:18:55,998 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,000 - INFO - Store: LAGOS, VGC
+2023-12-17 10:18:56,000 - INFO - Initial Total: 1607650.0
+2023-12-17 10:18:56,003 - INFO - Total Amount: 1607650.0
+2023-12-17 10:18:56,003 - INFO - Sales data for LAGOS, VGC inserted successfully.
+2023-12-17 10:18:56,003 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,005 - INFO - Store: LAGOS, TEJUOSHO
+2023-12-17 10:18:56,005 - INFO - Initial Total: 1039200.0
+2023-12-17 10:18:56,008 - INFO - Total Amount: 1039200.0
+2023-12-17 10:18:56,009 - INFO - Sales data for LAGOS, TEJUOSHO inserted successfully.
+2023-12-17 10:18:56,009 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,010 - INFO - Store: LAGOS, ONIRU
+2023-12-17 10:18:56,010 - INFO - Initial Total: 2193200.0
+2023-12-17 10:18:56,014 - INFO - Total Amount: 2193200.0
+2023-12-17 10:18:56,014 - INFO - Sales data for LAGOS, ONIRU inserted successfully.
+2023-12-17 10:18:56,014 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,015 - INFO - Store: LAGOS, ABULE EGBA
+2023-12-17 10:18:56,016 - INFO - Initial Total: 2109000.0
+2023-12-17 10:18:56,019 - INFO - Total Amount: 2109000.0
+2023-12-17 10:18:56,019 - INFO - Sales data for LAGOS, ABULE EGBA inserted successfully.
+2023-12-17 10:18:56,019 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,021 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,021 - ERROR - Warehouse: IQ
+2023-12-17 10:18:56,023 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,023 - ERROR - Warehouse: IR
+2023-12-17 10:18:56,025 - INFO - Store: LAGOS, SKYMALL
+2023-12-17 10:18:56,025 - INFO - Initial Total: 1375950.0
+2023-12-17 10:18:56,028 - INFO - Total Amount: 1375950.0
+2023-12-17 10:18:56,029 - INFO - Sales data for LAGOS, SKYMALL inserted successfully.
+2023-12-17 10:18:56,029 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,030 - INFO - Store: LAGOS, AWOLOWO 2
+2023-12-17 10:18:56,031 - INFO - Initial Total: 751150.0
+2023-12-17 10:18:56,033 - INFO - Total Amount: 751150.0
+2023-12-17 10:18:56,034 - INFO - Sales data for LAGOS, AWOLOWO 2 inserted successfully.
+2023-12-17 10:18:56,034 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,036 - INFO - Store: LAGOS, IDIMU
+2023-12-17 10:18:56,036 - INFO - Initial Total: 1488050.0
+2023-12-17 10:18:56,039 - INFO - Total Amount: 1488050.0
+2023-12-17 10:18:56,039 - INFO - Sales data for LAGOS, IDIMU inserted successfully.
+2023-12-17 10:18:56,039 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,041 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,041 - ERROR - Warehouse: IV
+2023-12-17 10:18:56,043 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,043 - ERROR - Warehouse: IW
+2023-12-17 10:18:56,045 - INFO - Store: LAGOS, OSOLOWAY
+2023-12-17 10:18:56,046 - INFO - Initial Total: 1583700.0
+2023-12-17 10:18:56,050 - INFO - Total Amount: 1583700.0
+2023-12-17 10:18:56,050 - INFO - Sales data for LAGOS, OSOLOWAY inserted successfully.
+2023-12-17 10:18:56,050 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,051 - INFO - Store: LAGOS, IKORODU
+2023-12-17 10:18:56,051 - INFO - Initial Total: 1803250.0
+2023-12-17 10:18:56,056 - INFO - Total Amount: 1803250.0
+2023-12-17 10:18:56,056 - INFO - Sales data for LAGOS, IKORODU inserted successfully.
+2023-12-17 10:18:56,056 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,058 - INFO - Store: LAGOS, FREEDOMWAY
+2023-12-17 10:18:56,059 - INFO - Initial Total: 1726200.0
+2023-12-17 10:18:56,064 - INFO - Total Amount: 1726200.0
+2023-12-17 10:18:56,064 - INFO - Sales data for LAGOS, FREEDOMWAY inserted successfully.
+2023-12-17 10:18:56,064 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,068 - INFO - Store: LAGOS, LATEEF JAKANDE
+2023-12-17 10:18:56,069 - INFO - Initial Total: 1261600.0
+2023-12-17 10:18:56,072 - INFO - Total Amount: 1261600.0
+2023-12-17 10:18:56,072 - INFO - Sales data for LAGOS, LATEEF JAKANDE inserted successfully.
+2023-12-17 10:18:56,073 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,074 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,074 - ERROR - Warehouse: J2
+2023-12-17 10:18:56,076 - INFO - Store: LAGOS, OBA AKRAN
+2023-12-17 10:18:56,076 - INFO - Initial Total: 1126800.0
+2023-12-17 10:18:56,078 - INFO - Total Amount: 1126800.0
+2023-12-17 10:18:56,079 - INFO - Sales data for LAGOS, OBA AKRAN inserted successfully.
+2023-12-17 10:18:56,079 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,080 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:18:56,080 - ERROR - Warehouse: J4
+2023-12-17 10:18:56,081 - INFO - Store: LAGOS, AGUNGI
+2023-12-17 10:18:56,082 - INFO - Initial Total: 2153150.0
+2023-12-17 10:18:56,084 - INFO - Total Amount: 2153150.0
+2023-12-17 10:18:56,085 - INFO - Sales data for LAGOS, AGUNGI inserted successfully.
+2023-12-17 10:18:56,085 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,087 - INFO - Store: LAGOS, ALIMOSHO
+2023-12-17 10:18:56,087 - INFO - Initial Total: 1146950.0
+2023-12-17 10:18:56,090 - INFO - Total Amount: 1146950.0
+2023-12-17 10:18:56,090 - INFO - Sales data for LAGOS, ALIMOSHO inserted successfully.
+2023-12-17 10:18:56,090 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:18:56,092 - INFO - Store: LAGOS, JOEL OGUNNAIKE
+2023-12-17 10:18:56,092 - INFO - Initial Total: 1587050.0
+2023-12-17 10:18:56,095 - INFO - Total Amount: 1587050.0
+2023-12-17 10:18:56,095 - INFO - Sales data for LAGOS, JOEL OGUNNAIKE inserted successfully.
+2023-12-17 10:18:56,095 - INFO - Sending to ByD.
+2023-12-17 10:18:57,624 - INFO - 
+
+2023-12-17 10:18:59,348 - INFO - 
+
+2023-12-17 10:19:01,222 - INFO - 
+
+2023-12-17 10:19:03,010 - INFO - 
+
+2023-12-17 10:19:04,886 - INFO - 
+
+2023-12-17 10:19:06,190 - INFO - 
+
+2023-12-17 10:19:06,193 - INFO - Store: LAGOS, EJIGBO
+2023-12-17 10:19:06,193 - INFO - Initial Total: 1471250.0
+2023-12-17 10:19:06,200 - INFO - Total Amount: 1471250.0
+2023-12-17 10:19:06,200 - INFO - Sales data for LAGOS, EJIGBO inserted successfully.
+2023-12-17 10:19:06,200 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,204 - INFO - Store: LAGOS, IDI-IROKO RD
+2023-12-17 10:19:06,205 - INFO - Initial Total: 1690500.0
+2023-12-17 10:19:06,212 - INFO - Total Amount: 1690500.0
+2023-12-17 10:19:06,213 - INFO - Sales data for LAGOS, IDI-IROKO RD inserted successfully.
+2023-12-17 10:19:06,213 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,215 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:06,216 - ERROR - Warehouse: JA
+2023-12-17 10:19:06,218 - INFO - Store: LAGOS, IKOTUN
+2023-12-17 10:19:06,218 - INFO - Initial Total: 1117900.0
+2023-12-17 10:19:06,226 - INFO - Total Amount: 1117900.0
+2023-12-17 10:19:06,226 - INFO - Sales data for LAGOS, IKOTUN inserted successfully.
+2023-12-17 10:19:06,226 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,229 - INFO - Store: LAGOS, IPAJA RD
+2023-12-17 10:19:06,229 - INFO - Initial Total: 2071700.0
+2023-12-17 10:19:06,233 - INFO - Total Amount: 2071700.0
+2023-12-17 10:19:06,233 - INFO - Sales data for LAGOS, IPAJA RD inserted successfully.
+2023-12-17 10:19:06,233 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,239 - INFO - Store: LAGOS, HEYDEN IPAJA
+2023-12-17 10:19:06,239 - INFO - Initial Total: 588650.0
+2023-12-17 10:19:06,242 - INFO - Total Amount: 588650.0
+2023-12-17 10:19:06,242 - INFO - Sales data for LAGOS, HEYDEN IPAJA inserted successfully.
+2023-12-17 10:19:06,243 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,246 - INFO - Store: LAGOS, BADORE
+2023-12-17 10:19:06,246 - INFO - Initial Total: 1806950.0
+2023-12-17 10:19:06,253 - INFO - Total Amount: 1806950.0
+2023-12-17 10:19:06,253 - INFO - Sales data for LAGOS, BADORE inserted successfully.
+2023-12-17 10:19:06,254 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,255 - INFO - Store: LAGOS, TOTAL LEKKI
+2023-12-17 10:19:06,256 - INFO - Initial Total: 752350.0
+2023-12-17 10:19:06,262 - INFO - Total Amount: 752350.0
+2023-12-17 10:19:06,262 - INFO - Sales data for LAGOS, TOTAL LEKKI inserted successfully.
+2023-12-17 10:19:06,263 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,264 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:06,264 - ERROR - Warehouse: JH
+2023-12-17 10:19:06,266 - INFO - Store: LAGOS, CONOIL IKEJA
+2023-12-17 10:19:06,267 - INFO - Initial Total: 1259800.0
+2023-12-17 10:19:06,273 - INFO - Total Amount: 1259800.0
+2023-12-17 10:19:06,273 - INFO - Sales data for LAGOS, CONOIL IKEJA inserted successfully.
+2023-12-17 10:19:06,273 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,275 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:06,275 - ERROR - Warehouse: JJ
+2023-12-17 10:19:06,276 - INFO - Store: LAGOS, EKORO
+2023-12-17 10:19:06,276 - INFO - Initial Total: 1411550.0
+2023-12-17 10:19:06,282 - INFO - Total Amount: 1411550.0
+2023-12-17 10:19:06,282 - INFO - Sales data for LAGOS, EKORO inserted successfully.
+2023-12-17 10:19:06,282 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,284 - INFO - Store: LAGOS, OKOTA
+2023-12-17 10:19:06,284 - INFO - Initial Total: 2077650.0
+2023-12-17 10:19:06,287 - INFO - Total Amount: 2077650.0
+2023-12-17 10:19:06,287 - INFO - Sales data for LAGOS, OKOTA inserted successfully.
+2023-12-17 10:19:06,287 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,289 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:06,289 - ERROR - Warehouse: M0
+2023-12-17 10:19:06,291 - INFO - Store: AKWA IBOM, IKOT EKPENE RD
+2023-12-17 10:19:06,291 - INFO - Initial Total: 1376000.0
+2023-12-17 10:19:06,293 - INFO - Total Amount: 1376000.0
+2023-12-17 10:19:06,293 - INFO - Sales data for AKWA IBOM, IKOT EKPENE RD inserted successfully.
+2023-12-17 10:19:06,293 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,296 - INFO - Store: AKWA IBOM, ABAK RD
+2023-12-17 10:19:06,296 - INFO - Initial Total: 853350.0
+2023-12-17 10:19:06,300 - INFO - Total Amount: 853350.0
+2023-12-17 10:19:06,300 - INFO - Sales data for AKWA IBOM, ABAK RD inserted successfully.
+2023-12-17 10:19:06,300 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:06,302 - INFO - Store: Akwa Ibom, Aka Rd
+2023-12-17 10:19:06,302 - INFO - Initial Total: 694250.0
+2023-12-17 10:19:06,307 - INFO - Total Amount: 694250.0
+2023-12-17 10:19:06,308 - INFO - Sales data for Akwa Ibom, Aka Rd inserted successfully.
+2023-12-17 10:19:06,308 - INFO - Sending to ByD.
+2023-12-17 10:19:07,771 - INFO - 
+
+2023-12-17 10:19:09,184 - INFO - 
+
+2023-12-17 10:19:10,642 - INFO - 
+
+2023-12-17 10:19:12,411 - INFO - 
+
+2023-12-17 10:19:14,415 - INFO - 
+
+2023-12-17 10:19:14,423 - INFO - Store: AKWA IBOM, NWANIBA
+2023-12-17 10:19:14,424 - INFO - Initial Total: 1038100.0
+2023-12-17 10:19:14,431 - INFO - Total Amount: 1038100.0
+2023-12-17 10:19:14,432 - INFO - Sales data for AKWA IBOM, NWANIBA inserted successfully.
+2023-12-17 10:19:14,432 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:14,436 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:14,436 - ERROR - Warehouse: M5
+2023-12-17 10:19:14,443 - INFO - Store: BAYELSA, YENAGOA
+2023-12-17 10:19:14,443 - INFO - Initial Total: 1673550.0
+2023-12-17 10:19:14,449 - INFO - Total Amount: 1673550.0
+2023-12-17 10:19:14,449 - INFO - Sales data for BAYELSA, YENAGOA inserted successfully.
+2023-12-17 10:19:14,450 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:14,454 - INFO - Store: BAYELSA, OPOLO
+2023-12-17 10:19:14,455 - INFO - Initial Total: 1352600.0
+2023-12-17 10:19:14,461 - INFO - Total Amount: 1352600.0
+2023-12-17 10:19:14,463 - INFO - Sales data for BAYELSA, OPOLO inserted successfully.
+2023-12-17 10:19:14,463 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:14,467 - INFO - Store: BAYELSA, TOMBIA
+2023-12-17 10:19:14,467 - INFO - Initial Total: 2594750.0
+2023-12-17 10:19:14,474 - INFO - Total Amount: 2594750.0
+2023-12-17 10:19:14,475 - INFO - Sales data for BAYELSA, TOMBIA inserted successfully.
+2023-12-17 10:19:14,475 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:14,479 - INFO - Store: CALABAR, NDIDEM
+2023-12-17 10:19:14,480 - INFO - Initial Total: 1605250.0
+2023-12-17 10:19:14,485 - INFO - Total Amount: 1605250.0
+2023-12-17 10:19:14,486 - INFO - Sales data for CALABAR, NDIDEM inserted successfully.
+2023-12-17 10:19:14,486 - INFO - Sending to ByD.
+2023-12-17 10:19:16,189 - INFO - 
+
+2023-12-17 10:19:17,931 - INFO - 
+
+2023-12-17 10:19:19,460 - INFO - 
+
+2023-12-17 10:19:21,243 - INFO - 
+
+2023-12-17 10:19:22,931 - INFO - 
+
+2023-12-17 10:19:24,234 - INFO - 
+
+2023-12-17 10:19:24,241 - INFO - Store: DELTA, EFFURUN
+2023-12-17 10:19:24,241 - INFO - Initial Total: 1057150.0
+2023-12-17 10:19:24,257 - INFO - Total Amount: 1057150.0
+2023-12-17 10:19:24,257 - INFO - Sales data for DELTA, EFFURUN inserted successfully.
+2023-12-17 10:19:24,257 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,272 - INFO - Store: DELTA, SAPELE-WARRI RD
+2023-12-17 10:19:24,272 - INFO - Initial Total: 1109700.0
+2023-12-17 10:19:24,280 - INFO - Total Amount: 1109700.0
+2023-12-17 10:19:24,280 - INFO - Sales data for DELTA, SAPELE-WARRI RD inserted successfully.
+2023-12-17 10:19:24,281 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,283 - INFO - Store: DELTA, ISOKO RD
+2023-12-17 10:19:24,283 - INFO - Initial Total: 564950.0
+2023-12-17 10:19:24,287 - INFO - Total Amount: 564950.0
+2023-12-17 10:19:24,287 - INFO - Sales data for DELTA, ISOKO RD inserted successfully.
+2023-12-17 10:19:24,287 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,289 - INFO - Store: DELTA, OKPE RD
+2023-12-17 10:19:24,290 - INFO - Initial Total: 528400.0
+2023-12-17 10:19:24,352 - INFO - Total Amount: 528400.0
+2023-12-17 10:19:24,353 - INFO - Sales data for DELTA, OKPE RD inserted successfully.
+2023-12-17 10:19:24,354 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,360 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:24,360 - ERROR - Warehouse: ME
+2023-12-17 10:19:24,366 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:24,366 - ERROR - Warehouse: MF
+2023-12-17 10:19:24,374 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:24,375 - ERROR - Warehouse: MG
+2023-12-17 10:19:24,376 - INFO - Store: EDO, SAKPOMBA
+2023-12-17 10:19:24,376 - INFO - Initial Total: 311500.0
+2023-12-17 10:19:24,383 - INFO - Total Amount: 311500.0
+2023-12-17 10:19:24,384 - INFO - Sales data for EDO, SAKPOMBA inserted successfully.
+2023-12-17 10:19:24,384 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,388 - INFO - Store: EDO, SILUKO
+2023-12-17 10:19:24,389 - INFO - Initial Total: 652600.0
+2023-12-17 10:19:24,393 - INFO - Total Amount: 652600.0
+2023-12-17 10:19:24,393 - INFO - Sales data for EDO, SILUKO inserted successfully.
+2023-12-17 10:19:24,393 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,397 - INFO - Store: RIVERS, ABACHA RD
+2023-12-17 10:19:24,397 - INFO - Initial Total: 2088500.0
+2023-12-17 10:19:24,401 - INFO - Total Amount: 2088500.0
+2023-12-17 10:19:24,401 - INFO - Sales data for RIVERS, ABACHA RD inserted successfully.
+2023-12-17 10:19:24,401 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,403 - INFO - Store: RIVERS, RUMUBIAKANI
+2023-12-17 10:19:24,403 - INFO - Initial Total: 772750.0
+2023-12-17 10:19:24,407 - INFO - Total Amount: 772750.0
+2023-12-17 10:19:24,407 - INFO - Sales data for RIVERS, RUMUBIAKANI inserted successfully.
+2023-12-17 10:19:24,407 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,410 - INFO - Store: RIVERS, TRANS AMADI
+2023-12-17 10:19:24,410 - INFO - Initial Total: 870250.0
+2023-12-17 10:19:24,413 - INFO - Total Amount: 870250.0
+2023-12-17 10:19:24,413 - INFO - Sales data for RIVERS, TRANS AMADI inserted successfully.
+2023-12-17 10:19:24,413 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:24,414 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:24,414 - ERROR - Warehouse: MN
+2023-12-17 10:19:24,416 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:24,416 - ERROR - Warehouse: MO
+2023-12-17 10:19:24,418 - INFO - Store: RIVERS, DOX RD
+2023-12-17 10:19:24,418 - INFO - Initial Total: 1314350.0
+2023-12-17 10:19:24,424 - INFO - Total Amount: 1314350.0
+2023-12-17 10:19:24,424 - INFO - Sales data for RIVERS, DOX RD inserted successfully.
+2023-12-17 10:19:24,424 - INFO - Sending to ByD.
+2023-12-17 10:19:26,326 - INFO - 
+
+2023-12-17 10:19:27,921 - INFO - 
+
+2023-12-17 10:19:29,443 - INFO - 
+
+2023-12-17 10:19:31,094 - INFO - 
+
+2023-12-17 10:19:32,621 - INFO - 
+
+2023-12-17 10:19:34,284 - INFO - 
+
+2023-12-17 10:19:34,288 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,289 - ERROR - Warehouse: MQ
+2023-12-17 10:19:34,294 - INFO - Store: RIVERS, WOJI
+2023-12-17 10:19:34,294 - INFO - Initial Total: 1569250.0
+2023-12-17 10:19:34,310 - INFO - Total Amount: 1569250.0
+2023-12-17 10:19:34,310 - INFO - Sales data for RIVERS, WOJI inserted successfully.
+2023-12-17 10:19:34,310 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,314 - INFO - Store: RIVERS, RUKPOKWU
+2023-12-17 10:19:34,314 - INFO - Initial Total: 1818800.0
+2023-12-17 10:19:34,320 - INFO - Total Amount: 1818800.0
+2023-12-17 10:19:34,321 - INFO - Sales data for RIVERS, RUKPOKWU inserted successfully.
+2023-12-17 10:19:34,322 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,326 - INFO - Store: RIVERS, ONNE
+2023-12-17 10:19:34,327 - INFO - Initial Total: 657350.0
+2023-12-17 10:19:34,333 - INFO - Total Amount: 657350.0
+2023-12-17 10:19:34,333 - INFO - Sales data for RIVERS, ONNE inserted successfully.
+2023-12-17 10:19:34,333 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,337 - INFO - Store: RIVERS, RUMUOLA
+2023-12-17 10:19:34,338 - INFO - Initial Total: 1250450.0
+2023-12-17 10:19:34,344 - INFO - Total Amount: 1250450.0
+2023-12-17 10:19:34,344 - INFO - Sales data for RIVERS, RUMUOLA inserted successfully.
+2023-12-17 10:19:34,344 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,348 - INFO - Store: RIVERS, IWOFE
+2023-12-17 10:19:34,349 - INFO - Initial Total: 1553100.0
+2023-12-17 10:19:34,355 - INFO - Total Amount: 1553100.0
+2023-12-17 10:19:34,356 - INFO - Sales data for RIVERS, IWOFE inserted successfully.
+2023-12-17 10:19:34,356 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,360 - INFO - Store: RIVERS, OYIGBO
+2023-12-17 10:19:34,361 - INFO - Initial Total: 941600.0
+2023-12-17 10:19:34,366 - INFO - Total Amount: 941600.0
+2023-12-17 10:19:34,367 - INFO - Sales data for RIVERS, OYIGBO inserted successfully.
+2023-12-17 10:19:34,367 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,372 - INFO - Store: RIVERS, ONNE RD, GRA
+2023-12-17 10:19:34,372 - INFO - Initial Total: 1093300.0
+2023-12-17 10:19:34,378 - INFO - Total Amount: 1093300.0
+2023-12-17 10:19:34,379 - INFO - Sales data for RIVERS, ONNE RD, GRA inserted successfully.
+2023-12-17 10:19:34,379 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,384 - INFO - Store: RIVERS, UST
+2023-12-17 10:19:34,384 - INFO - Initial Total: 867200.0
+2023-12-17 10:19:34,393 - INFO - Total Amount: 867200.0
+2023-12-17 10:19:34,394 - INFO - Sales data for RIVERS, UST inserted successfully.
+2023-12-17 10:19:34,394 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,399 - INFO - Store: RIVERS, D-LINE
+2023-12-17 10:19:34,399 - INFO - Initial Total: 607800.0
+2023-12-17 10:19:34,407 - INFO - Total Amount: 607800.0
+2023-12-17 10:19:34,407 - INFO - Sales data for RIVERS, D-LINE inserted successfully.
+2023-12-17 10:19:34,408 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,412 - INFO - Store: RIVERS, OMOKU
+2023-12-17 10:19:34,413 - INFO - Initial Total: 1324300.0
+2023-12-17 10:19:34,419 - INFO - Total Amount: 1324300.0
+2023-12-17 10:19:34,419 - INFO - Sales data for RIVERS, OMOKU inserted successfully.
+2023-12-17 10:19:34,420 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,424 - INFO - Store: OGUN, OKE-ILEWO
+2023-12-17 10:19:34,424 - INFO - Initial Total: 1439900.0
+2023-12-17 10:19:34,430 - INFO - Total Amount: 1439900.0
+2023-12-17 10:19:34,430 - INFO - Sales data for OGUN, OKE-ILEWO inserted successfully.
+2023-12-17 10:19:34,431 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,435 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,436 - ERROR - Warehouse: Q1
+2023-12-17 10:19:34,440 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,440 - ERROR - Warehouse: Q2
+2023-12-17 10:19:34,445 - INFO - Store: OGUN, SOKENU
+2023-12-17 10:19:34,445 - INFO - Initial Total: 817600.0
+2023-12-17 10:19:34,452 - INFO - Total Amount: 817600.0
+2023-12-17 10:19:34,453 - INFO - Sales data for OGUN, SOKENU inserted successfully.
+2023-12-17 10:19:34,453 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,458 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,458 - ERROR - Warehouse: Q4
+2023-12-17 10:19:34,463 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,463 - ERROR - Warehouse: Q5
+2023-12-17 10:19:34,466 - INFO - Store: OYO, OGBOMOSHO
+2023-12-17 10:19:34,466 - INFO - Initial Total: 1026450.0
+2023-12-17 10:19:34,472 - INFO - Total Amount: 1026450.0
+2023-12-17 10:19:34,472 - INFO - Sales data for OYO, OGBOMOSHO inserted successfully.
+2023-12-17 10:19:34,472 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,476 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,476 - ERROR - Warehouse: Q7
+2023-12-17 10:19:34,480 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,480 - ERROR - Warehouse: Q8
+2023-12-17 10:19:34,483 - INFO - Store: IBADAN, MOKOLA
+2023-12-17 10:19:34,484 - INFO - Initial Total: 1267600.0
+2023-12-17 10:19:34,489 - INFO - Total Amount: 1267600.0
+2023-12-17 10:19:34,489 - INFO - Sales data for IBADAN, MOKOLA inserted successfully.
+2023-12-17 10:19:34,490 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,494 - INFO - Store: IBADAN, BODIJA
+2023-12-17 10:19:34,494 - INFO - Initial Total: 1336700.0
+2023-12-17 10:19:34,499 - INFO - Total Amount: 1336700.0
+2023-12-17 10:19:34,499 - INFO - Sales data for IBADAN, BODIJA inserted successfully.
+2023-12-17 10:19:34,499 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,503 - INFO - Store: IBADAN, IDI-APE (IWO RD)
+2023-12-17 10:19:34,503 - INFO - Initial Total: 940500.0
+2023-12-17 10:19:34,508 - INFO - Total Amount: 940500.0
+2023-12-17 10:19:34,508 - INFO - Sales data for IBADAN, IDI-APE (IWO RD) inserted successfully.
+2023-12-17 10:19:34,509 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,512 - INFO - Store: IBADAN, VENTURA MALL
+2023-12-17 10:19:34,512 - INFO - Initial Total: 1004700.0
+2023-12-17 10:19:34,517 - INFO - Total Amount: 1004700.0
+2023-12-17 10:19:34,517 - INFO - Sales data for IBADAN, VENTURA MALL inserted successfully.
+2023-12-17 10:19:34,518 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,521 - INFO - Store: IBADAN, AKOBO
+2023-12-17 10:19:34,521 - INFO - Initial Total: 1205950.0
+2023-12-17 10:19:34,527 - INFO - Total Amount: 1205950.0
+2023-12-17 10:19:34,528 - INFO - Sales data for IBADAN, AKOBO inserted successfully.
+2023-12-17 10:19:34,528 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,531 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,531 - ERROR - Warehouse: QE
+2023-12-17 10:19:34,534 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,534 - ERROR - Warehouse: QF
+2023-12-17 10:19:34,538 - INFO - Store: ABUJA, AMINU KANO
+2023-12-17 10:19:34,539 - INFO - Initial Total: 3225800.0
+2023-12-17 10:19:34,546 - INFO - Total Amount: 3225800.0
+2023-12-17 10:19:34,546 - INFO - Sales data for ABUJA, AMINU KANO inserted successfully.
+2023-12-17 10:19:34,547 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,550 - INFO - Store: ABUJA, OANDO ZONE 6
+2023-12-17 10:19:34,551 - INFO - Initial Total: 1964800.0
+2023-12-17 10:19:34,560 - INFO - Total Amount: 1964800.0
+2023-12-17 10:19:34,561 - INFO - Sales data for ABUJA, OANDO ZONE 6 inserted successfully.
+2023-12-17 10:19:34,561 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,564 - INFO - Store: ABUJA, AREA 8
+2023-12-17 10:19:34,565 - INFO - Initial Total: 2568700.0
+2023-12-17 10:19:34,570 - INFO - Total Amount: 2568700.0
+2023-12-17 10:19:34,570 - INFO - Sales data for ABUJA, AREA 8 inserted successfully.
+2023-12-17 10:19:34,571 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,575 - INFO - Store: ABUJA, KUBWA
+2023-12-17 10:19:34,575 - INFO - Initial Total: 1834650.0
+2023-12-17 10:19:34,580 - INFO - Total Amount: 1834650.0
+2023-12-17 10:19:34,580 - INFO - Sales data for ABUJA, KUBWA inserted successfully.
+2023-12-17 10:19:34,581 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,584 - INFO - Store: ABUJA, GWARIMPA
+2023-12-17 10:19:34,584 - INFO - Initial Total: 2633050.0
+2023-12-17 10:19:34,591 - INFO - Total Amount: 2633050.0
+2023-12-17 10:19:34,591 - INFO - Sales data for ABUJA, GWARIMPA inserted successfully.
+2023-12-17 10:19:34,592 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,595 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,595 - ERROR - Warehouse: V6
+2023-12-17 10:19:34,598 - INFO - Store: ABUJA, GARKI
+2023-12-17 10:19:34,598 - INFO - Initial Total: 997250.0
+2023-12-17 10:19:34,603 - INFO - Total Amount: 997250.0
+2023-12-17 10:19:34,603 - INFO - Sales data for ABUJA, GARKI inserted successfully.
+2023-12-17 10:19:34,604 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,607 - INFO - Store: ABUJA, LUGBE
+2023-12-17 10:19:34,607 - INFO - Initial Total: 1435100.0
+2023-12-17 10:19:34,612 - INFO - Total Amount: 1435100.0
+2023-12-17 10:19:34,613 - INFO - Sales data for ABUJA, LUGBE inserted successfully.
+2023-12-17 10:19:34,613 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,617 - INFO - Store: ABUJA, GADO NASKO, KUBWA 2
+2023-12-17 10:19:34,617 - INFO - Initial Total: 1618400.0
+2023-12-17 10:19:34,624 - INFO - Total Amount: 1618400.0
+2023-12-17 10:19:34,624 - INFO - Sales data for ABUJA, GADO NASKO, KUBWA 2 inserted successfully.
+2023-12-17 10:19:34,625 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,628 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,628 - ERROR - Warehouse: VA
+2023-12-17 10:19:34,632 - INFO - Store: ABUJA, DEI-DEI
+2023-12-17 10:19:34,633 - INFO - Initial Total: 1178500.0
+2023-12-17 10:19:34,638 - INFO - Total Amount: 1178500.0
+2023-12-17 10:19:34,639 - INFO - Sales data for ABUJA, DEI-DEI inserted successfully.
+2023-12-17 10:19:34,639 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,642 - INFO - Store: ABUJA, APO RESETTLEMENT
+2023-12-17 10:19:34,643 - INFO - Initial Total: 2229550.0
+2023-12-17 10:19:34,648 - INFO - Total Amount: 2229550.0
+2023-12-17 10:19:34,648 - INFO - Sales data for ABUJA, APO RESETTLEMENT inserted successfully.
+2023-12-17 10:19:34,649 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,652 - INFO - Store: ABUJA, KARU
+2023-12-17 10:19:34,652 - INFO - Initial Total: 2156650.0
+2023-12-17 10:19:34,658 - INFO - Total Amount: 2156650.0
+2023-12-17 10:19:34,659 - INFO - Sales data for ABUJA, KARU inserted successfully.
+2023-12-17 10:19:34,659 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,662 - INFO - Store: ABUJA, GWAGWALADA
+2023-12-17 10:19:34,663 - INFO - Initial Total: 900500.0
+2023-12-17 10:19:34,669 - INFO - Total Amount: 900500.0
+2023-12-17 10:19:34,670 - INFO - Sales data for ABUJA, GWAGWALADA inserted successfully.
+2023-12-17 10:19:34,670 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,673 - INFO - Store: ABUJA, LIFE-CAMP
+2023-12-17 10:19:34,674 - INFO - Initial Total: 1740500.0
+2023-12-17 10:19:34,678 - INFO - Total Amount: 1740500.0
+2023-12-17 10:19:34,679 - INFO - Sales data for ABUJA, LIFE-CAMP inserted successfully.
+2023-12-17 10:19:34,680 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,684 - INFO - Store: ABUJA, DAWAKI
+2023-12-17 10:19:34,684 - INFO - Initial Total: 1318100.0
+2023-12-17 10:19:34,689 - INFO - Total Amount: 1318100.0
+2023-12-17 10:19:34,690 - INFO - Sales data for ABUJA, DAWAKI inserted successfully.
+2023-12-17 10:19:34,690 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,694 - INFO - Store: ABUJA, IDU
+2023-12-17 10:19:34,694 - INFO - Initial Total: 1609000.0
+2023-12-17 10:19:34,700 - INFO - Total Amount: 1609000.0
+2023-12-17 10:19:34,700 - INFO - Sales data for ABUJA, IDU inserted successfully.
+2023-12-17 10:19:34,700 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,703 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,704 - ERROR - Warehouse: VJ
+2023-12-17 10:19:34,707 - INFO - Store: KADUNA, YAKUBU GOWON
+2023-12-17 10:19:34,708 - INFO - Initial Total: 1390700.0
+2023-12-17 10:19:34,713 - INFO - Total Amount: 1390700.0
+2023-12-17 10:19:34,713 - INFO - Sales data for KADUNA, YAKUBU GOWON inserted successfully.
+2023-12-17 10:19:34,714 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,717 - INFO - Store: KADUNA, BARNAWA
+2023-12-17 10:19:34,717 - INFO - Initial Total: 1256350.0
+2023-12-17 10:19:34,723 - INFO - Total Amount: 1256350.0
+2023-12-17 10:19:34,723 - INFO - Sales data for KADUNA, BARNAWA inserted successfully.
+2023-12-17 10:19:34,724 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,728 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,729 - ERROR - Warehouse: VM
+2023-12-17 10:19:34,732 - INFO - Store: KADUNA, CONSTITUTION RD
+2023-12-17 10:19:34,732 - INFO - Initial Total: 1047750.0
+2023-12-17 10:19:34,737 - INFO - Total Amount: 1047750.0
+2023-12-17 10:19:34,738 - INFO - Sales data for KADUNA, CONSTITUTION RD inserted successfully.
+2023-12-17 10:19:34,738 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,741 - INFO - Store: KADUNA, KACHIA RD
+2023-12-17 10:19:34,742 - INFO - Initial Total: 865850.0
+2023-12-17 10:19:34,748 - INFO - Total Amount: 865850.0
+2023-12-17 10:19:34,748 - INFO - Sales data for KADUNA, KACHIA RD inserted successfully.
+2023-12-17 10:19:34,748 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,751 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,751 - ERROR - Warehouse: VP
+2023-12-17 10:19:34,755 - INFO - Store: KANO, MM WAY
+2023-12-17 10:19:34,755 - INFO - Initial Total: 447500.0
+2023-12-17 10:19:34,760 - INFO - Total Amount: 447500.0
+2023-12-17 10:19:34,760 - INFO - Sales data for KANO, MM WAY inserted successfully.
+2023-12-17 10:19:34,761 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,764 - INFO - Store: KANO, AIRPORT RD
+2023-12-17 10:19:34,764 - INFO - Initial Total: 1001650.0
+2023-12-17 10:19:34,770 - INFO - Total Amount: 1001650.0
+2023-12-17 10:19:34,770 - INFO - Sales data for KANO, AIRPORT RD inserted successfully.
+2023-12-17 10:19:34,771 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,775 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,775 - ERROR - Warehouse: VS
+2023-12-17 10:19:34,779 - INFO - Store: KANO, KATSINA RD
+2023-12-17 10:19:34,779 - INFO - Initial Total: 648150.0
+2023-12-17 10:19:34,784 - INFO - Total Amount: 648150.0
+2023-12-17 10:19:34,784 - INFO - Sales data for KANO, KATSINA RD inserted successfully.
+2023-12-17 10:19:34,785 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,788 - INFO - Store: KANO, HOTORO
+2023-12-17 10:19:34,789 - INFO - Initial Total: 466050.0
+2023-12-17 10:19:34,795 - INFO - Total Amount: 466050.0
+2023-12-17 10:19:34,795 - INFO - Sales data for KANO, HOTORO inserted successfully.
+2023-12-17 10:19:34,795 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,799 - INFO - Store: KANO, IBRAHIM TAIWO
+2023-12-17 10:19:34,800 - INFO - Initial Total: 425850.0
+2023-12-17 10:19:34,805 - INFO - Total Amount: 425850.0
+2023-12-17 10:19:34,806 - INFO - Sales data for KANO, IBRAHIM TAIWO inserted successfully.
+2023-12-17 10:19:34,806 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,811 - INFO - Store: NASARAWA, NYANYA
+2023-12-17 10:19:34,812 - INFO - Initial Total: 2029250.0
+2023-12-17 10:19:34,817 - INFO - Total Amount: 2029250.0
+2023-12-17 10:19:34,817 - INFO - Sales data for NASARAWA, NYANYA inserted successfully.
+2023-12-17 10:19:34,817 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,820 - INFO - Store: NASARAWA, LAFIA
+2023-12-17 10:19:34,821 - INFO - Initial Total: 1512850.0
+2023-12-17 10:19:34,828 - INFO - Total Amount: 1512850.0
+2023-12-17 10:19:34,828 - INFO - Sales data for NASARAWA, LAFIA inserted successfully.
+2023-12-17 10:19:34,829 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,832 - INFO - Store: NASARAWA, KEFFI
+2023-12-17 10:19:34,832 - INFO - Initial Total: 1485350.0
+2023-12-17 10:19:34,837 - INFO - Total Amount: 1485350.0
+2023-12-17 10:19:34,838 - INFO - Sales data for NASARAWA, KEFFI inserted successfully.
+2023-12-17 10:19:34,838 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,843 - INFO - Store: NIGER, SULEJA
+2023-12-17 10:19:34,843 - INFO - Initial Total: 1062900.0
+2023-12-17 10:19:34,848 - INFO - Total Amount: 1062900.0
+2023-12-17 10:19:34,849 - INFO - Sales data for NIGER, SULEJA inserted successfully.
+2023-12-17 10:19:34,849 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,852 - ERROR - Something went wrong: Store matching query does not exist.
+2023-12-17 10:19:34,853 - ERROR - Warehouse: X0
+2023-12-17 10:19:34,858 - INFO - Store: SOKOTO, BANK RD
+2023-12-17 10:19:34,859 - INFO - Initial Total: 1238600.0
+2023-12-17 10:19:34,863 - INFO - Total Amount: 1238600.0
+2023-12-17 10:19:34,863 - INFO - Sales data for SOKOTO, BANK RD inserted successfully.
+2023-12-17 10:19:34,865 - INFO - Posting to ByD for this store was disabled.
+2023-12-17 10:19:34,869 - INFO - Store: ABUJA, UTAKO
+2023-12-17 10:19:34,869 - INFO - Initial Total: 1813800.0
+2023-12-17 10:19:34,876 - INFO - Total Amount: 1813800.0
+2023-12-17 10:19:34,876 - INFO - Sales data for ABUJA, UTAKO inserted successfully.
+2023-12-17 10:19:34,876 - INFO - Posting to ByD for this store was disabled.
