@@ -258,7 +258,7 @@ def make_postings(date, store, calculated_sales_data):
 
 def do_sync():
 	icg_sales = ICGSalesData()
-	data = icg_sales.get_today_sales()
+	data = icg_sales.get_sales("2023-12-17")
 
 	# data = [{"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2023-12-14", "paymentType": "CASH", "amount": "211650.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2023-12-14", "paymentType": "STAFF MEAL", "amount": "42466.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2023-12-14", "paymentType": "DEBIT CARD", "amount": "1197750.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2023-12-14", "paymentType": "CREDIT", "amount": "504100.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2023-12-14", "paymentType": "BANK TRANSFER", "amount": "13000.00"}]
 
@@ -306,11 +306,8 @@ def do_sync():
 
 
 				sale_data = sales_instance.calculate()
-
-				pprint(sale_data)
-				sys.exit()
-
-				sales_instance.save()
+				
+				# sales_instance.save()
 
 				# Print the total amount for the warehouse
 				logging.info(f"Total Amount: {sale['total_amount']}")
