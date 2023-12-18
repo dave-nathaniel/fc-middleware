@@ -63,11 +63,13 @@ class Sync:
 				water_sales = 0.00
 				data_date = ""
 
+				logging.info(f"{'*' * 20}")
 				logging.info(f"Store: {store.store_name}")
-				logging.info(f"Initial Total: {sale['total_amount']}")
+				logging.info(f"Gross Total: {sale['total_amount']}")
 
 				for item in sale['items']:
 					data_date = item['date'] if data_date is not None else data_date
+					logging.info(item)
 					if item['paymentType'] == 'STAFF MEAL':
 						staff_meal = float(item['amount'])
 						logging.info(f"{store.store_name} Staff Meal: {staff_meal}")
@@ -87,24 +89,24 @@ class Sync:
 
 					computed_sales_data = sales_data.calculate()
 
-					logging.debug(f"Total Amount: {sale['total_amount']}")
-
 					if self.save_records:
 						sales_data.save()
 						logging.info(f"Sales data for {store.store_name} saved successfully.")
 					
 				except Exception as e:
 					logging.error(f"An error occurred: {e}")
-				try:
-					if store.post_sale_to_byd and self.post_to_byd:
-						logging.info("Sending to ByD.")
 
-						non_zero_values = {key: value for key, value in computed_sales_data.items() if value > 0.00}
-						format_and_post(data_date, store, non_zero_values)
-					else:
-						logging.warn("Posting to ByD for this store was disabled.")
+				if self.post_to_byd:
+					try:
+						if store.post_sale_to_byd:
+							logging.info("Sending to ByD.")
 
-				except Exception as e:
-					logging.error(f"Something went wrong: {e}")
+							non_zero_values = {key: value for key, value in computed_sales_data.items() if value > 0.00}
+							format_and_post(data_date, store, non_zero_values)
+						else:
+							logging.warn("Posting to ByD for this store was disabled.")
+
+					except Exception as e:
+						logging.error(f"Something went wrong: {e}")
 
 		logging.info("Completed sync.")

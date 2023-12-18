@@ -329,14 +329,14 @@ class Ui_MainWindow(object):
         self.checkBox_2 = QCheckBox(self.formLayoutWidget)
         self.checkBox_2.setObjectName(u"checkBox_2")
         self.checkBox_2.setFont(font6)
-        self.checkBox_2.setChecked(True)
+        self.checkBox_2.setChecked(False)
 
         self.formLayout.setWidget(2, QFormLayout.LabelRole, self.checkBox_2)
 
         self.checkBox_3 = QCheckBox(self.formLayoutWidget)
         self.checkBox_3.setObjectName(u"checkBox_3")
         self.checkBox_3.setFont(font6)
-        self.checkBox_3.setChecked(True)
+        self.checkBox_3.setChecked(False)
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.checkBox_3)
 
