@@ -23,14 +23,28 @@ def post_to_byd(date, items=[]):
 		if sum_debit != sum_credit:
 			difference = round(sum_debit - sum_credit, 2)
 			logging.warn(f"DR-CR sides different by {difference}")
-			if sum_debit > sum_credit and difference < 0.05:
-				min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
-				logging.info(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
-				min_credit_value['TransactionCurrencyAmount']['_value_1'] += difference
-				equalize_dr_cr(items)
+			if sum_debit > sum_credit: 
+				if difference < 0.05:
+					min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
+					logging.info(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
+					min_credit_value['TransactionCurrencyAmount']['_value_1'] += difference
+					equalize_dr_cr(items)
+				else:
+					logging.error(f"A calculation error has occurred: {items}")
+					return False
+			elif sum_credit > sum_debit:
+				difference = difference * -1 #Get the positive value
+				if difference < 0.05:
+					min_debit_value = min((item for item in items if item['DebitCreditCode'] == '1'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
+					logging.info(f"Adjusting debit value for ProfitCentre '{min_debit_value['ProfitCentreID']}' from <{min_debit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_debit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
+					min_debit_value['TransactionCurrencyAmount']['_value_1'] += difference
+					equalize_dr_cr(items)
+				else:
+					logging.error(f"A calculation error has occurred: {items}")
+					return False
 			else:
-				logging.error(f"A calculation error has occurred: {items}")
-				return False
+					logging.error(f"A calculation error has occurred: {items}")
+					return False
 		else:
 			logging.info("DR-CR sides equal.")
 
