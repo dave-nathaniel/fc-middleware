@@ -12,19 +12,60 @@ except Exception as e:
 
 
 def post_to_byd(date, items=[]):
-	logging.info("Creating Ledger Entry: ")
-	logging.info(items)
-	req = {
-		"ObjectNodeSenderTechnicalID": "T1",
-		"CompanyID": "FC-0001",
-		"AccountingDocumentTypeCode": "00047",
-		"PostingDate": str(date),
-		"BusinessTransactionTypeCode": "601",
-		"TransactionCurrencyCode": "NGN",
-		"Item": items
-	}
 
-	response = ss.soap_client.MaintainAsBundle(BasicMessageHeader="", AccountingEntry=req)
+	def equalize_dr_cr(items):
+		sum_debit = round(sum(item['TransactionCurrencyAmount']['_value_1'] for item in items if item['DebitCreditCode'] == '1'), 2)
+		sum_credit = round(sum(item['TransactionCurrencyAmount']['_value_1'] for item in items if item['DebitCreditCode'] == '2'), 2)
+
+		logging.info(f"Sum of DR side: {sum_debit}")
+		logging.info(f"Sum of CR side: {sum_credit}")
+
+		if sum_debit != sum_credit:
+			difference = round(sum_debit - sum_credit, 2)
+			logging.warn(f"DR-CR sides different by {difference}")
+			if sum_debit > sum_credit and difference < 0.05:
+				min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
+				logging.info(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
+				min_credit_value['TransactionCurrencyAmount']['_value_1'] += difference
+				equalize_dr_cr(items)
+			else:
+				logging.error(f"A calculation error has occurred: {items}")
+				return False
+		else:
+			logging.info("DR-CR sides equal.")
+
+		return items
+
+	if equalize_dr_cr(items):
+		logging.info(items)
+
+		req = {
+			"ObjectNodeSenderTechnicalID": "T1",
+			"CompanyID": "FC-0001",
+			"AccountingDocumentTypeCode": "00047",
+			"PostingDate": str(date),
+			"BusinessTransactionTypeCode": "601",
+			"TransactionCurrencyCode": "NGN",
+			"Item": items
+		}
+		
+		logging.debug(req)
+
+		try:
+			response = ss.soap_client.MaintainAsBundle(BasicMessageHeader="", AccountingEntry=req)
+
+			if response['Log'] is not None:
+				logging.error(f"The following issues were raised by SAP ByD: ")
+				logging.error(f"{chr(10)}{chr(10).join(['Issue ' + str(counter + 1)  + ': ' + item['Note'] + '.' for counter, item in enumerate(response['Log']['Item'])])}")
+				logging.error(f"This entry may have failed to post.")
+			else:
+				return True
+
+		except Exception as e:
+			logging.error(f"The following exception occurred while posting this entry to SAP ByD: {e}")
+			logging.error(f"This entry may have failed to post.")
+
+	return False
 
 
 def format_and_post(date, store, calculated_sales_data):
@@ -40,9 +81,12 @@ def format_and_post(date, store, calculated_sales_data):
 		}
 
 	def post_entries(entries):
+		sucessful = True
 		for entry in entries:
 			logging.debug(entry)
-			post_to_byd(date, entries)
+			if not post_to_byd(date, entry):
+				sucessful = False
+		return sucessful
 
 	sales_gl = "410001"
 	cash_in_transit_gl = "163104"
@@ -88,7 +132,7 @@ def format_and_post(date, store, calculated_sales_data):
 			create_posting_data("d", store.byd_cost_center_code, cash_in_transit_gl, calculated_sales_data['tourism_development_levy']),
 			create_posting_data("c", "4000000", tourism_development_levy_gl, calculated_sales_data['tourism_development_levy']),
 		]
-		ledger_entries.append(date, tourism_development_levy)
+		ledger_entries.append(tourism_development_levy)
 
 	if 'marketing_fund_provision' in calculated_sales_data:
 		logging.info(f"Preparing ledger entry for marketing_fund_provision")
@@ -125,4 +169,4 @@ def format_and_post(date, store, calculated_sales_data):
 		ledger_entries.append(variable_rent)
 
 
-	post_entries(ledger_entries)
+	return post_entries(ledger_entries)

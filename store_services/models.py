@@ -35,7 +35,7 @@ class Sales(models.Model):
 	staff_meal = models.DecimalField(max_digits=10, decimal_places=2)
 	store_percentages = models.JSONField(null=True, blank=True)
 	calculated_sales_data = models.JSONField(null=True, blank=True)
-	date = models.DateField(auto_now_add=True)
+	date = models.DateField(auto_now_add=False)
 	last_modified = models.DateTimeField(auto_now=True)
 	posted_to_byd = models.BooleanField(default=False)
 
@@ -97,4 +97,4 @@ class Sales(models.Model):
 		super(Sales, self).save(*args, **kwargs)
 
 	def __str__(self):
-		return f"{self.store.store_name} on {self.date}"
+		return f"{self.store.store_name} SALES ON {self.date}"
