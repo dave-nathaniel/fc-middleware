@@ -4,12 +4,9 @@ import pandas as pd
 from decimal import Decimal
 from datetime import datetime
 
-# Get the current timestamp
-current_time = datetime.now()
-
 def generate_excel_report(records, file_path):
-	# Format the timestamp with underscores
-	formatted_timestamp = current_time.strftime("%Y_%m_%d_%H%M%S")
+	# Get the current timestamp and format the timestamp with underscores
+	formatted_timestamp = datetime.now().strftime("%Y_%m_%d_%H%M%S")
 
 	# Define headers for the Excel sheet
 	headers = ["Date", "Store", "Gross Total", "Net Sales", "VAT", "Consumption Tax", "Tourism Dev. Levy", "Marketing FundProvision", "Locality Marketing Provision", "Mgmt Fee", "Mgmt Fee Share Service", "Mgmt Fee Development", "Mgmt Fee HR", "Rent", "Posted to BYD"]

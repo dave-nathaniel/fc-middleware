@@ -26,8 +26,10 @@ def post_to_byd(date, items=[]):
 			if sum_debit > sum_credit: 
 				if difference < 0.05:
 					min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
-					logging.info(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
-					min_credit_value['TransactionCurrencyAmount']['_value_1'] += difference
+					adjusted_value = min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference
+					adjusted_value = round(adjusted_value, 2)
+					logging.info(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{adjusted_value}>")
+					min_credit_value['TransactionCurrencyAmount']['_value_1'] = adjusted_value
 					equalize_dr_cr(items)
 				else:
 					logging.error(f"A calculation error has occurred: {items}")
@@ -36,8 +38,10 @@ def post_to_byd(date, items=[]):
 				difference = difference * -1 #Get the positive value
 				if difference < 0.05:
 					min_debit_value = min((item for item in items if item['DebitCreditCode'] == '1'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
-					logging.info(f"Adjusting debit value for ProfitCentre '{min_debit_value['ProfitCentreID']}' from <{min_debit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_debit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
-					min_debit_value['TransactionCurrencyAmount']['_value_1'] += difference
+					adjusted_value = min_debit_value['TransactionCurrencyAmount']['_value_1'] + difference
+					adjusted_value = round(adjusted_value, 2)
+					logging.info(f"Adjusting debit value for ProfitCentre '{min_debit_value['ProfitCentreID']}' from <{min_debit_value['TransactionCurrencyAmount']['_value_1']}> to <{adjusted_value}>")
+					min_debit_value['TransactionCurrencyAmount']['_value_1'] = adjusted_value
 					equalize_dr_cr(items)
 				else:
 					logging.error(f"A calculation error has occurred: {items}")
@@ -62,7 +66,7 @@ def post_to_byd(date, items=[]):
 			"TransactionCurrencyCode": "NGN",
 			"Item": items
 		}
-		
+
 		logging.debug(req)
 
 		try:

@@ -22,22 +22,39 @@ def post_to_byd(date, items=[]):
 		if sum_debit != sum_credit:
 			difference = round(sum_debit - sum_credit, 2)
 			print(f"DR-CR sides different by {difference}")
-			if sum_debit > sum_credit and difference < 0.05:
-				min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
-				print(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference}>")
-				# min_credit_value['TransactionCurrencyAmount']['_value_1'] += difference
-				# equalize_dr_cr(items)
+			if sum_debit > sum_credit: 
+				if difference < 0.05:
+					min_credit_value = min((item for item in items if item['DebitCreditCode'] == '2'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
+					adjusted_value = min_credit_value['TransactionCurrencyAmount']['_value_1'] + difference
+					adjusted_value = round(adjusted_value, 2)
+					print(f"Adjusting credit value for ProfitCentre '{min_credit_value['ProfitCentreID']}' from <{min_credit_value['TransactionCurrencyAmount']['_value_1']}> to <{adjusted_value}>")
+					min_credit_value['TransactionCurrencyAmount']['_value_1'] = adjusted_value
+					equalize_dr_cr(items)
+				else:
+					print(f"A calculation error has occurred: {items}")
+					return False
+			elif sum_credit > sum_debit:
+				difference = difference * -1 #Get the positive value
+				if difference < 0.05:
+					min_debit_value = min((item for item in items if item['DebitCreditCode'] == '1'), key=lambda x: x['TransactionCurrencyAmount']['_value_1'])
+					adjusted_value = min_debit_value['TransactionCurrencyAmount']['_value_1'] + difference
+					adjusted_value = round(adjusted_value, 2)
+					print(f"Adjusting debit value for ProfitCentre '{min_debit_value['ProfitCentreID']}' from <{min_debit_value['TransactionCurrencyAmount']['_value_1']}> to <{adjusted_value}>")
+					min_debit_value['TransactionCurrencyAmount']['_value_1'] = adjusted_value
+					equalize_dr_cr(items)
+				else:
+					print(f"A calculation error has occurred: {items}")
+					return False
 			else:
-				logging.error(f"A calculation error has occurred: {items}")
-				return False
+					print(f"A calculation error has occurred: {items}")
+					return False
 		else:
 			print("DR-CR sides equal.")
 
 		return items
 
 	if equalize_dr_cr(items):
-		logging.info("Creating Ledger Entry: ")
-		logging.info(items)
+		print(items)
 
 		req = {
 			"ObjectNodeSenderTechnicalID": "T1",
@@ -48,17 +65,18 @@ def post_to_byd(date, items=[]):
 			"TransactionCurrencyCode": "NGN",
 			"Item": items
 		}
-		
-		logging.debug(req)
+
+		print(req)
 
 		try:
 			response = ss.soap_client.MaintainAsBundle(BasicMessageHeader="", AccountingEntry=req)
 
 			if response['Log'] is not None:
 				print(f"The following issues were raised by SAP ByD: ")
-				print(f"{chr(10).join(['Issue ' + str(counter + 1)  + ': ' + item['Note'] + '.' for counter, item in enumerate(response['Log']['Item'])])}")
+				print(f"{chr(10)}{chr(10).join(['Issue ' + str(counter + 1)  + ': ' + item['Note'] + '.' for counter, item in enumerate(response['Log']['Item'])])}")
 				print(f"This entry may have failed to post.")
 			else:
+				print("Posted successfully.")
 				return True
 
 		except Exception as e:
@@ -71,20 +89,20 @@ def post_to_byd(date, items=[]):
 
 if __name__ == '__main__':
 
-	items = [{'DebitCreditCode': '1', 'ProfitCentreID': '4100003-22', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-    '_value_1': 122746.67,
-    'currencyCode': 'NGN'
-    }}, {'DebitCreditCode': '2', 'ProfitCentreID': '7000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-    '_value_1': 76102.93,
-    'currencyCode': 'NGN'
-    }}, {'DebitCreditCode': '2', 'ProfitCentreID': '6000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-    '_value_1': 18412.0,
-    'currencyCode': 'NGN'
-    }}, {'DebitCreditCode': '2', 'ProfitCentreID': '3000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-    '_value_1': 28231.73,
-    'currencyCode': 'NGN'
-    }}]
+	items = [{'DebitCreditCode': '1', 'ProfitCentreID': '4100003-10', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
+	'_value_1': 44173.34,
+	'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '7000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
+	'_value_1': 27387.47,
+	'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '6000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
+	'_value_1': 6626.0,
+	'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '3000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
+	'_value_1': 10159.87,
+	'currencyCode': 'NGN'
+	}}]
 
 
 
-	post_to_byd('2023-12-27', items)
+	post_to_byd('2024-01-01', items)
