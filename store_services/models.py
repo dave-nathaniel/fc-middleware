@@ -7,9 +7,9 @@ to_float = lambda x: float(sjson.dumps(x))
 
 class Store(models.Model):
 	store_name = models.CharField(max_length=255)
+	icg_warehouse_name = models.CharField(max_length=255, null=True, blank=True)
 	icg_warehouse_code = models.CharField(max_length=20, unique=True)
 	byd_cost_center_code = models.CharField(max_length=20, unique=True)
-	state = models.CharField(max_length=50)
 	vat = models.DecimalField(max_digits=5, decimal_places=2, default=7.5)
 	consumption_tax = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 	tourism_development_levy = models.DecimalField(max_digits=5, decimal_places=2, default=0)
@@ -20,11 +20,21 @@ class Store(models.Model):
 	mgmt_fee_development = models.DecimalField(max_digits=10, decimal_places=5, default=15)
 	mgmt_fee_hr = models.DecimalField(max_digits=10, decimal_places=5, default=23)
 	variable_rent = models.DecimalField(max_digits=10, decimal_places=5, default=0)
-	post_sale_to_byd = models.BooleanField(default=True)
+	post_sale_to_byd = models.BooleanField(default=False)
 	last_synced = models.DateField(null=True, blank=True)
 
+	@property
+	def store_type(self, ):
+		types = {
+			"cr": "Chicken Republic",
+			"pie": "Pie Express",
+			"chop": "Chop Box"
+		}
+
+		return types[self.store_name.lower().split(" ")[0]]
+
 	def __str__(self):
-		return self.store_name
+		return f"{self.store_name.upper()} | {self.icg_warehouse_name.upper()}"
 
 
 class Sales(models.Model):

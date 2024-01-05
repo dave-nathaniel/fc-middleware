@@ -84,10 +84,10 @@ class ICGSalesData:
 			# Parse the JSON data from the response
 			data = response.json()
 			return data
-		else:
-			# Print an error message if the request was not successful
-			logging.error(f"Error: {response}")
-			return None
+
+		# Print an error message if the request was not successful
+		logging.error(f"Error: {response}")
+		return False
 
 	def group_data_by_warehouse(self, sales_data):
 		# Sort the data by "WarehouseName" key

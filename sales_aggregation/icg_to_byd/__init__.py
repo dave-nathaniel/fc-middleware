@@ -1,9 +1,10 @@
 import logging
+from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
 # Configure logging with rotating log
-log_file_path = 'logs/sales_sync.log'
-max_log_size = 5 * 1024 * 1024  # 5 MB
+log_file_path = f'logs/sales_sync_{datetime.now().strftime("%Y_%m_%d")}.log'
+max_log_size = 1 * 1024 * 1024  # 5 MB
 backup_count = 10  # Number of backup log files to keep
 
 # Create a rotating file handler

@@ -1,6 +1,8 @@
 *.pyc
 *.log
 *.txt
+*.json
+*.xlsx
 .env
 .env-dev
 DUMP

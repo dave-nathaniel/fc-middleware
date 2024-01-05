@@ -1486,7 +1486,7 @@ background-color: #00acc1;</string>
        <number>6</number>
       </property>
       <item row="0" column="0">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="cb_get_sales_from_icg">
         <property name="font">
          <font>
           <family>Quicksand SemiBold</family>
@@ -1506,7 +1506,7 @@ background-color: #00acc1;</string>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="cb_save_records">
         <property name="font">
          <font>
           <family>Quicksand SemiBold</family>
@@ -1526,7 +1526,7 @@ background-color: #00acc1;</string>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QCheckBox" name="checkBox_3">
+       <widget class="QCheckBox" name="cb_post_to_byd">
         <property name="font">
          <font>
           <family>Quicksand SemiBold</family>
@@ -1546,7 +1546,7 @@ background-color: #00acc1;</string>
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QCheckBox" name="checkBox_4">
+       <widget class="QCheckBox" name="cb_use_todays_date">
         <property name="font">
          <font>
           <family>Quicksand SemiBold</family>

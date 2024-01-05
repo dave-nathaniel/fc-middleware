@@ -1,7 +1,6 @@
 import os, sys
 import logging
 from pprint import pprint
-from datetime import date
 from byd_services.soap import SOAPServices
 
 try:
@@ -86,9 +85,7 @@ def post_to_byd(date, items=[]):
 	return False
 
 
-def format_and_post(date, store, calculated_sales_data):
-
-	set_amount = ss.client.get_type('{http://sap.com/xi/AP/Common/GDT}Amount')
+def format_and_post(date, store, calculated_sales_data, **kwargs):
 
 	def create_posting_data(debit_credit_indicator, profit_centre_id, gl_code, amount):
 		return {
@@ -106,6 +103,10 @@ def format_and_post(date, store, calculated_sales_data):
 				sucessful = False
 		return sucessful
 
+	set_amount = ss.client.get_type('{http://sap.com/xi/AP/Common/GDT}Amount')
+
+	gross_total = kwargs.get("gross_total")
+
 	sales_gl = "410001"
 	cash_in_transit_gl = "163104"
 	vat_gl = "218002"
@@ -119,38 +120,19 @@ def format_and_post(date, store, calculated_sales_data):
 	accured_expense_gl = "211004"
 
 	ledger_entries = []
-
-	if 'net_sales' in calculated_sales_data:
-		logging.info(f"Preparing ledger entry for net_sales")
-		net_sales_entries = [
-			create_posting_data("d", store.byd_cost_center_code, cash_in_transit_gl, calculated_sales_data['net_sales']),
+	
+	logging.info(f"Preparing ledger entry for Sales and Taxes")
+	if gross_total:
+		sales_entries = [
+			create_posting_data("d", store.byd_cost_center_code, cash_in_transit_gl, gross_total),
 			create_posting_data("c", "4000000", sales_gl, calculated_sales_data['net_sales']),
 		]
-		ledger_entries.append(net_sales_entries)
 
-	if 'vat' in calculated_sales_data:
-		logging.info(f"Preparing ledger entry for vat")
-		vat_entries = [
-			create_posting_data("d", "4000000", cash_in_transit_gl, calculated_sales_data['vat']),
-			create_posting_data("c", "4000000", vat_gl, calculated_sales_data['vat']),
-		]
-		ledger_entries.append(vat_entries)
+		sales_entries.append(create_posting_data("c", "4000000", vat_gl, calculated_sales_data['vat'])) if 'vat' in calculated_sales_data else None
+		sales_entries.append(create_posting_data("c", "4000000", consumption_tax_gl, calculated_sales_data['consumption_tax'])) if 'consumption_tax' in calculated_sales_data else None
+		sales_entries.append(create_posting_data("c", "4000000", tourism_development_levy_gl, calculated_sales_data['tourism_development_levy'])) if 'tourism_development_levy' in calculated_sales_data else None
 
-	if 'consumption_tax' in calculated_sales_data:
-		logging.info(f"Preparing ledger entry for consumption_tax")
-		consumption_tax = [
-			create_posting_data("d", "4000000", cash_in_transit_gl, calculated_sales_data['consumption_tax']),
-			create_posting_data("c", "4000000", consumption_tax_gl, calculated_sales_data['consumption_tax']),
-		]
-		ledger_entries.append(consumption_tax)
-
-	if 'tourism_development_levy' in calculated_sales_data:
-		logging.info(f"Preparing ledger entry for tourism_development_levy")
-		tourism_development_levy = [
-			create_posting_data("d", store.byd_cost_center_code, cash_in_transit_gl, calculated_sales_data['tourism_development_levy']),
-			create_posting_data("c", "4000000", tourism_development_levy_gl, calculated_sales_data['tourism_development_levy']),
-		]
-		ledger_entries.append(tourism_development_levy)
+		ledger_entries.append(sales_entries)
 
 	if 'marketing_fund_provision' in calculated_sales_data:
 		logging.info(f"Preparing ledger entry for marketing_fund_provision")
