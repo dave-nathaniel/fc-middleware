@@ -54,16 +54,19 @@ class Sync:
 			logging.error(f"An error occurred while reading the data file: {e}")
 
 	def do_sync(self,):
+		
+		data_date = ""
+		excel_report = None
+		synced_sales = []
+		posting_errors = []
+		missing_sales = []
+
+		stores_to_use = Store.objects.filter(post_sale_to_byd=True) if self.active_stores_only else Store.objects.all()
 
 		data = self.data
-		data_date = ""
 
 		if data:
 			grouped_data = self.icg_sales.group_data_by_warehouse(data)
-			synced_sales = []
-			posting_errors = []
-			missing_sales = []
-			stores_to_use = Store.objects.filter(post_sale_to_byd=True) if self.active_stores_only else Store.objects.all()
 
 			logging.info(f"Processing {len(stores_to_use)} selected stores.")
 
@@ -135,7 +138,6 @@ class Sync:
 					missing_sales.append(store)
 					continue
 
-			#count_ = len()
 			count_stores_to_use = len(stores_to_use)
 			count_synced_sales = len(synced_sales)
 			count_missing_sales = len(missing_sales)
