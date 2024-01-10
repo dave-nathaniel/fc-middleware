@@ -56,13 +56,13 @@ class Sync:
 	def do_sync(self,):
 
 		data = self.data
+		data_date = ""
 
 		if data:
 			grouped_data = self.icg_sales.group_data_by_warehouse(data)
 			synced_sales = []
 			missing_sales = []
 			stores_to_use = Store.objects.filter(post_sale_to_byd=True) if self.active_stores_only else Store.objects.all()
-			data_date = ""
 
 			logging.info(f"Processing {len(stores_to_use)} selected stores.")
 
@@ -139,20 +139,19 @@ class Sync:
 
 			excel_report = generate_excel_report(synced_sales, 'Sales_Aggregation_Report') if (count_synced_sales > 0) else None
 
-			send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales)
-
 			logging.info(f"{count_stores_to_use} stores selected for synchronization.")
 			logging.info(f"{count_synced_sales} stores completed successfully.") if count_synced_sales else None
 			if count_missing_sales:
 				logging.error(f"The following {count_missing_sales} selected store(s) did not return sales data: \n{chr(10).join(['[!] ' + bad.store_name + ' (' + bad.icg_warehouse_name + ') ' for bad in missing_sales])}")
 			logging.info(f"{(count_synced_sales*100)/count_stores_to_use}% of stores were posted to ByD.")
-
-			logging.info("Completed sync.")
-
 		else:
 			logging.error(f"An error occurred fetching data from ICG. More information on this error can be found in the process logs.")
 
-	logging.info("\n\n\n\n")
+		send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales)
+
+		logging.info("Completed sync.")
+
+		logging.info("\n\n\n\n")
 
 
 
