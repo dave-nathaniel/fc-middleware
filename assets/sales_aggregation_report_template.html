@@ -9,6 +9,9 @@
 	<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 	<style type="text/css">
 		body,table,td{font-family:Helvetica,Arial,sans-serif !important}.ExternalClass{width:100%}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{line-height:150%}a{text-decoration:none}*{color:inherit}a[x-apple-data-detectors],u+#body a,#MessageViewBody a{color:inherit;text-decoration:none;font-size:inherit;font-family:inherit;font-weight:inherit;line-height:inherit}img{-ms-interpolation-mode:bicubic}table:not([class^=s-]){font-family:Helvetica,Arial,sans-serif;mso-table-lspace:0pt;mso-table-rspace:0pt;border-spacing:0px;border-collapse:collapse}table:not([class^=s-]) td{border-spacing:0px;border-collapse:collapse}@media screen and (max-width: 600px){.w-lg-48,.w-lg-48>tbody>tr>td{width:auto !important}.w-full,.w-full>tbody>tr>td{width:100% !important}.w-16,.w-16>tbody>tr>td{width:64px !important}.p-lg-10:not(table),.p-lg-10:not(.btn)>tbody>tr>td,.p-lg-10.btn td a{padding:0 !important}.p-2:not(table),.p-2:not(.btn)>tbody>tr>td,.p-2.btn td a{padding:8px !important}.pr-4:not(table),.pr-4:not(.btn)>tbody>tr>td,.pr-4.btn td a,.px-4:not(table),.px-4:not(.btn)>tbody>tr>td,.px-4.btn td a{padding-right:16px !important}.pl-4:not(table),.pl-4:not(.btn)>tbody>tr>td,.pl-4.btn td a,.px-4:not(table),.px-4:not(.btn)>tbody>tr>td,.px-4.btn td a{padding-left:16px !important}.pr-6:not(table),.pr-6:not(.btn)>tbody>tr>td,.pr-6.btn td a,.px-6:not(table),.px-6:not(.btn)>tbody>tr>td,.px-6.btn td a{padding-right:24px !important}.pl-6:not(table),.pl-6:not(.btn)>tbody>tr>td,.pl-6.btn td a,.px-6:not(table),.px-6:not(.btn)>tbody>tr>td,.px-6.btn td a{padding-left:24px !important}.pt-8:not(table),.pt-8:not(.btn)>tbody>tr>td,.pt-8.btn td a,.py-8:not(table),.py-8:not(.btn)>tbody>tr>td,.py-8.btn td a{padding-top:32px !important}.pb-8:not(table),.pb-8:not(.btn)>tbody>tr>td,.pb-8.btn td a,.py-8:not(table),.py-8:not(.btn)>tbody>tr>td,.py-8.btn td a{padding-bottom:32px !important}*[class*=s-lg-]>tbody>tr>td{font-size:0 !important;line-height:0 !important;height:0 !important}.s-4>tbody>tr>td{font-size:16px !important;line-height:16px !important;height:16px !important}.s-6>tbody>tr>td{font-size:24px !important;line-height:24px !important;height:24px !important}}
+		.numbered-table {counter-reset: rowNumber;}
+		.numbered-table tr::before {display: table-cell;counter-increment: rowNumber;content: counter(rowNumber) ".";padding: 10px 5px;text-align: right;}
+		.numbered-table td {padding: 10px 10px;}
 	</style>
 </head>
 <body class="bg-red-100" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 16px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #000000; margin: 0; padding: 0; border-width: 0;" bgcolor="#cccccc">
@@ -88,16 +91,39 @@
 																				<td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{__ACTIVE_STORES__}}</td>
 																			</tr>
 																			<tr style="color:#4fab4f !important;">
-																				<td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Successfully Retreived</td>
+																				<td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Sales Posted to ByD</td>
 																				<td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{__POSTED_SALES__}}</td>
 																			</tr>
-																			<tr style="color:#FF0000 !important;">
+																			<tr style="color:#ff7716 !important;">
 																				<td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Missing Sales</td>
+																				<td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{__NO_SALES_DATA__}}</td>
+																			</tr>
+																			<tr>
+																				<td colspan="2">
+																					<table class="numbered-table" style="color:#ff7716 !important; border: 1px solid !important;width: 100%; font-size: 12px;line-height: 20px;">
+																						<tbody>{{__NO_SALES_DATA_LINE_ITEMS__}}</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																			<tr style="color:#FF0000 !important;">
+																				<td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Posting Issues</td>
 																				<td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{__FAILED_POSTING__}}</td>
 																			</tr>
-																			<tr style="color:#FF0000 !important;border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important;">
-																				{{__FAILED_POSTING_LINE_ITEMS}}
+																			<tr>
+																				<td colspan="2">
+																					<table class="numbered-table" style="color:#FF0000 !important; border: 1px solid !important;width: 100%; font-size: 12px;line-height: 20px;">
+																						<tbody>{{__FAILED_POSTING_LINE_ITEMS__}}</tbody>
+																					</table>
+																				</td>
+																					
 																			</tr>
+																			<!-- <tr style="color:#FF0000 !important;">
+																				<td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Posting Issues</td>
+																				<td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{__FAILED_POSTING__}}</td>
+																			</tr>
+																			<tr style="color:#FF0000 !important; border: 1px solid !important;">
+																				<td style="line-height: 24px; font-size: 13px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%" colspan="2">{{__FAILED_POSTING_LINE_ITEMS__}}</td>
+																			</tr> -->
 																		</tbody>
 																	</table>
 																	<table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">

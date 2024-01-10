@@ -86,7 +86,8 @@ def send_email_report(attachment, **kwargs):
 
 	active_stores = len(kwargs.get('active_stores')) if kwargs.get('active_stores') else None
 	synced_sales = len(kwargs.get('synced_sales')) if kwargs.get('synced_sales') else None
-	missing_sales = kwargs.get('missing_sales') if kwargs.get('missing_sales') else None
+	missing_sales = kwargs.get('missing_sales') if kwargs.get('missing_sales') else []
+	posting_errors = kwargs.get('posting_errors') if kwargs.get('posting_errors') else []
 
 	sender_name = f'{os.getenv("EMAIL_SENDER")} for {date}'
 	email_from = os.getenv("EMAIL_USER")
@@ -112,14 +113,18 @@ def send_email_report(attachment, **kwargs):
 	content = content.replace("{{__SALES_AGGREGATION_DATE__}}", str(date))
 	content = content.replace("{{__ACTIVE_STORES__}}", str(active_stores))
 	content = content.replace("{{__POSTED_SALES__}}", str(synced_sales))
-	content = content.replace("{{__FAILED_POSTING__}}", str(len(missing_sales)))
+	content = content.replace("{{__NO_SALES_DATA__}}", str(len(missing_sales)))
+	content = content.replace("{{__FAILED_POSTING__}}", str(len(posting_errors)))
 
 	missing_sales_table = ""
-
 	for item in missing_sales:
-		missing_sales_table += f'<td style="line-height: 24px; font-size: 13px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%" colspan="2">{item.store_name}</td>'
+		missing_sales_table += f'<tr><td>{item.store_name}</td></tr>'
+	content = content.replace("{{__NO_SALES_DATA_LINE_ITEMS__}}", missing_sales_table)
 
-	content = content.replace("{{__FAILED_POSTING_LINE_ITEMS}}", missing_sales_table)
+	posting_errors_table = ""
+	for item in posting_errors:
+		posting_errors_table += f'<tr><td>{item.store_name}</td></tr>'
+	content = content.replace("{{__FAILED_POSTING_LINE_ITEMS__}}", posting_errors_table)
 
 	email_body = content
 

@@ -61,6 +61,7 @@ class Sync:
 		if data:
 			grouped_data = self.icg_sales.group_data_by_warehouse(data)
 			synced_sales = []
+			posting_errors = []
 			missing_sales = []
 			stores_to_use = Store.objects.filter(post_sale_to_byd=True) if self.active_stores_only else Store.objects.all()
 
@@ -121,13 +122,15 @@ class Sync:
 								logging.info("Posting to SAP ByD completed successfully.")
 								sales_data.posted_to_byd = True
 								sales_data.save()
-							else:
-								logging.warn("An error may have occurred while posting some entries to SAP ByD. More information on this error can be found in the process logs.")
 
-							synced_sales.append(sales_data)
+								synced_sales.append(sales_data)
+							else:
+								posting_errors.append(store)
+								logging.warn(f"Something went wrong while posting some journal entries for {store.store_name} to ByD. More information on this error can be found in the process logs.")
 
 						except Exception as e:
-							logging.error(f"Something went wrong while posting to ByD for this store: {e}")
+							posting_errors.append(store)
+							logging.error(f"Something went wrong while posting to ByD for {store.store_name}: {e}")
 				else:
 					missing_sales.append(store)
 					continue
@@ -147,7 +150,7 @@ class Sync:
 		else:
 			logging.error(f"An error occurred fetching data from ICG. More information on this error can be found in the process logs.")
 
-		send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales)
+		send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales, posting_errors=posting_errors)
 
 		logging.info("Completed sync.")
 
