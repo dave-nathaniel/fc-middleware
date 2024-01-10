@@ -15,7 +15,7 @@ from .posting import format_and_post
 django.setup()
 
 from store_services.models import Store, Sales
-from .reporting import generate_excel_report
+from .reporting import generate_excel_report, send_email_report
 
 
 class Sync:
@@ -62,6 +62,7 @@ class Sync:
 			synced_sales = []
 			missing_sales = []
 			stores_to_use = Store.objects.filter(post_sale_to_byd=True) if self.active_stores_only else Store.objects.all()
+			data_date = ""
 
 			logging.info(f"Processing {len(stores_to_use)} selected stores.")
 
@@ -75,7 +76,6 @@ class Sync:
 					'''
 					staff_meal = 0.00
 					water_sales = 0.00
-					data_date = ""
 
 					logging.info(f"{'*' * 20}")
 					logging.info(f"Store: {store.store_name} ({warehouse})")
@@ -137,7 +137,9 @@ class Sync:
 			count_synced_sales = len(synced_sales)
 			count_missing_sales = len(missing_sales)
 
-			generate_excel_report(synced_sales, 'Sales_Aggregation_Report') if (count_synced_sales > 0) else None
+			excel_report = generate_excel_report(synced_sales, 'Sales_Aggregation_Report') if (count_synced_sales > 0) else None
+
+			send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales)
 
 			logging.info(f"{count_stores_to_use} stores selected for synchronization.")
 			logging.info(f"{count_synced_sales} stores completed successfully.") if count_synced_sales else None
@@ -151,3 +153,10 @@ class Sync:
 			logging.error(f"An error occurred fetching data from ICG. More information on this error can be found in the process logs.")
 
 	logging.info("\n\n\n\n")
+
+
+
+if __name__ == '__main__':
+	s = Sync()
+	# s.get_sales_from_icg()
+	# s.do_sync()

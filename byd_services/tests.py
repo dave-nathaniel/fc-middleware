@@ -89,20 +89,20 @@ def post_to_byd(date, items=[]):
 
 if __name__ == '__main__':
 
-	items = [{'DebitCreditCode': '1', 'ProfitCentreID': '4100003-10', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-	'_value_1': 44173.34,
-	'currencyCode': 'NGN'
-	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '7000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-	'_value_1': 27387.47,
-	'currencyCode': 'NGN'
-	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '6000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-	'_value_1': 6626.0,
-	'currencyCode': 'NGN'
-	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '3000000', 'ChartOfAccountsItemCode': '618013', 'TransactionCurrencyAmount': {
-	'_value_1': 10159.87,
-	'currencyCode': 'NGN'
+	items =  [{'DebitCreditCode': '1', 'ProfitCentreID': '4100017-3', 'ChartOfAccountsItemCode': '163104', 'TransactionCurrencyAmount': {
+	    '_value_1': 2331550.0,
+	    'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '4000000', 'ChartOfAccountsItemCode': '410001', 'TransactionCurrencyAmount': {
+	    '_value_1': 2072488.89,
+	    'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '4000000', 'ChartOfAccountsItemCode': '218002', 'TransactionCurrencyAmount': {
+	    '_value_1': 155436.67,
+	    'currencyCode': 'NGN'
+	}}, {'DebitCreditCode': '2', 'ProfitCentreID': '4000000', 'ChartOfAccountsItemCode': '217016', 'TransactionCurrencyAmount': {
+	    '_value_1': 103624.44,
+	    'currencyCode': 'NGN'
 	}}]
 
 
 
-	post_to_byd('2024-01-01', items)
+	post_to_byd('2024-01-07', items)

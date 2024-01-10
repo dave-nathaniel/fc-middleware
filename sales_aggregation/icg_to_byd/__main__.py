@@ -17,7 +17,6 @@ def startup(config_file):
 			main(config)
 		except Exception as e:
 			logging.error(f"The configuration file {config_file} could not be read: {e}")
-
 	else:
 		logging.error(f"Unable to start the process because a configuration file was not supplied.")
 
