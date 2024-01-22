@@ -81,8 +81,7 @@ def send_email_report(attachment, **kwargs):
 
 		return log_file_path
 
-	date = kwargs.get('date') if kwargs.get('date', '') != '' else datetime.now()
-	date = date.strftime("%d %b %Y")
+	date = kwargs.get('date').strftime("%d %b %Y")
 
 	active_stores = len(kwargs.get('active_stores')) if kwargs.get('active_stores') else None
 	synced_sales = len(kwargs.get('synced_sales')) if kwargs.get('synced_sales') else None

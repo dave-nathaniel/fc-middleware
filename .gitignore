@@ -5,6 +5,6 @@
 *.xlsx
 .env
 .env-dev
-DUMP
-logs
-reports
+DUMP/
+logs/
+reports/

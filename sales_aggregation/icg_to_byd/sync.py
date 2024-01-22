@@ -22,14 +22,18 @@ class Sync:
 
 	icg_sales = ICGSalesData()
 
-	def __init__(self, ):
+	def __init__(self, date=None):
 		self.data = []
 		self.save_records = False
 		self.post_to_byd = False
 		self.active_stores_only = True
+		self.working_date = date or datetime.now()
 
 	def set_save_records(self, save_records):
 		self.save_records = save_records
+
+	def set_working_date(self, date):
+		self.working_date = date or self.working_date
 
 	def set_post_to_byd(self, post_to_byd):
 		self.post_to_byd = post_to_byd
@@ -42,6 +46,7 @@ class Sync:
 
 	def get_sales_from_icg(self, date=None):
 		logging.info(f"Using sales records from ICG.")
+		self.set_working_date(date)
 		self.set_sales_records(self.icg_sales.get_sales(date)) #YYYY-MM-DD
 
 	def get_sales_from_file(self, path):
@@ -55,7 +60,8 @@ class Sync:
 
 	def do_sync(self,):
 		
-		data_date = ""
+		data_date = self.working_date
+
 		excel_report = None
 		synced_sales = []
 		posting_errors = []
@@ -86,13 +92,10 @@ class Sync:
 					logging.info(f"Gross Total: {sale['total_amount']}")
 
 					for item in sale['items']:
-						data_date = item['date'] if data_date is not None else data_date
 						logging.debug(item)
 						if item['paymentType'] == 'STAFF MEAL':
 							staff_meal = float(item['amount'])
 							logging.debug(f"{store.store_name} Staff Meal: {staff_meal}")
-
-					data_date = datetime.strptime(data_date, "%Y-%m-%d").date()
 
 					try:
 						total_amount = sale['total_amount']

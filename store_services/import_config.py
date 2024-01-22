@@ -13,7 +13,7 @@ django.setup()
 from .models import Store 
 
 # Load the Excel sheet into a DataFrame
-excel_file_path = 'store_services/Store Configuration.xlsx'
+excel_file_path = 'store_services/STORE CONFIGURATION UPDATED.xlsx'
 df = pd.read_excel(excel_file_path)
 
 errors = []
@@ -42,12 +42,17 @@ for index, row in df.iterrows():
 
 	# Create or update the Store model
 	try:
-		store, created = Store.objects.update_or_create(
-			byd_cost_center_code=row['ByD Cost Centre ID'],
-			defaults=store_data
+		store = Store.objects.get(
+			byd_cost_center_code=row['ByD Cost Centre ID']
 		)
 
-		new_stores.append(store) if created else updated.append(store)
+		store.byd_bill_to_party_id = row['ByD Bill to Party ID']
+		store.byd_account_id = row['ByD Account ID']
+		store.byd_sales_unit_id = row['ByD Sales Unit ID']
+
+		store.save()
+
+		# new_stores.append(store) if created else updated.append(store)
 
 	except Exception as e:
 		errors.append(f"{row['ICG Warehouse Description']}: {e} \n {row}")
