@@ -1,7 +1,7 @@
 import os, sys
 from dotenv import load_dotenv
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 import subprocess
 import time
 from .ui.ui_sales_aggregation import Ui_MainWindow
@@ -9,29 +9,12 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from .sync import Sync
-from tkinter import filedialog
+try:
+	from tkinter import filedialog
+except Exception as e:
+	logging.warn(f"Unable to load tkinter: {e}")
 
 load_dotenv()
-
-sync = Sync()
-
-script_directory = os.path.dirname(os.path.realpath(__file__))
-
-def manipulate_date(input_integer):
-	# Get the current date
-	current_date = datetime.now()
-
-	# Check the value of input_integer
-	if input_integer == 0:
-		result_date = current_date  # If the integer is 0, return the current date
-	elif input_integer > 0:
-		result_date = current_date + timedelta(days=input_integer)  # Add days to the current date
-	else:
-		result_date = current_date - timedelta(days=abs(input_integer))  # Subtract days from the current date
-
-	# Return the result in the '%Y-%m-%d' format
-	return result_date.strftime('%Y-%m-%d')
-
 
 class CustomFormatter(logging.Formatter):
 	def formatTime(self, record, datefmt=None):
@@ -69,15 +52,12 @@ class Application(Ui_MainWindow):
 
 		self.app_config = kwargs.get('config')
 
+		self.configure_logging()
 		self.configure_sync()
 
-		if self.app_config.get("show_ui"):
-			self.configure_logging()
-			self.pushButton.clicked.connect(self.launch_admin)
-			self.pushButton_2.clicked.connect(self.open_log_file)
-			self.pushButton_8.clicked.connect(self.execute_sync)
-		else:
-			self.execute_sync()
+		self.pushButton.clicked.connect(self.launch_admin)
+		self.pushButton_2.clicked.connect(self.open_log_file)
+		self.pushButton_8.clicked.connect(self.execute_sync)
 
 	def configure_logging(self, ):
 		# Create textLogger
@@ -99,7 +79,6 @@ class Application(Ui_MainWindow):
 		self.plainTextEdit.insertPlainText(message + '\n')
 		QApplication.processEvents()
 		self.plainTextEdit.moveCursor(QTextCursor.End)
-		# self.plainTextEdit.see(tk.END)  # Scroll to the end
 
 	def launch_admin(self, ):
 		admin_url = f"{os.getenv('HOST')}:{os.getenv('PORT')}/admin/"
@@ -126,7 +105,6 @@ class Application(Ui_MainWindow):
 			time.sleep(1)
 			try:
 				subprocess.run(f"notepad.exe {file_path}", shell=True, check=True)
-
 			except subprocess.CalledProcessError as e:
 				# Handle errors if the command fails
 				logging.error(f"{e.stderr}")
@@ -134,6 +112,8 @@ class Application(Ui_MainWindow):
 			logging.error("No FileHandler found in the logger handlers.")
 
 	def execute_sync(self, ):
+		sync = Sync()
+
 		sync.set_save_records(self.cb_save_records.isChecked())
 		sync.set_stores_to_use(self.cb_use_only_active_stores.isChecked())
 		sync.set_post_to_byd(self.cb_post_to_byd.isChecked())
@@ -142,16 +122,15 @@ class Application(Ui_MainWindow):
 			if self.cb_use_todays_date.isChecked():
 				sync.get_sales_from_icg()
 			else:
-				#If the app is configured to hide the UI, then set the working date as the date offset defined in the configuration else pick the date set in the UI's date input.
-				working_date = self.dateEdit.date().toPython() if self.app_config.get("show_ui") else manipulate_date(self.app_config.get("sales_date_difference"))
+				#pick the date set in the UI's date input.
+				working_date = self.dateEdit.date().toPython()
 				sync.get_sales_from_icg(working_date)
 		else:
-			if self.app_config.get("show_ui"):
+			try:
 				file_path = filedialog.askopenfilename(title="Select a file")
 				sync.get_sales_from_file(file_path)
-			else:
-				logging.info(f"Using test sales records from config file.")
-				sync.set_sales_records(self.app_config.get("test_data"))
+			except Exception as e:
+				logging.warn(f"Unable to load filedialog: {e}")
 
 		sync.do_sync()
 
@@ -160,9 +139,8 @@ def main(config):
 	ui = QApplication(sys.argv)
 	MainWindow = QMainWindow()
 	app = Application(MainWindow, config=config)
-	if config.get("show_ui"):
-		MainWindow.show()
-		sys.exit(ui.exec_())
+	MainWindow.show()
+	sys.exit(ui.exec_())
 
 
 # if __name__ == "__main__":

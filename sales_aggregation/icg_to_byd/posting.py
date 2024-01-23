@@ -1,5 +1,6 @@
 import os, sys
 import logging
+from time import sleep
 from pprint import pprint
 from byd_services.soap import SOAPServices
 
@@ -8,6 +9,15 @@ try:
 	ss.connect()
 except Exception as e:
 	raise e
+
+MAX_RETRY_POSTING = 3
+
+def ordinal(number):
+	if 10 <= number % 100 <= 20:
+		suffix = 'th'
+	else:
+		suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(number % 10, 'th')
+	return str(number) + suffix
 
 
 def post_to_byd(date, items=[]):
@@ -53,9 +63,21 @@ def post_to_byd(date, items=[]):
 
 		return items
 
-	if equalize_dr_cr(items):
-		logging.info(items)
+	def send_request(request):
+		try:
+			response = ss.soap_client.MaintainAsBundle(BasicMessageHeader="", AccountingEntry=request)
 
+			if response['Log'] is not None:
+				logging.error(f"The following issues were raised by SAP ByD: ")
+				logging.error(f"{chr(10)}{chr(10).join(['Issue ' + str(counter + 1)  + ': ' + item['Note'] + '.' for counter, item in enumerate(response['Log']['Item'])])}")
+			else:
+				return True
+		except Exception as e:
+			logging.error(f"The following exception occurred while posting this entry to SAP ByD: {e}")
+
+		return False
+
+	if equalize_dr_cr(items):
 		req = {
 			"ObjectNodeSenderTechnicalID": "T1",
 			"CompanyID": "FC-0001",
@@ -67,22 +89,20 @@ def post_to_byd(date, items=[]):
 		}
 
 		logging.debug(req)
+		logging.info(items)
 
-		try:
-			response = ss.soap_client.MaintainAsBundle(BasicMessageHeader="", AccountingEntry=req)
+		posted = send_request(req)
+		retry_counter = 1
 
-			if response['Log'] is not None:
-				logging.error(f"The following issues were raised by SAP ByD: ")
-				logging.error(f"{chr(10)}{chr(10).join(['Issue ' + str(counter + 1)  + ': ' + item['Note'] + '.' for counter, item in enumerate(response['Log']['Item'])])}")
-				logging.error(f"This entry may have failed to post.")
-			else:
-				return True
+		while retry_counter < MAX_RETRY_POSTING and not posted:
+			retry_counter += 1
+			logging.info(f"Attempting to post this entry for the {ordinal(retry_counter)} time.")
+			sleep(2)
+			posted = send_request(req)
+			
+		logging.error("This entry may have failed to post.") if not posted else logging.info("Posted successfully. \n")
 
-		except Exception as e:
-			logging.error(f"The following exception occurred while posting this entry to SAP ByD: {e}")
-			logging.error(f"This entry may have failed to post.")
-
-	return False
+	return posted
 
 
 def format_and_post(date, store, calculated_sales_data, **kwargs):
@@ -125,12 +145,12 @@ def format_and_post(date, store, calculated_sales_data, **kwargs):
 	if gross_total:
 		sales_entries = [
 			create_posting_data("d", store.byd_cost_center_code, cash_in_transit_gl, gross_total),
-			create_posting_data("c", "4000000", sales_gl, calculated_sales_data['net_sales']),
+			create_posting_data("c", store.byd_cost_center_code, sales_gl, calculated_sales_data['net_sales']),
 		]
 
-		sales_entries.append(create_posting_data("c", "4000000", vat_gl, calculated_sales_data['vat'])) if 'vat' in calculated_sales_data else None
-		sales_entries.append(create_posting_data("c", "4000000", consumption_tax_gl, calculated_sales_data['consumption_tax'])) if 'consumption_tax' in calculated_sales_data else None
-		sales_entries.append(create_posting_data("c", "4000000", tourism_development_levy_gl, calculated_sales_data['tourism_development_levy'])) if 'tourism_development_levy' in calculated_sales_data else None
+		sales_entries.append(create_posting_data("c", store.byd_cost_center_code, vat_gl, calculated_sales_data['vat'])) if 'vat' in calculated_sales_data else None
+		sales_entries.append(create_posting_data("c", store.byd_cost_center_code, consumption_tax_gl, calculated_sales_data['consumption_tax'])) if 'consumption_tax' in calculated_sales_data else None
+		sales_entries.append(create_posting_data("c", store.byd_cost_center_code, tourism_development_levy_gl, calculated_sales_data['tourism_development_levy'])) if 'tourism_development_levy' in calculated_sales_data else None
 
 		ledger_entries.append(sales_entries)
 
@@ -167,6 +187,5 @@ def format_and_post(date, store, calculated_sales_data, **kwargs):
 			create_posting_data("c", "4000000", accured_expense_gl, calculated_sales_data['variable_rent']),
 		]
 		ledger_entries.append(variable_rent)
-
 
 	return post_entries(ledger_entries)

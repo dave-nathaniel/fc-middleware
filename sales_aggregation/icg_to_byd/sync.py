@@ -33,7 +33,11 @@ class Sync:
 		self.save_records = save_records
 
 	def set_working_date(self, date):
-		self.working_date = date or self.working_date
+		date = date or self.working_date
+		formatted_date = (
+			datetime.strptime(date, "%Y-%m-%d").date() if isinstance(date, str) else date.date()
+		)
+		self.working_date = formatted_date
 
 	def set_post_to_byd(self, post_to_byd):
 		self.post_to_byd = post_to_byd
@@ -60,7 +64,7 @@ class Sync:
 
 	def do_sync(self,):
 		
-		data_date = self.working_date
+		data_date = self.working_date.strftime("%Y-%m-%d")
 
 		excel_report = None
 		synced_sales = []
@@ -153,17 +157,23 @@ class Sync:
 				logging.error(f"The following {count_missing_sales} selected store(s) did not return sales data: \n{chr(10).join(['[!] ' + bad.store_name + ' (' + bad.icg_warehouse_name + ') ' for bad in missing_sales])}")
 			logging.info(f"{(count_synced_sales*100)/count_stores_to_use}% of stores were posted to ByD.")
 		else:
-			logging.error(f"An error occurred fetching data from ICG. More information on this error can be found in the process logs.")
+			logging.error(f"An error occurred with the data source. More information on this can be found in the process logs.")
 
-		send_email_report(excel_report, date=data_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales, posting_errors=posting_errors)
+		send_email_report(excel_report, date=self.working_date, active_stores=stores_to_use, synced_sales=synced_sales, missing_sales=missing_sales, posting_errors=posting_errors)
 
 		logging.info("Completed sync.")
 
-		logging.info("\n\n\n\n")
+		logging.info("\n\n")
 
 
 
 if __name__ == '__main__':
+
+	console_handler = logging.StreamHandler(sys.stdout)
+	logging.getLogger().addHandler(console_handler)
+	logging.getLogger().setLevel(logging.INFO)
+
 	s = Sync()
-	# s.get_sales_from_icg()
+	# s.get_sales_from_file("sales_aggregation/icg_to_byd/data.json")
+	# s.set_post_to_byd(True)
 	# s.do_sync()

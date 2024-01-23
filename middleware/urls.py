@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-admin.site.site_header = "FoodConcepts | Middleware Admin"
-admin.site.site_title = "FoodConcepts | Middleware Admin"
-admin.site.index_title = "FoodConcepts | Middleware"
+admin.site.site_header = "FC | Middleware"
+admin.site.site_title = "FC | Middleware"
+admin.site.index_title = "FC | Middleware"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include('api_services.urls')),
 ]
