@@ -11,6 +11,8 @@ from django.core.mail import EmailMessage
 
 load_dotenv()
 
+REPORTS_DIR = os.getenv("SALES_AGGREGATION_REPORTS_DIR")
+
 def get_log_file():
 	logger = logging.getLogger()
 	file_handler = None
@@ -65,7 +67,7 @@ def generate_excel_report(records, file_path):
 		for col_num, value in enumerate(row, 1):
 			ws.cell(row=r_idx, column=col_num, value=value)
 	
-	generated_report = f"reports/{file_path}_{formatted_timestamp}.xlsx"
+	generated_report = f"{REPORTS_DIR}{file_path}_{formatted_timestamp}.xlsx"
 	# Save the workbook to the specified file path
 	wb.save(generated_report)
 
