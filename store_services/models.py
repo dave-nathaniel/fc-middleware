@@ -7,6 +7,7 @@ to_float = lambda x: float(sjson.dumps(x))
 
 class Store(models.Model):
 	store_name = models.CharField(max_length=255)
+	store_email = models.EmailField(max_length=255, null=True, blank=True)
 	icg_warehouse_name = models.CharField(max_length=255, null=True, blank=True)
 	icg_warehouse_code = models.CharField(max_length=20, unique=True)
 	byd_cost_center_code = models.CharField(max_length=20, unique=True)
