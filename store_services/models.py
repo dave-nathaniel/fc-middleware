@@ -12,7 +12,7 @@ class Store(models.Model):
 	icg_warehouse_name = models.CharField(max_length=255, null=True, blank=True)
 	icg_warehouse_code = models.CharField(max_length=20, unique=True)
 	icg_future_warehouse_code = models.CharField(max_length=20, null=True, blank=True)
-	byd_cost_center_code = models.CharField(max_length=20, unique=True)
+	byd_cost_center_code = models.CharField(max_length=20)
 	byd_sales_unit_id = models.CharField(max_length=20, null=True, blank=True)
 	byd_bill_to_party_id = models.CharField(max_length=20, null=True, blank=True)
 	byd_account_id = models.CharField(max_length=20, null=True, blank=True)
