@@ -5,7 +5,9 @@
 *.xlsx
 .env
 .env-dev
+.idea
 DUMP/
 logs/
 reports/
 static/
+__pycache__/
