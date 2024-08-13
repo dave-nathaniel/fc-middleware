@@ -14,7 +14,8 @@ from .posting import format_and_post
 
 django.setup()
 
-from store_services.models import Store, Sales
+from store_services.models import Store
+from sales_aggregation.models import Sales
 from .reporting import generate_excel_report, send_email_report
 
 
