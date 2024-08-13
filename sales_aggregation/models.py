@@ -38,7 +38,7 @@ class Sale(models.Model):
 	# The date which this sale was made.
 	sale_date = models.DateField(auto_now_add=False)
 	# The signature of the user on the sale data posted.
-	signature = models.TextField(null=False, blank=False, unique=True)
+	signature = models.TextField(null=False, blank=False)
 	# The timestamp which this record was added or last modified.
 	modified = models.DateTimeField(auto_now=True)
 	# Extra metadata related to this sale.
@@ -53,6 +53,11 @@ class Sale(models.Model):
 	posted_to_byd = models.BooleanField(default=False)
 	# The date when this sale was posted to BOD.
 	date_posted = models.DateTimeField(null=True, blank=True)
+	
+	class Meta:
+		constraints = [
+			models.UniqueConstraint(fields=['reconciled_gross_total', 'store', 'sale_date'], name='unique_sales')
+		]
 	
 	@property
 	def sale_identity(self,) -> tuple:
