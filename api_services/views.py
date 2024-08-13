@@ -4,7 +4,7 @@ from django.db.models import Q
 from store_services.models import Store
 from .serializers.store_serializer import StoreSerializer
 
-from .overrides.rest_framework import APIResponse
+from overrides.rest_framework import APIResponse
 
 
 # function based view to get all stores

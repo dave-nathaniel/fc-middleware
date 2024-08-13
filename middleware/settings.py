@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,10 +51,41 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-
+	
+	'core_services',
     'store_services',
     'sales_aggregation',
 ]
+
+REST_FRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
+		'rest_framework.authentication.SessionAuthentication',
+		'rest_framework.authentication.BasicAuthentication',
+	),
+	'DEFAULT_PERMISSION_CLASSES': (
+		'rest_framework.permissions.IsAuthenticated',
+	),
+	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+	'PAGE_SIZE': 15
+}
+
+SIMPLE_JWT = {
+	'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+	'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
+	'ROTATE_REFRESH_TOKENS': True,
+	'BLACKLIST_AFTER_ROTATION': True,
+	'UPDATE_LAST_LOGIN': True,
+	'ALGORITHM': 'HS256',
+	'SIGNING_KEY': SECRET_KEY,
+	'AUTH_HEADER_TYPES': ('Bearer',),
+	'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+	'USER_ID_FIELD': 'username',
+	'USER_ID_CLAIM': 'username',
+	'JTI_CLAIM': 'jti',
+	'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+	"TOKEN_OBTAIN_SERIALIZER": "core_service.serializers.CustomTokenObtainPairSerializer",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
