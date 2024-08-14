@@ -181,11 +181,16 @@ class Sale(models.Model):
 			The hash digest is a concatenation of the 'sale_identity' + the 'calculated_sales_data' + the 'store_percentages' + the 'modified' timestamp.
 		'''
 		import json
+		
+		def sort_dict(d):
+			# Sort the dictionary by keys for consistency.
+			return {k[0]:k[1] for k in sorted(d.items())}
+		
 		sale_identity = self.sale_identity[0]
 		# Convert the calculated sales data disctionary into a JSON string.
-		calculated_sales_data = json.dumps(self.get_sales_data())
+		calculated_sales_data = json.dumps(sort_dict(self.get_sales_data()))
 		# Convert the store percentages dictionary into a JSON string.
-		store_percentages = json.dumps(self.store_percentages)
+		store_percentages = json.dumps(sort_dict(self.store_percentages))
 		# Create the hash digest using the sale identity, calculated sales data, and store percentages.
 		data = f"{sale_identity}{calculated_sales_data}{store_percentages}{self.modified}"
 		# Create and return the hash digest using the crypto_tools.create_digest method.

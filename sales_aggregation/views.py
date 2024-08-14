@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -33,8 +34,10 @@ def record_sales(request):
 			successful.append(sale)
 		except Store.DoesNotExist:
 			errors.append(f"Store with icg_warehouse_code {sale.get('icg_warehouse_code')} not found.")
+		except IntegrityError:
+			errors.append(f"Already recorded sale of {sale.get('reconciled_amount')} for store '{sale.get('icg_warehouse_code')}' on {sale.get('date')}.")
 		except Exception as e:
-			errors.append(f"Error sale for store {sale.get('icg_warehouse_code')} of amount {sale.get('reconciled_amount')}: {str(e)}")
+			errors.append(f"Sale of {sale.get('reconciled_amount')} for store '{sale.get('icg_warehouse_code')}': {str(e)}")
 	
 	return APIResponse("Requests processed.", status=status.HTTP_200_OK, data={
 		'successful': successful,
@@ -73,10 +76,5 @@ def create_sale(user: object, data: dict) -> bool:
 	# Set the signature of the sale on the sale object.
 	sale.signature = data.get('signature')
 	# Try to, verify, calculate and save the sales data
-	try:
-		sale.save()
-		return True
-	except Exception as e:
-		raise e
-	
-	
+	sale.save()
+	return True

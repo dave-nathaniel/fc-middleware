@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ['20.56.133.194', 'localhost']
 
@@ -84,7 +84,7 @@ SIMPLE_JWT = {
 	'USER_ID_CLAIM': 'username',
 	'JTI_CLAIM': 'jti',
 	'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-	"TOKEN_OBTAIN_SERIALIZER": "core_service.serializers.CustomTokenObtainPairSerializer",
+	"TOKEN_OBTAIN_SERIALIZER": "core_services.serializers.CustomTokenObtainPairSerializer",
 }
 
 MIDDLEWARE = [
@@ -95,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'middleware.urls'

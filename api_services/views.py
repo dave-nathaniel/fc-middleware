@@ -1,6 +1,8 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticated
+
 from store_services.models import Store
 from .serializers.store_serializer import StoreSerializer
 
@@ -9,6 +11,7 @@ from overrides.rest_framework import APIResponse
 
 # function based view to get all stores
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_all_stores(request, *args, **kwargs):
 	queryset = Store.objects.all()
 	serializer = StoreSerializer(queryset, many=True)
@@ -20,6 +23,7 @@ def get_all_stores(request, *args, **kwargs):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def search_store(request, *args, **kwargs):
 	criteria = list(request.query_params.keys())[0]
 	value = request.query_params.get(criteria)
