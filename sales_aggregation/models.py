@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
+
 from store_services.models import Store
 from core_services.cryptography import CryptoTools
 from core_services.models import KeyStore
@@ -196,6 +198,16 @@ class Sale(models.Model):
 		# Create and return the hash digest using the crypto_tools.create_digest method.
 		return crypto_tools.create_digest(data)
 	
+	def mark_as_posted(self, ):
+		'''
+			Mark the sale as posted in the database.
+			This method should be called after the sale data has been validated and saved to the database.
+		'''
+		self.posted_to_byd = True
+		self.date_posted = timezone.now()
+		# Use the parent class's "save" method to bypass the restriction we put on self.save.
+		return super(Sale, self).save(update_fields=['posted_to_byd', 'date_posted'])
+	
 	def clean(self, ):
 		'''
 			Validate the sale data before saving it to the database.
@@ -232,8 +244,8 @@ def update_digest(sender, instance, created, **kwargs):
 	"""
 	# Calculate the new digest
 	if created:
-		instance.hash_digest = instance.generate_hash_digest().hexdigest()
 		# Recalculate the digest to include the time that the original record was created.
-		# Use update_fields to avoid triggering another post_save signal
+		instance.hash_digest = instance.generate_hash_digest().hexdigest()
+		# Use the parent class's "save" method to bypass the restriction we put on self.save.
 		return super(Sale, instance).save(update_fields=['hash_digest'])
 	return
