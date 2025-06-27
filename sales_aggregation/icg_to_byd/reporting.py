@@ -3,9 +3,7 @@ import json
 import logging
 from dotenv import load_dotenv
 import openpyxl
-from openpyxl.utils.dataframe import dataframe_to_rows
 import pandas as pd
-from decimal import Decimal
 from datetime import datetime
 from django.core.mail import EmailMessage
 
@@ -29,15 +27,16 @@ def generate_excel_report(records, file_path):
 	formatted_timestamp = datetime.now().strftime("%Y_%m_%d_%H%M%S")
 
 	# Define headers for the Excel sheet
-	headers = ["Date", "Store", "Gross Total", "Net Sales", "VAT", "Consumption Tax", "Tourism Dev. Levy", "Marketing FundProvision", "Locality Marketing Provision", "Mgmt Fee", "Mgmt Fee Share Service", "Mgmt Fee Development", "Mgmt Fee HR", "Rent", "Posted to BYD"]
+	headers = ["Sale Date", "Store", "Reconciled Gross Total", "Outstanding Gross Total", "Net Sales", "VAT", "Consumption Tax", "Tourism Dev. Levy", "Marketing Fund Provision", "Locality Marketing Provision", "Mgmt Fee", "Mgmt Fee Share Service", "Mgmt Fee Development", "Mgmt Fee HR", "Rent", "Posted to BYD"]
 	
 	data = []
 
 	for sale in records:
 		data.append([
-			sale.date,
+			sale.sale_date,
 			sale.store.store_name,
-			sale.gross_total,
+			sale.reconciled_gross_total,
+			sale.outstanding_gross_total,
 			sale.calculated_sales_data.get("net_sales", 0.00),
 			sale.calculated_sales_data.get("vat", 0.00),
 			sale.calculated_sales_data.get("consumption_tax", 0.00),
@@ -52,8 +51,6 @@ def generate_excel_report(records, file_path):
 			sale.posted_to_byd,
 		])
 
-	df = pd.DataFrame(data, columns=headers)
-
 	# Create a new Excel workbook and add the DataFrame to a new sheet
 	wb = openpyxl.Workbook()
 	ws = wb.active
@@ -67,7 +64,7 @@ def generate_excel_report(records, file_path):
 		for col_num, value in enumerate(row, 1):
 			ws.cell(row=r_idx, column=col_num, value=value)
 	
-	generated_report = f"{REPORTS_DIR}{file_path}_{formatted_timestamp}.xlsx"
+	generated_report = os.path.join(REPORTS_DIR, f"{file_path}_{formatted_timestamp}.xlsx")
 	# Save the workbook to the specified file path
 	wb.save(generated_report)
 
@@ -83,7 +80,7 @@ def send_email_report(attachment, **kwargs):
 
 		return log_file_path
 
-	date = kwargs.get('date').strftime("%d %b %Y")
+	date = datetime.now().strftime("%Y-%m-%d")
 
 	active_stores = len(kwargs.get('active_stores')) if kwargs.get('active_stores') else None
 	synced_sales = len(kwargs.get('synced_sales')) if kwargs.get('synced_sales') else None
@@ -94,16 +91,13 @@ def send_email_report(attachment, **kwargs):
 	email_from = os.getenv("EMAIL_USER")
 	email_to = json.loads(os.getenv("SALES_AGGREGATION_RESULT_EMAIL"))
 	email_subject = f"Sales Aggregation Service"
-	email_body = ""
-
-	content_subtype = 'html'
 
 	template_file = os.getenv("SALES_AGGREGATION_EMAIL_TEMPLATE")
 
 	try:
 		with open(template_file, 'r', encoding='utf-8') as template:
 			content = template.read()
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		logging.error(f"Template file not found in {template_file}")
 		return False
 	except Exception as e:
@@ -124,7 +118,7 @@ def send_email_report(attachment, **kwargs):
 
 	posting_errors_table = ""
 	for item in posting_errors:
-		posting_errors_table += f'<tr><td>{item.store_name}</td></tr>'
+		posting_errors_table += f'<tr><td>{item.store.store_name} ON {item.sale_date}</td></tr>'
 	content = content.replace("{{__FAILED_POSTING_LINE_ITEMS__}}", posting_errors_table)
 
 	email_body = content
@@ -138,7 +132,7 @@ def send_email_report(attachment, **kwargs):
 
 	logging.debug(f"{sender_name} <{email_from}>")
 
-	email.content_subtype = content_subtype
+	email.content_subtype = 'html'
 
 	attachments = [attachment, get_log_file()]
 
@@ -152,7 +146,6 @@ def send_email_report(attachment, **kwargs):
 				with open(attachment, 'rb') as f:
 					# add the file as an attachment to the email
 					email.attach(file_name, f.read())
-
 			except Exception as e:
 				logging.error(e)
 				return False

@@ -1,1 +1,9 @@
-[{"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2024-01-01", "paymentType": "CASH", "amount": "455950.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2024-01-01", "paymentType": "DEBIT CARD", "amount": "1386000.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2024-01-01", "paymentType": "CREDIT", "amount": "391200.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2024-01-01", "paymentType": "BANK TRANSFER", "amount": "11900.00"}, {"warehouseCode": "I0", "warehouseName": "LAG, ILUPEJU", "date": "2024-01-01", "paymentType": "ADVANCE PAYMENT", "amount": "24000.00"}]
+[
+	{
+		"reconciled_amount": 455950.076,
+		"outstanding_amount": 1036500.0,
+		"date": "2024-01-01",
+		"icg_warehouse_code": "I0",
+		"signature": "jHpk6GVYKEG4/nvZnxCD9q4wTkW0w7MJU3FPQZZLnwmCZJJhbSa6rywf+R8j2CN4uysfruRI9dLt43cXcO29WMJ+JjLFjmvROoQzRqRpJh4J8ZgeDp6rTOECrSp4TuYnPGS58DZMQxP/GynxCCyLY+A76VwHBNXvVp5z7SJ77zH0n4+mGzImEBpmCwdqQ5NoM9IVPhjeyl4BRYRV4ZJKSODajb6YSKJYfkLRgmnfeKVgGEA5+WQI7M34zLj+kVtUEdMrUv/Rezncrk7ds+Q+zK0TRk9lRFjjVMmsOnQeDYPOSiqAYLWc3g/xRMZn/xz08tuqAyig5bf5Vv1T3nrAxQ=="
+	}
+]
