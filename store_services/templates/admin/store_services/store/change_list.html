@@ -1,0 +1,17 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+
+{# Add Upload & Download buttons next to the standard “Add” button #}
+{% block object-tools %}
+    {{ block.super }}
+    <div style="border-top: 1px solid #e0e0e0; display: flex; flex-direction: column; gap: 0.5em; align-items: center;">
+        <a href="{% url opts|admin_urlname:'upload_excel' %}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" id="upload-excel-btn" style="width: 100%;">
+            <i class="fa fa-upload"></i>
+            {% trans 'Upload Config' %}
+        </a>
+        <a href="{% url opts|admin_urlname:'download_config' %}" class="btn btn-sm btn-primary" id="download-config-btn" style="width: 100%;">
+            <i class="fa fa-download"></i>
+            {% trans 'Download Config' %}
+        </a>
+    </div>
+{% endblock %} 

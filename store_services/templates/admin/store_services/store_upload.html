@@ -1,0 +1,95 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% load i18n %}
+
+{% block content %}
+<style>
+	.modern-card {
+        background: #fff;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1.5px 4px rgba(0,0,0,0.03);
+        padding: 2.5rem 2rem 2rem 2rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+</style>
+<div class="flex flex-col lg:flex-row lg:gap-8">
+	<div class="flex-grow">
+		<!-- Elevated Card Form -->
+		<div class="modern-card">
+			<form id="store-upload-form" method="post" enctype="multipart/form-data" autocomplete="off">
+				{% csrf_token %}
+				<fieldset class="module border-0 p-0">
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+						<div class="flex flex-col">
+							<label class="block font-semibold mb-2 text-sm">Excel File (.xlsx) <span class="text-red-600">*</span></label>
+							<input type="file" name="excel_file" accept=".xlsx,.xls" required class="border rounded px-3 py-2" title="Upload Excel file" placeholder="Choose file">
+						</div>
+						<div class="flex flex-col">
+							<label class="inline-flex items-center mt-4">
+								<input type="checkbox" name="update_existing" class="mr-2">
+								<span>Update Existing Records</span>
+							</label>
+							<span class="text-xs text-gray-500">Leave unchecked to only add new stores.</span>
+						</div>
+					</div>
+				</fieldset>
+				<div class="d-flex justify-content-end mt-4">
+					<button type="submit" class="btn btn-primary">Upload</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#store-upload-form').on('submit', function(e){
+            e.preventDefault();
+            if($('input[name="update_existing"]').is(':checked')){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    html: '<p>The system will <b>add</b> new stores AND <span class="text-red">irreversibly</span> <b>update</b> the existing ones. <br /><br />To be safe, you can <a href="{% url "admin:store_services_store_download_config" %}" id="download-config-btn">download the current config</a>.</p>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'I understand, proceed with upload',
+                    cancelButtonText: 'Cancel',
+                }).then((result) => {
+                    if(result.isConfirmed){
+                            Swal.fire({
+                            title: 'Uploading...',
+                            html: '<div class="text-center"><div class="spinner-border" role="status"></div></div><br />Please wait while the system processes the upload.',
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                        });
+                        var formData = new FormData(this);
+                        $.ajax({
+                            url: '',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(resp){
+                                if(resp.success){
+                                    Swal.fire('Success', resp.message, 'success').then(()=>window.location.href = '../../');
+                                }else{
+                                    let msg = resp.message || 'Completed with errors';
+                                    if(resp.errors){ msg += "\n" + resp.errors.join("\n"); }
+                                    Swal.fire('Info', msg, 'warning');
+                                }
+                            },
+                            error: function(){
+                                Swal.fire('Error', 'Upload failed. Please check the file and try again.', 'error');
+                            }
+                        });
+                    } else {    
+                        return;
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %} 
