@@ -22,7 +22,12 @@ class SOAPServices:
         self.soap_client = None
 
     def connect(self, ):
-        transport = Transport(timeout=5, operation_timeout=3)
+        transport_timeout = int(os.getenv('SAP_TRANSPORT_TIMEOUT'))
+        operation_timeout = int(os.getenv('SAP_OPERATION_TIMEOUT'))
+        transport = Transport(
+            timeout=transport_timeout, 
+            operation_timeout=operation_timeout
+        )
         client = Client(self.wsdl_path, transport=transport)
         client.transport.session.auth = HTTPBasicAuth(self.username, self.password)
 
