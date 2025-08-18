@@ -174,9 +174,10 @@ def format_and_post(date, store, calculated_sales_data, **kwargs):
 		logging.info(f"Preparing ledger entry for mgmt_fee")
 		mgmt_fee_entries = [
 			create_posting_data("d", store.byd_cost_center_code, mgmt_fee_gl, calculated_sales_data['mgmt_fee']),
-			create_posting_data("c", "7000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_share_service']),
-			create_posting_data("c", "6000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_development']),
-			create_posting_data("c", "3000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_hr']),
+			create_posting_data("c", "4000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee']),
+			# create_posting_data("c", "7000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_share_service']),
+			# create_posting_data("c", "6000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_development']),
+			# create_posting_data("c", "3000000", mgmt_fee_gl, calculated_sales_data['mgmt_fee_hr']),
 		]
 		ledger_entries.append(mgmt_fee_entries)
 

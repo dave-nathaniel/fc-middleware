@@ -23,7 +23,7 @@ class LedgerAccount(models.Model):
 		return self.name
 
 
-to_float = lambda x: round(float(sjson.dumps(x)),2)# Lamda function to convert JSON to float
+to_float = lambda x: round(float(sjson.dumps(x)),5)# Lamda function to convert JSON to float
 
 class Sale(models.Model):
 	'''
@@ -129,8 +129,13 @@ class Sale(models.Model):
 		marketing_fund_provision = to_float(self.store.marketing_fund_provision)
 		locality_marketing_provision = to_float(self.store.locality_marketing_provision)
 		# Calculate the marketing fund provision and add it to the calculated sales data.
-		calculated_sales_data["marketing_fund_provision"] = net_sales * marketing_fund_provision
-		calculated_sales_data["locality_marketing_provision"] = net_sales * locality_marketing_provision
+		marketing_fund_provision_total = net_sales * marketing_fund_provision
+		calculated_sales_data["marketing_fund_provision_total"] = marketing_fund_provision_total
+
+		calc_locality_marketing_provision = net_sales * locality_marketing_provision
+		calculated_sales_data["locality_marketing_provision"] = calc_locality_marketing_provision
+
+		calculated_sales_data["marketing_fund_provision"] = marketing_fund_provision_total - calc_locality_marketing_provision
 		
 		'''Management fee is calculated based on the net sale amount.'''
 		# Convert from decimal to float for calculation.
