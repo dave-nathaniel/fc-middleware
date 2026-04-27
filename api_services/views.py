@@ -61,7 +61,7 @@ def search_store(request, *args, **kwargs):
 				f"Unknown search field: '{provided_params[0]}'.",
 				status.HTTP_400_BAD_REQUEST,
 			)
-		return APIResponse('Store retrieved.', status.HTTP_200_OK, data=StoreSerializer(store).data)
+		return APIResponse('Store retrieved.', status.HTTP_200_OK, data=[StoreSerializer(store).data])
 
 	# .filter() is lazy, so FieldError surfaces when the queryset is materialized.
 	try:
