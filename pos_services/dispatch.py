@@ -60,69 +60,10 @@ def _quantity(node):
 	return float(node.get("Quantity") or 0), node.get("UnitCode") or node.get("unitCode") or ""
 
 
-def dispatches_for_sales_order(so_id, client):
-	"""Creates the invoices for outbound deliveries of one ByD sales order. Returns new Dispatches."""
-	links = list(
-		PurchaseOrderLink.objects.filter(document_type=PurchaseOrderLink.SALES_ORDER, document_id=so_id, open=True)
-		.select_related("purchase_order__store").order_by("purchase_order__po_number")
-	)
-	if not links:
-		return []
-
-	created = []
-	for delivery_ref in client.get_sales_order_outbound_deliveries(so_id):
-		delivery_id = str(delivery_ref["ID"])
-		if Dispatch.objects.filter(source_type=Dispatch.OUTBOUND_DELIVERY, source_id=delivery_id).exists():
-			continue
-		delivery = client.get_outbound_delivery(delivery_ref["ObjectID"])
-		if not delivery:
-			continue
-
-		# Quantity shipped per item on this delivery.
-		shipped, units, names = defaultdict(float), {}, {}
-		for item in delivery["Item"]:
-			quantity, unit = _quantity(item.get("ItemDeliveryQuantity"))
-			shipped[item["ProductID"]] += quantity
-			units[item["ProductID"]] = unit
-			names[item["ProductID"]] = item.get("Description") or item["ProductID"]
-		sender = (delivery.get("ShipFromLocation") or {}).get("LocationID") or ""
-
-		# Several POS POs can share one sales order (SRP groups a store's requests per
-		# supplier). Allocate what was shipped to them in PO order, up to what each
-		# still has outstanding on this sales order.
-		with transaction.atomic():
-			for link in links:
-				po = link.purchase_order
-				lines = []
-				for ordered in link.lines:
-					code = ordered["itemCode"]
-					outstanding = ordered["quantity"] - _already_dispatched(po, code)
-					allocated = min(shipped.get(code, 0), max(outstanding, 0))
-					if allocated <= 0:
-						continue
-					shipped[code] -= allocated
-					lines.append({"code": code, "name": names.get(code, code), "quantity": allocated, "unit_price": 0})
-				if not lines:
-					continue
-				invoice_no = f"{delivery_id}-{po.po_number}"
-				invoice_date = timezone.now()
-				created.append(Dispatch.objects.create(
-					purchase_order=po,
-					invoice_no=invoice_no,
-					invoice_date=invoice_date,
-					source_type=Dispatch.OUTBOUND_DELIVERY,
-					source_id=delivery_id,
-					byd_context={
-						"sender_party_id": sender,
-						"items": {line["code"]: {"unit_code": units.get(line["code"], "")} for line in lines},
-					},
-					payload=_invoice_payload(po, invoice_no, invoice_date, lines),
-				))
-			for link in links:
-				if all(_already_dispatched(link.purchase_order, l["itemCode"]) >= l["quantity"] for l in link.lines):
-					link.open = False
-					link.save(update_fields=["open"])
-	return created
+def _ordered(link, po):
+	"""Quantity per item that went into the linked ByD document (the POS PO when entered manually)."""
+	lines = link.lines or [{"itemCode": item["itemCode"], "quantity": item["quantity"]} for item in po.items]
+	return [(line["itemCode"], float(line["quantity"])) for line in lines]
 
 
 def _already_dispatched(po, code):
@@ -134,68 +75,160 @@ def _already_dispatched(po, code):
 	)
 
 
-def dispatch_for_purchase_order(link, client):
-	"""Creates the invoice for a ByD purchase order once it has been issued."""
-	byd_po = client.get_purchase_order(link.document_id)
-	if not byd_po or str(byd_po.get("LifeCycleStatusCode")) not in PO_ISSUED_STATUSES:
-		return None
+def _allocate(links, available, describe):
+	"""
+		Splits what a ByD document holds across the POS POs linked to it, in PO order,
+		up to what each still has outstanding. `available` is {item_code: quantity}
+		and is reduced in place. Returns [(link, [line, ...])].
+	"""
+	allocations = []
+	for link in links:
+		po = link.purchase_order
+		lines = []
+		for code, ordered in _ordered(link, po):
+			outstanding = ordered - _already_dispatched(po, code)
+			allocated = min(available.get(code, 0), max(outstanding, 0))
+			if allocated <= 0:
+				continue
+			available[code] -= allocated
+			lines.append({"code": code, **describe(code), "quantity": allocated})
+		if lines:
+			allocations.append((link, lines))
+	return allocations
 
-	po = link.purchase_order
-	wanted = {item["itemCode"] for item in po.items}
-	lines, items_context = [], {}
+
+def _close_fulfilled(links):
+	for link in links:
+		po = link.purchase_order
+		if all(_already_dispatched(po, code) >= quantity for code, quantity in _ordered(link, po)):
+			link.open = False
+			link.save(update_fields=["open"])
+
+
+def _open_links(document_type, document_id):
+	return list(
+		PurchaseOrderLink.objects.filter(document_type=document_type, document_id=document_id, open=True)
+		.select_related("purchase_order__store").order_by("purchase_order__po_number", "purchase_order__pk")
+	)
+
+
+def _shipped(delivery):
+	"""False for deliveries that are cancelled or not yet released (goods not issued)."""
+	if str(delivery.get("CancellationStatusCode", "")) == "4":
+		return False
+	release = delivery.get("ReleaseStatusCode")
+	return release is None or str(release) == "3"
+
+
+def dispatches_for_sales_order(so_id, client):
+	"""Creates the invoices for outbound deliveries of one ByD sales order. Returns new Dispatches."""
+	links = _open_links(PurchaseOrderLink.SALES_ORDER, so_id)
+	if not links:
+		return []
+
+	created = []
+	for delivery_ref in client.get_sales_order_outbound_deliveries(so_id):
+		delivery_id = str(delivery_ref["ID"])
+		if Dispatch.objects.filter(source_type=Dispatch.OUTBOUND_DELIVERY, source_id=delivery_id).exists():
+			continue
+		delivery = client.get_outbound_delivery(delivery_ref["ObjectID"])
+		if not delivery or not _shipped(delivery):
+			continue
+
+		available, units, names = defaultdict(float), {}, {}
+		for item in delivery["Item"]:
+			quantity, unit = _quantity(item.get("ItemDeliveryQuantity"))
+			available[item["ProductID"]] += quantity
+			units[item["ProductID"]] = unit
+			names[item["ProductID"]] = item.get("Description") or item["ProductID"]
+		sender = (delivery.get("ShipFromLocation") or {}).get("LocationID") or ""
+		describe = lambda code: {"name": names.get(code, code), "unit_price": 0}
+
+		with transaction.atomic():
+			for link, lines in _allocate(links, available, describe):
+				po = link.purchase_order
+				created.append(_create_dispatch(
+					po, f"{delivery_id}-{po.store.pos_store_id}-{po.po_number}", Dispatch.OUTBOUND_DELIVERY, delivery_id,
+					{"sender_party_id": sender, "items": {line["code"]: {"unit_code": units.get(line["code"], "")} for line in lines}},
+					lines,
+				))
+			_close_fulfilled(links)
+	return created
+
+
+def dispatches_for_purchase_order(byd_po_id, client):
+	"""Creates the invoices for a ByD purchase order once it has been issued, split across its POS POs."""
+	links = _open_links(PurchaseOrderLink.PURCHASE_ORDER, byd_po_id)
+	if not links:
+		return []
+	byd_po = client.get_purchase_order(byd_po_id)
+	if not byd_po or str(byd_po.get("LifeCycleStatusCode")) not in PO_ISSUED_STATUSES:
+		return []
+
+	available, details = defaultdict(float), {}
 	for item in byd_po["Item"]:
 		code = item.get("ProductID")
-		if code not in wanted:
+		if not code or str(item.get("CancellationStatusCode", "")) == "4":
 			continue
-		quantity = float(item.get("Quantity") or 0)
-		unit_price = float(item.get("ListUnitPriceAmount") or 0)
-		lines.append({"code": code, "name": item.get("Description") or code, "quantity": quantity, "unit_price": unit_price})
-		items_context[code] = {
-			"unit_code": item.get("QuantityUnitCode", ""),
-			"po_item_id": str(item.get("ID")),
-			"po_item_type_code": str(item.get("ItemTypeCode")),
-		}
-	if not lines:
-		logger.warning(f"ByD PO {link.document_id} has none of the items of POS PO {po}.")
-		return None
-
-	invoice_no = f"PO{link.document_id}-{po.po_number}"
-	invoice_date = timezone.now()
-	with transaction.atomic():
-		dispatch = Dispatch.objects.create(
-			purchase_order=po,
-			invoice_no=invoice_no,
-			invoice_date=invoice_date,
-			source_type=Dispatch.PURCHASE_ORDER,
-			source_id=str(link.document_id),
-			byd_context={
-				"sender_party_id": (byd_po.get("Supplier") or {}).get("PartyID", ""),
-				"items": items_context,
+		available[code] += float(item.get("Quantity") or 0)
+		details[code] = {
+			"name": item.get("Description") or code,
+			"unit_price": float(item.get("ListUnitPriceAmount") or 0),
+			"context": {
+				"unit_code": item.get("QuantityUnitCode", ""),
+				"po_item_id": str(item.get("ID")),
+				"po_item_type_code": str(item.get("ItemTypeCode")),
 			},
-			payload=_invoice_payload(po, invoice_no, invoice_date, lines),
-		)
-		link.open = False
-		link.save(update_fields=["open"])
-	return dispatch
+		}
+	describe = lambda code: {"name": details[code]["name"], "unit_price": details[code]["unit_price"]}
+	sender = (byd_po.get("Supplier") or {}).get("PartyID", "")
+
+	created = []
+	with transaction.atomic():
+		for link, lines in _allocate(links, available, describe):
+			po = link.purchase_order
+			created.append(_create_dispatch(
+				po, f"PO{byd_po_id}-{po.store.pos_store_id}-{po.po_number}", Dispatch.PURCHASE_ORDER, str(byd_po_id),
+				{"sender_party_id": sender, "items": {line["code"]: details[line["code"]]["context"] for line in lines}},
+				lines,
+			))
+		# One issued ByD PO is invoiced once; later changes need a new POS PO (Restroworks cannot amend).
+		for link in links:
+			link.open = False
+			link.save(update_fields=["open"])
+	if not created:
+		logger.warning(f"ByD PO {byd_po_id} has none of the items of its linked POS purchase orders.")
+	return created
+
+
+def _create_dispatch(po, invoice_no, source_type, source_id, byd_context, lines):
+	invoice_date = timezone.now()
+	return Dispatch.objects.create(
+		purchase_order=po,
+		invoice_no=invoice_no,
+		invoice_date=invoice_date,
+		source_type=source_type,
+		source_id=source_id,
+		byd_context=byd_context,
+		payload=_invoice_payload(po, invoice_no, invoice_date, lines),
+	)
 
 
 def build_dispatches(client=None):
 	"""Checks every open link against ByD and creates the invoices that are now due."""
 	client = client or ByDClient()
 	created = []
-	open_links = PurchaseOrderLink.objects.filter(open=True).select_related("purchase_order__store")
-	for so_id in set(open_links.filter(document_type=PurchaseOrderLink.SALES_ORDER).values_list("document_id", flat=True)):
-		try:
-			created += dispatches_for_sales_order(so_id, client)
-		except Exception as e:
-			logger.error(f"Could not build dispatches for ByD sales order {so_id}: {e}")
-	for link in open_links.filter(document_type=PurchaseOrderLink.PURCHASE_ORDER):
-		try:
-			dispatch = dispatch_for_purchase_order(link, client)
-			if dispatch:
-				created.append(dispatch)
-		except Exception as e:
-			logger.error(f"Could not build dispatch for ByD purchase order {link.document_id}: {e}")
+	open_links = PurchaseOrderLink.objects.filter(open=True)
+	builders = {
+		PurchaseOrderLink.SALES_ORDER: dispatches_for_sales_order,
+		PurchaseOrderLink.PURCHASE_ORDER: dispatches_for_purchase_order,
+	}
+	for document_type, build in builders.items():
+		for document_id in set(open_links.filter(document_type=document_type).values_list("document_id", flat=True)):
+			try:
+				created += build(document_id, client)
+			except Exception as e:
+				logger.error(f"Could not build invoices for ByD {document_type} {document_id}: {e}")
 	return created
 
 

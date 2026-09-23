@@ -11,7 +11,7 @@ import logging
 from collections import defaultdict
 from zoneinfo import ZoneInfo
 
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.utils import timezone
 
 from store_services.models import Store
@@ -41,14 +41,30 @@ def _unknown_store(store_id):
 
 def _queue(txn):
 	# Imported here so the models/services can be used without Celery configured (e.g. in the shell).
+	# robust=True: if the broker is down the document is still accepted; the periodic
+	# requeue task picks up anything left queued.
 	from .tasks import post_transaction
-	transaction.on_commit(lambda: post_transaction.delay(txn.pk))
+	transaction.on_commit(lambda: post_transaction.delay(txn.pk), robust=True)
+
+
+def _create_once(model, lookup, **fields):
+	"""
+		Creates the record, or returns None when an identical push created it first
+		(two requests racing past the duplicate check). Other integrity errors propagate.
+	"""
+	try:
+		with transaction.atomic():
+			return model.objects.create(**lookup, **fields)
+	except IntegrityError:
+		if model.objects.filter(**lookup).exists():
+			return None
+		raise
 
 
 # ----------------------------------------------------------------------------
 # POS -> middleware
 # ----------------------------------------------------------------------------
-def receive_purchase_order(data, payload):
+def receive_purchase_order(data, payload, clean):
 	store = _store(data["storeId"])
 	if not store:
 		return _unknown_store(data["storeId"])
@@ -66,8 +82,8 @@ def receive_purchase_order(data, payload):
 		return True, None, {"TotalCasesMessage": _total(existing.items)}
 
 	vendor_code = str(data["vendor"]["code"])
-	PurchaseOrder.objects.create(
-		po_id=data["poId"],
+	_create_once(
+		PurchaseOrder, {"po_id": data["poId"]},
 		prefix=data.get("prefix", ""),
 		po_number=data["poNumber"],
 		store=store,
@@ -88,7 +104,18 @@ def _total(items):
 	return int(total) if total.is_integer() else round(total, 4)
 
 
-def receive_grn(data, payload):
+def _receive_transaction(kind, store, reference, clean, payload, **fields):
+	with transaction.atomic():
+		txn = _create_once(
+			InventoryTransaction, {"kind": kind, "store": store, "reference": reference},
+			data=clean, payload=payload, **fields,
+		)
+		if txn:
+			_queue(txn)
+	return True, None, {}
+
+
+def receive_grn(data, payload, clean):
 	store = _store(data["storeId"])
 	if not store:
 		return _unknown_store(data["storeId"])
@@ -102,25 +129,17 @@ def receive_grn(data, payload):
 		return False, f"Unknown invoiceNo '{data['invoiceNo']}' for this store. GRNs must reference an invoice sent by the middleware.", {}
 
 	dispatched_codes = {item["code"] for item in dispatch.payload["items"]}
-	unknown = [item["itemCode"] for item in data["items"] if item["itemCode"] not in dispatched_codes]
+	unknown = [item["itemCode"] for item in clean["items"] if item["itemCode"] not in dispatched_codes]
 	if unknown:
 		return False, f"Item(s) not on invoice {dispatch.invoice_no}: {', '.join(unknown)}.", {}
 
-	with transaction.atomic():
-		txn = InventoryTransaction.objects.create(
-			kind=InventoryTransaction.GRN,
-			store=store,
-			reference=reference,
-			transaction_date=data["transactionDate"],
-			dispatch=dispatch,
-			purchase_order=dispatch.purchase_order,
-			payload=payload,
-		)
-		_queue(txn)
-	return True, None, {}
+	return _receive_transaction(
+		InventoryTransaction.GRN, store, reference, clean, payload,
+		transaction_date=data["transactionDate"], dispatch=dispatch, purchase_order=dispatch.purchase_order,
+	)
 
 
-def receive_vendor_return(data, payload):
+def receive_vendor_return(data, payload, clean):
 	store = _store(data["storeId"])
 	if not store:
 		return _unknown_store(data["storeId"])
@@ -135,26 +154,19 @@ def receive_vendor_return(data, payload):
 
 	received = InventoryTransaction.objects.filter(
 		kind=InventoryTransaction.GRN, purchase_order=po, status=InventoryTransaction.POSTED
-	).select_related("dispatch")
-	received_codes = {item["itemCode"] for txn in received for item in txn.payload["items"]}
-	unknown = [item["code"] for item in data["items"] if item["code"] not in received_codes]
+	)
+	received_codes = {item["itemCode"] for txn in received for item in txn.data["items"]}
+	unknown = [item["code"] for item in clean["items"] if item["code"] not in received_codes]
 	if unknown:
-		return False, f"Item(s) never received against this purchase order: {', '.join(unknown)}.", {}
+		return False, f"Item(s) not yet received and posted against this purchase order: {', '.join(unknown)}.", {}
 
-	with transaction.atomic():
-		txn = InventoryTransaction.objects.create(
-			kind=InventoryTransaction.VENDOR_RETURN,
-			store=store,
-			reference=reference,
-			transaction_date=data.get("returnDate") or timezone.now(),
-			purchase_order=po,
-			payload=payload,
-		)
-		_queue(txn)
-	return True, None, {}
+	return _receive_transaction(
+		InventoryTransaction.VENDOR_RETURN, store, reference, clean, payload,
+		transaction_date=data.get("returnDate") or timezone.now(), purchase_order=po,
+	)
 
 
-def receive_wastage(data, payload):
+def receive_wastage(data, payload, clean):
 	store = _store(data["storeId"])
 	if not store:
 		return _unknown_store(data["storeId"])
@@ -163,16 +175,9 @@ def receive_wastage(data, payload):
 	if InventoryTransaction.objects.filter(kind=InventoryTransaction.WASTAGE, store=store, reference=reference).exists():
 		return True, None, {}
 
-	with transaction.atomic():
-		txn = InventoryTransaction.objects.create(
-			kind=InventoryTransaction.WASTAGE,
-			store=store,
-			reference=reference,
-			transaction_date=data["wastageDate"],
-			payload=payload,
-		)
-		_queue(txn)
-	return True, None, {}
+	return _receive_transaction(
+		InventoryTransaction.WASTAGE, store, reference, clean, payload, transaction_date=data["wastageDate"],
+	)
 
 
 # ----------------------------------------------------------------------------

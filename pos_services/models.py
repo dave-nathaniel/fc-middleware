@@ -97,6 +97,7 @@ class Dispatch(models.Model):
 	attempts = models.PositiveIntegerField(default=0)
 	sent_at = models.DateTimeField(null=True, blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 
 	class Meta:
 		ordering = ["-created_at"]
@@ -112,8 +113,13 @@ class InventoryTransaction(models.Model):
 	GRN, VENDOR_RETURN, WASTAGE = "grn", "vendor_return", "wastage"
 	KIND_CHOICES = [(GRN, "Goods received (GRN)"), (VENDOR_RETURN, "Return to vendor"), (WASTAGE, "Wastage")]
 
-	QUEUED, POSTED, FAILED = "queued", "posted", "failed"
-	STATUS_CHOICES = [(QUEUED, "Queued"), (POSTED, "Posted to ByD"), (FAILED, "Failed")]
+	QUEUED, POSTING, POSTED, FAILED = "queued", "posting", "posted", "failed"
+	STATUS_CHOICES = [
+		(QUEUED, "Queued (or waiting to retry)"),
+		(POSTING, "Posting now"),
+		(POSTED, "Posted to ByD"),
+		(FAILED, "Failed, needs attention"),
+	]
 
 	kind = models.CharField(max_length=20, choices=KIND_CHOICES)
 	store = models.ForeignKey(Store, on_delete=models.PROTECT, related_name="pos_transactions")
@@ -122,12 +128,14 @@ class InventoryTransaction(models.Model):
 	dispatch = models.ForeignKey(Dispatch, null=True, blank=True, on_delete=models.PROTECT, related_name="transactions")
 	purchase_order = models.ForeignKey(PurchaseOrder, null=True, blank=True, on_delete=models.PROTECT, related_name="transactions")
 	payload = models.JSONField(help_text="The request exactly as received.")
+	data = models.JSONField(help_text="The validated request (codes as text, quantities as decimal strings). Posting reads this.")
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=QUEUED)
 	byd_document_id = models.CharField(max_length=64, blank=True, help_text="ID of the ByD document we create (idempotency key).")
 	byd_object_id = models.CharField(max_length=64, blank=True)
 	error = models.TextField(blank=True)
 	attempts = models.PositiveIntegerField(default=0)
 	received_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 	posted_at = models.DateTimeField(null=True, blank=True)
 
 	class Meta:

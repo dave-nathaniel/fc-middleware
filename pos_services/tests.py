@@ -7,8 +7,13 @@ Run with (CELERY_TASK_ALWAYS_EAGER makes queued tasks run inline):
 import os
 from unittest import mock
 
+from datetime import timedelta
+
+import requests
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.test import TestCase
+from django.utils import timezone
 from rest_framework.test import APIClient
 
 from store_services.models import Store
@@ -86,8 +91,13 @@ class PosIntegrationTests(TestCase):
 
 	def setUp(self):
 		self.user = User.objects.create_user(username="restroworks", password="secret")
+		self.user.groups.add(Group.objects.create(name="restroworks"))
+		self.srp_user = User.objects.create_user(username="srp", password="srp-secret")
+		self.srp_user.groups.add(Group.objects.create(name="store_requisition"))
 		self.client = APIClient()
 		self.client.credentials(HTTP_AUTHORIZATION="Basic cmVzdHJvd29ya3M6c2VjcmV0")  # restroworks:secret
+		self.srp = APIClient()
+		self.srp.force_authenticate(self.srp_user)
 		self.store = Store.objects.create(
 			store_name="CR Adeniran", icg_warehouse_name="ADENIRAN", icg_warehouse_code="W101",
 			byd_cost_center_code="4100003-17", pos_store_id="3727",
@@ -156,7 +166,7 @@ class PosIntegrationTests(TestCase):
 	def test_srp_feed_matches_icg_shape(self):
 		self.push_po()
 		po = PurchaseOrder.objects.get()
-		token = self.client.post("/srp-feed/token", {"grant_type": "password", "username": "restroworks", "password": "secret"})
+		token = self.client.post("/srp-feed/token", {"grant_type": "password", "username": "srp", "password": "srp-secret"})
 		self.assertEqual(token.status_code, 200)
 		feed_client = APIClient()
 		feed_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.json()['access_token']}")
@@ -170,13 +180,24 @@ class PosIntegrationTests(TestCase):
 		self.assertEqual(line["warehouse"], "W101")
 		self.assertFalse(line["is_declined"])
 
-	def test_bad_feed_credentials_rejected(self):
-		response = self.client.post("/srp-feed/token", {"grant_type": "password", "username": "restroworks", "password": "nope"})
-		self.assertEqual(response.status_code, 400)
+	def test_feed_token_is_limited_to_srp_and_to_the_feed(self):
+		# Wrong password, and a valid user outside the SRP group, both get no token.
+		self.assertEqual(self.client.post("/srp-feed/token", {"grant_type": "password", "username": "srp", "password": "nope"}).status_code, 400)
+		self.assertEqual(self.client.post("/srp-feed/token", {"grant_type": "password", "username": "restroworks", "password": "secret"}).status_code, 400)
+		token = self.client.post("/srp-feed/token", {"grant_type": "password", "username": "srp", "password": "srp-secret"}).json()["access_token"]
+		other = APIClient()
+		other.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+		self.assertEqual(other.get("/api/v1/stores").status_code, 401)
+
+	def test_endpoints_are_limited_to_their_caller(self):
+		# Restroworks cannot link documents; SRP cannot push POS documents.
+		response = self.client.post("/api/v1/pos/purchase-orders/link", {}, format="json")
+		self.assertEqual(response.status_code, 403)
+		self.assertEqual(self.srp.post("/api/v1/pos/purchase-orders", PO_PAYLOAD, format="json").status_code, 403)
 
 	def test_link_from_srp(self):
 		self.push_po()
-		response = self.client.post("/api/v1/pos/purchase-orders/link", {
+		response = self.srp.post("/api/v1/pos/purchase-orders/link", {
 			"document_type": "sales_order", "document_id": "5001",
 			"lines": [
 				{"warehouse": "W101", "series": "BP/O1-19-20/", "orderID": 158, "reference": "10047", "quantity": 10},
@@ -199,7 +220,7 @@ class PosIntegrationTests(TestCase):
 		self.assertEqual(len(created), 2)
 		first_invoice = Dispatch.objects.get(purchase_order=first)
 		second_invoice = Dispatch.objects.get(purchase_order=second)
-		self.assertEqual(first_invoice.invoice_no, "81-158")
+		self.assertEqual(first_invoice.invoice_no, "81-3727-158")
 		self.assertEqual({i["code"]: i["quantity"] for i in first_invoice.payload["items"]}, {"10047": 10, "10048": 10})
 		# 15 corn oil shipped: 10 to the first PO, 5 left for the second; no ketchup left.
 		self.assertEqual({i["code"]: i["quantity"] for i in second_invoice.payload["items"]}, {"10047": 5})
@@ -212,7 +233,7 @@ class PosIntegrationTests(TestCase):
 	def test_issued_purchase_order_becomes_invoice_with_final_quantities(self):
 		po = self.linked_po("purchase_order", "7001")
 		[invoice] = dispatching.build_dispatches(client=FakeByD())
-		self.assertEqual(invoice.invoice_no, "PO7001-158")
+		self.assertEqual(invoice.invoice_no, "PO7001-3727-158")
 		self.assertEqual(invoice.payload["poId"], po.po_id)
 		corn = next(i for i in invoice.payload["items"] if i["code"] == "10047")
 		self.assertEqual((corn["quantity"], corn["unitPrice"], corn["subTotal"]), (8.0, 25000.0, 200000.0))
@@ -333,7 +354,7 @@ class PosIntegrationTests(TestCase):
 		payload["wastageNumber"] = "42"
 		self.assertIn("reasonCode", self.push("wastage", payload)["Reason"])
 
-	def test_byd_failure_is_recorded(self):
+	def test_byd_failure_keeps_record_queued_for_retry(self):
 		self.linked_po("purchase_order", "7001")
 		[invoice] = dispatching.build_dispatches(client=FakeByD())
 		byd = FakeByD()
@@ -350,9 +371,89 @@ class PosIntegrationTests(TestCase):
 				except RuntimeError:
 					pass
 		txn = InventoryTransaction.objects.get(kind=InventoryTransaction.GRN)
-		self.assertEqual(txn.status, InventoryTransaction.FAILED)
+		self.assertEqual(txn.status, InventoryTransaction.QUEUED)
 		self.assertIn("locked", txn.error)
 		self.assertEqual(txn.attempts, 1)
+
+	def test_grn_already_posted_in_byd_is_not_posted_again(self):
+		self.linked_po("purchase_order", "7001")
+		[invoice] = dispatching.build_dispatches(client=FakeByD())
+		byd = FakeByD(existing_delivery={"ObjectID": "DONE", "ReleaseStatusCode": "3"})
+		with mock.patch("pos_services.posting.ByDClient", return_value=byd), self.captureOnCommitCallbacks(execute=True):
+			self.push("grns", self.grn_payload(invoice.invoice_no))
+		self.assertEqual((byd.created, byd.posted), ([], []))
+		self.assertEqual(InventoryTransaction.objects.get().status, InventoryTransaction.POSTED)
+
+	def test_numeric_item_codes_are_treated_as_text(self):
+		self.linked_po("purchase_order", "7001")
+		[invoice] = dispatching.build_dispatches(client=FakeByD())
+		payload = self.grn_payload(invoice.invoice_no)
+		payload["items"][0]["itemCode"] = 10047
+		byd = FakeByD()
+		with mock.patch("pos_services.posting.ByDClient", return_value=byd), self.captureOnCommitCallbacks(execute=True):
+			self.assertEqual(self.push("grns", payload), {"Status": "Success"})
+		self.assertEqual(InventoryTransaction.objects.get().status, InventoryTransaction.POSTED)
+		self.assertEqual(byd.created[0]["Item"][0]["ProductID"], "10047")
+
+	def test_one_byd_po_for_several_stores_is_split(self):
+		other = Store.objects.create(
+			store_name="CR Allen", icg_warehouse_name="ALLEN", icg_warehouse_code="W202",
+			byd_cost_center_code="4100003-18", pos_store_id="4000",
+		)
+		first = self.linked_po("purchase_order", "7001")
+		second = self.linked_po("purchase_order", "7001", storeId="4000", poId="other-store")
+		for po in (first, second):
+			link = po.links.get()
+			link.lines = [{"itemCode": "10047", "quantity": 4}]
+			link.save()
+		invoices = dispatching.build_dispatches(client=FakeByD())
+		self.assertEqual(sorted(i.invoice_no for i in invoices), ["PO7001-3727-158", "PO7001-4000-158"])
+		for invoice in invoices:
+			self.assertEqual([(i["code"], i["quantity"]) for i in invoice.payload["items"]], [("10047", 4.0)])
+		self.assertEqual(second.store, other)
+
+	def test_unreleased_or_cancelled_delivery_is_not_invoiced(self):
+		self.linked_po("sales_order", "5001", vendor={"code": "178"})
+		byd = FakeByD()
+		original = byd.get_outbound_delivery
+		byd.get_outbound_delivery = lambda object_id: {**original(object_id), "ReleaseStatusCode": "1"}
+		self.assertEqual(dispatching.build_dispatches(client=byd), [])
+		byd.get_outbound_delivery = lambda object_id: {**original(object_id), "CancellationStatusCode": "4"}
+		self.assertEqual(dispatching.build_dispatches(client=byd), [])
+
+	@mock.patch("pos_services.posting.goods_movement.post_consumption_for_cost_center", side_effect=requests.exceptions.ReadTimeout())
+	def test_wastage_with_unknown_outcome_waits_for_a_person(self, consume):
+		payload = {
+			"storeId": "3727", "wastageNumber": "43", "wastageDate": "2026-09-30T05:00:00Z", "recordedBy": "sm",
+			"items": [{"itemCode": "RM1", "quantity": 1, "unitCode": "KGM", "reasonCode": "EXP"}],
+		}
+		with self.captureOnCommitCallbacks(execute=True):
+			self.push("wastage", payload)
+		txn = InventoryTransaction.objects.get()
+		self.assertEqual(txn.status, InventoryTransaction.FAILED)
+		self.assertIn("Check ByD", txn.error)
+		self.assertEqual(consume.call_count, 1)
+
+	def test_stale_records_are_requeued(self):
+		from .tasks import requeue_stale
+		self.linked_po("purchase_order", "7001")
+		[invoice] = dispatching.build_dispatches(client=FakeByD())
+		# The broker was down when the GRN arrived: it was stored but never queued.
+		with mock.patch("pos_services.tasks.post_transaction.delay", side_effect=ConnectionError("redis down")), \
+				self.captureOnCommitCallbacks(execute=True):
+			self.assertEqual(self.push("grns", self.grn_payload(invoice.invoice_no)), {"Status": "Success"})
+		txn = InventoryTransaction.objects.get()
+		self.assertEqual(txn.status, InventoryTransaction.QUEUED)
+		InventoryTransaction.objects.filter(pk=txn.pk).update(updated_at=timezone.now() - timedelta(hours=1))
+		Dispatch.objects.filter(pk=invoice.pk).update(updated_at=timezone.now() - timedelta(hours=1))
+		byd = FakeByD()
+		with mock.patch("pos_services.posting.ByDClient", return_value=byd), \
+				mock.patch("pos_services.dispatch.requests.post", return_value=mock.Mock(status_code=200, json=lambda: {"Status": "Success"})):
+			requeue_stale()
+		txn.refresh_from_db()
+		invoice.refresh_from_db()
+		self.assertEqual(txn.status, InventoryTransaction.POSTED)
+		self.assertEqual(invoice.status, Dispatch.SENT)
 
 
 class ByDClientTests(TestCase):

@@ -70,7 +70,7 @@ class InventoryTransactionAdmin(admin.ModelAdmin):
 	def retry(self, request, queryset):
 		from .tasks import post_transaction
 		count = 0
-		for txn in queryset.exclude(status=InventoryTransaction.POSTED):
+		for txn in queryset.filter(status__in=[InventoryTransaction.FAILED, InventoryTransaction.QUEUED]):
 			post_transaction.delay(txn.pk)
 			count += 1
 		messages.info(request, f"Queued {count} transaction(s) for posting.")

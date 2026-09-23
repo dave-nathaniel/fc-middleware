@@ -17,6 +17,8 @@ import os
 import logging
 from time import sleep
 
+import requests
+
 from django.utils import timezone
 
 from byd_services.rest import ByDClient
@@ -59,35 +61,38 @@ def post(txn, client=None):
 # GRN and return to vendor
 # ----------------------------------------------------------------------------
 def _lines(txn):
-	"""(item_code, signed quantity) for each line of the POS payload."""
+	"""(item_code, signed quantity) for each line of the validated POS document."""
 	if txn.kind == InventoryTransaction.GRN:
-		return [(item["itemCode"], float(item["quantity"])) for item in txn.payload["items"] if float(item["quantity"]) > 0]
-	return [(item["code"], -float(item["quantity"])) for item in txn.payload["items"]]
+		return [(item["itemCode"], float(item["quantity"])) for item in txn.data["items"] if float(item["quantity"]) > 0]
+	return [(item["code"], -float(item["quantity"])) for item in txn.data["items"]]
 
 
-def _context_dispatch(txn):
-	"""The invoice whose ByD details (parties, units, PO item references) the posting uses."""
-	if txn.dispatch_id:
+def _dispatch_for(txn, code):
+	"""The invoice whose ByD details (parties, units, PO item references) this line posts with."""
+	if txn.kind == InventoryTransaction.GRN:
 		return txn.dispatch
-	# Return to vendor: use the invoice of the latest GRN posted against the PO.
-	grn = (
+	# Return to vendor: the invoice of the latest posted GRN of this PO that received the item.
+	grns = (
 		InventoryTransaction.objects.filter(kind=InventoryTransaction.GRN, purchase_order=txn.purchase_order, status=InventoryTransaction.POSTED)
-		.exclude(dispatch=None).order_by("-posted_at").first()
+		.exclude(dispatch=None).select_related("dispatch").order_by("-posted_at")
 	)
-	if not grn:
-		raise PostingError("No posted GRN found for this purchase order.")
-	return grn.dispatch
+	for grn in grns:
+		if any(item["itemCode"] == code for item in grn.data["items"]):
+			return grn.dispatch
+	raise PostingError(f"No posted GRN of this purchase order received item {code}.")
 
 
 def build_inbound_delivery(txn):
-	dispatch = _context_dispatch(txn)
-	context = dispatch.byd_context
 	doc_id = txn.byd_document_id
-	items = []
+	items, senders, sources = [], set(), set()
 	for index, (code, quantity) in enumerate(_lines(txn), start=1):
+		dispatch = _dispatch_for(txn, code)
+		context = dispatch.byd_context
 		item_context = context["items"].get(code)
 		if not item_context:
 			raise PostingError(f"Item {code} is not on ByD document {dispatch.source_id}.")
+		senders.add(context["sender_party_id"])
+		sources.add(dispatch.source_type)
 		item = {
 			"ID": str(index),
 			"TypeCode": "14",
@@ -95,6 +100,7 @@ def build_inbound_delivery(txn):
 			"ItemDeliveryQuantity": {"Quantity": str(quantity), "UnitCode": item_context["unit_code"]},
 		}
 		if dispatch.source_type == Dispatch.PURCHASE_ORDER:
+			# Same shape fc-vimp eGRN posts: the item carries the PO item number.
 			item["ID"] = item_context["po_item_id"]
 			item["ItemPurchaseOrderReference"] = {
 				"ID": dispatch.source_id,
@@ -110,30 +116,33 @@ def build_inbound_delivery(txn):
 
 	if not items:
 		raise PostingError("Nothing to post: every line has a zero quantity.")
+	if len(senders) > 1 or len(sources) > 1:
+		raise PostingError("The lines come from different suppliers or supply types; post them as separate documents.")
 
-	ship_to = COMPANY_ID if dispatch.source_type == Dispatch.PURCHASE_ORDER else txn.store.byd_cost_center_code
+	source_type = sources.pop()
+	ship_to = COMPANY_ID if source_type == Dispatch.PURCHASE_ORDER else txn.store.byd_cost_center_code
 	return {
 		"ID": doc_id,
 		"ProcessingTypeCode": "SD",
 		"Item": items,
-		"SenderParty": {"PartyID": context["sender_party_id"]},
+		"SenderParty": {"PartyID": senders.pop()},
 		"ShipToParty": {"PartyID": ship_to},
 	}
 
 
 def _post_inbound_delivery(txn, client):
-	if not txn.byd_object_id:
-		existing = client.find_inbound_delivery(txn.byd_document_id)
-		if existing:
-			if str(existing.get("ReleaseStatusCode")) == "3":
-				logger.info(f"{txn.byd_document_id} already posted in ByD.")
-				txn.byd_object_id = existing["ObjectID"]
-				txn.save(update_fields=["byd_object_id"])
-				return
-			txn.byd_object_id = existing["ObjectID"]
-		else:
-			created = client.create_inbound_delivery(build_inbound_delivery(txn))
-			txn.byd_object_id = created["ObjectID"]
+	# Always look the document up first: a previous attempt may have created it, or
+	# even posted it and lost the response.
+	existing = client.find_inbound_delivery(txn.byd_document_id)
+	if existing:
+		txn.byd_object_id = existing["ObjectID"]
+		txn.save(update_fields=["byd_object_id"])
+		if str(existing.get("ReleaseStatusCode")) == "3":
+			logger.info(f"{txn.byd_document_id} is already posted in ByD.")
+			return
+	else:
+		created = client.create_inbound_delivery(build_inbound_delivery(txn))
+		txn.byd_object_id = created["ObjectID"]
 		txn.save(update_fields=["byd_object_id"])
 		# ByD needs a moment before the new delivery can be posted.
 		sleep(int(os.getenv("BYD_POST_DELAY_SECONDS", "5")))
@@ -147,11 +156,19 @@ def _post_wastage(txn):
 	store = txn.store
 	items = [
 		{"line": index, "product_id": item["itemCode"], "quantity": float(item["quantity"]), "unit_code": item["unitCode"]}
-		for index, item in enumerate(txn.payload["items"], start=1)
+		for index, item in enumerate(txn.data["items"], start=1)
 	]
-	goods_movement.post_consumption_for_cost_center(
-		external_id=txn.byd_document_id,
-		cost_center_id=store.byd_cost_center_code,
-		items=items,
-		transaction_datetime=txn.transaction_date.isoformat(),
-	)
+	try:
+		goods_movement.post_consumption_for_cost_center(
+			external_id=txn.byd_document_id,
+			cost_center_id=store.byd_cost_center_code,
+			items=items,
+			transaction_datetime=txn.transaction_date.isoformat(),
+		)
+	except requests.exceptions.ReadTimeout:
+		# ByD may have posted it: the consumption service cannot be queried by our ID,
+		# so resending automatically could post the wastage twice.
+		raise PostingError(
+			f"ByD did not answer in time. Check ByD for goods movement external ID {txn.byd_document_id} "
+			f"before using 'Retry posting'."
+		)
