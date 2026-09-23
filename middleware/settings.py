@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 	'core_services',
     'store_services',
     'sales_aggregation',
+    'pos_services',
 ]
 
 REST_FRAMEWORK = {
@@ -177,3 +178,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Celery (background posting of POS transactions to ByD)
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
+CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", "False") == "True"
+CELERY_TASK_ACKS_LATE = True
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BEAT_SCHEDULE = {
+    # Turn ByD outbound deliveries / issued purchase orders into POS invoices.
+    "pos-sync-dispatches": {
+        "task": "pos_services.tasks.sync_dispatches",
+        "schedule": int(os.getenv("POS_DISPATCH_POLL_SECONDS", "900")),
+    },
+}

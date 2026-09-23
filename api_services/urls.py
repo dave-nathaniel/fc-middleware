@@ -11,4 +11,6 @@ urlpatterns = [
 	# Store endpoints
 	path('store', search_store, name='search-store'),
 	path('stores', get_all_stores, name='get-all-stores'),
+	# Restroworks POS integration
+	path('pos/', include('pos_services.urls')),
 ]

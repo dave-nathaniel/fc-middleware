@@ -1,0 +1,130 @@
+"""
+Endpoints for the Restroworks POS integration.
+
+POS -> middleware (Restroworks webhooks, HTTP Basic auth with a service user):
+	POST /api/v1/pos/purchase-orders
+	POST /api/v1/pos/grns
+	POST /api/v1/pos/vendor-returns
+	POST /api/v1/pos/wastage
+	Every reply is HTTP 200 with {"Status": "Success"} or {"Status": "Fail", "Reason": "..."},
+	as the Restroworks specification requires.
+
+SRP -> middleware:
+	POST /api/v1/pos/purchase-orders/link          (JWT) ByD document created for POS POs
+	POST /srp-feed/token                            ICG-compatible token endpoint
+	GET  /srp-feed/api/FoodConcept/StoreRequest/<date>  ICG-compatible store requests feed
+"""
+import logging
+from datetime import date, timedelta
+
+from django.contrib.auth import authenticate
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import AccessToken
+
+from overrides.rest_framework import APIResponse
+from . import services
+from .serializers import (
+	PurchaseOrderSerializer, GRNSerializer, VendorReturnSerializer, WastageSerializer, LinkSerializer, first_error,
+)
+
+logger = logging.getLogger(__name__)
+
+# SRP caches its ICG token for 13 days; issue feed tokens that outlive that cache.
+FEED_TOKEN_LIFETIME = timedelta(days=14)
+
+
+def pos_reply(ok, reason=None, **extra):
+	body = {"Status": "Success" if ok else "Fail"}
+	if not ok:
+		body["Reason"] = reason
+	body.update(extra)
+	return Response(body, status=status.HTTP_200_OK)
+
+
+def _pos_webhook(serializer_class, handler, request):
+	if not isinstance(request.data, dict):
+		return pos_reply(False, "The request body must be a JSON object.")
+	serializer = serializer_class(data=request.data)
+	if not serializer.is_valid():
+		return pos_reply(False, first_error(serializer.errors))
+	try:
+		ok, reason, extra = handler(serializer.validated_data, request.data)
+	except Exception as e:
+		logger.exception(f"POS webhook {request.path} failed")
+		return pos_reply(False, f"Middleware error: {e}")
+	if not ok:
+		logger.warning(f"POS webhook {request.path} rejected: {reason}")
+	return pos_reply(ok, reason, **extra)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def purchase_order(request):
+	return _pos_webhook(PurchaseOrderSerializer, services.receive_purchase_order, request)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def grn(request):
+	return _pos_webhook(GRNSerializer, services.receive_grn, request)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def vendor_return(request):
+	return _pos_webhook(VendorReturnSerializer, services.receive_vendor_return, request)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def wastage(request):
+	return _pos_webhook(WastageSerializer, services.receive_wastage, request)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def link_purchase_orders(request):
+	serializer = LinkSerializer(data=request.data)
+	if not serializer.is_valid():
+		return APIResponse(first_error(serializer.errors), status.HTTP_400_BAD_REQUEST)
+	linked, unmatched = services.link_byd_document(serializer.validated_data)
+	return APIResponse(
+		f"Linked {len(linked)} POS purchase order(s) to ByD {serializer.validated_data['document_id']}.",
+		status.HTTP_200_OK,
+		data={"linked": linked, "unmatched": unmatched},
+	)
+
+
+# ----------------------------------------------------------------------------
+# ICG-compatible feed for the Store Requisition Portal
+# ----------------------------------------------------------------------------
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def feed_token(request):
+	"""OAuth2 password-grant style token endpoint, matching what SRP sends to ICG's /token."""
+	user = authenticate(username=request.data.get("username"), password=request.data.get("password"))
+	if request.data.get("grant_type") != "password" or user is None or not user.is_active:
+		return Response({"error": "invalid_grant", "error_description": "The user name or password is incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+	token = AccessToken.for_user(user)
+	token.set_exp(lifetime=FEED_TOKEN_LIFETIME)
+	return Response({
+		"access_token": str(token),
+		"token_type": "bearer",
+		"expires_in": int(FEED_TOKEN_LIFETIME.total_seconds()),
+	})
+
+
+@api_view(["GET"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def store_requests(request, day):
+	try:
+		requested = date.fromisoformat(day)
+	except ValueError:
+		return Response({"message": "The date must be YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+	return Response(services.store_requests_for(requested))

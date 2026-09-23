@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from pos_services.urls import feed_urlpatterns
+
 admin.site.site_header = "FC | Middleware"
 admin.site.site_title = "FC | Middleware"
 admin.site.index_title = "FC | Middleware"
@@ -25,6 +27,8 @@ admin.site.index_title = "FC | Middleware"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api_services.urls')),
+    # ICG-compatible feed read by the Store Requisition Portal
+    path('srp-feed/', include(feed_urlpatterns)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
