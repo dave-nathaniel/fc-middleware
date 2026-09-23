@@ -14,6 +14,8 @@ class Store(models.Model):
 	byd_account_id = models.CharField(max_length=20, null=True, blank=True)
 	byd_supplier_ck_id = models.CharField(max_length=20, null=True, blank=True)
 	byd_supplier_ppu_id = models.CharField(max_length=20, null=True, blank=True)
+	# The outlet code set for this store on the Restroworks POS (sent as 'storeId' on every POS push).
+	pos_store_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
 	# Store sales and taxes
 	vat = models.DecimalField(max_digits=5, decimal_places=2, default=7.5)
 	consumption_tax = models.DecimalField(max_digits=5, decimal_places=2, default=0)

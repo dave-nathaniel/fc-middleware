@@ -220,6 +220,7 @@ class StoreAdmin(admin.ModelAdmin):
 		"icg_warehouse_code",
 		"icg_warehouse_name",
 		"icg_future_warehouse_code",
+		"pos_store_id",
 	]
 
 	readonly_fields = ["last_synced"]
