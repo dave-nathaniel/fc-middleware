@@ -92,3 +92,7 @@ Link body:
   - The invoice number is `PO<ByD PO ID>-<storeId>-<poNumber>`.
 
 When one ByD document covers several POS purchase orders, each PO is invoiced in turn, in PO order. It gets what the ByD document holds for its lines, up to what it still has outstanding.
+
+## Deployment
+
+The middleware, including this app, runs with Docker Compose behind NGINX. See `DEPLOYMENT.md` at the repository root.

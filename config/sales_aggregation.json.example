@@ -1,0 +1,7 @@
+{
+	"show_ui": false,
+	"use_only_active_stores": true,
+	"post_to_byd": true,
+	"use_test_data_file": false,
+	"test_data_file": "sales_aggregation/icg_to_byd/data.json"
+}

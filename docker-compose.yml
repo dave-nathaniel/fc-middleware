@@ -1,0 +1,116 @@
+# FC Middleware stack.
+#
+#   docker compose up -d --build                       # uses the MySQL named in .env (DB_HOST)
+#   docker compose --profile local-db up -d --build    # also starts a MySQL container (set DB_HOST=db)
+#
+# Only NGINX publishes ports. Everything else talks on the internal network.
+
+x-app: &app
+  build: .
+  image: fc-middleware:latest
+  env_file: .env
+  environment:
+    CELERY_BROKER_URL: redis://redis:6379/0
+  extra_hosts:
+    # Lets DB_HOST=host.docker.internal reach a MySQL server running on the Docker host.
+    - "host.docker.internal:host-gateway"
+  restart: unless-stopped
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  web:
+    <<: *app
+    command: >
+      sh -c "python manage.py migrate --noinput
+      && python manage.py collectstatic --noinput
+      && exec gunicorn middleware.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120 --access-logfile -"
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+        required: false   # only waited for when the local-db profile is active
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/admin/login/', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+
+  worker:
+    <<: *app
+    # Posts POS GRNs, returns and wastage to ByD, and sends invoices to Restroworks.
+    command: celery -A middleware worker --loglevel=info --concurrency=2
+
+  beat:
+    <<: *app
+    # Schedules the invoice poll and re-queues stale work. Run exactly one beat.
+    command: celery -A middleware beat --loglevel=info --schedule=/tmp/celerybeat-schedule
+
+  sales-sync:
+    <<: *app
+    # Daily sales posting to ByD. Not started by "up"; run it from the host's scheduler:
+    #   docker compose run --rm sales-sync
+    profiles: ["jobs"]
+    restart: "no"
+    command: python -m sales_aggregation.icg_to_byd /app/config/sales_aggregation.json
+    volumes:
+      - ./config:/app/config:ro
+      - sales_logs:/app/logs
+      - sales_reports:/app/reports
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - static:/app/static:ro
+      - media:/app/media:ro
+    depends_on:
+      web:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    profiles: ["local-db"]
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-change-me}
+    volumes:
+      - mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  static:
+  media:
+  redis:
+  mysql:
+  sales_logs:
+  sales_reports:

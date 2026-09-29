@@ -1,0 +1,25 @@
+.git
+.idea
+.vscode
+**/__pycache__
+**/*.pyc
+
+# Secrets and local settings: passed in at run time, never baked into the image
+.env
+.env-*
+*.pem
+
+# Local data and output
+DUMP/
+logs/
+reports/
+static/
+media/
+*.log
+*.sqlite3
+*.patch
+
+# Container and proxy definitions
+Dockerfile
+docker-compose*.yml
+nginx/
