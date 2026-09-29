@@ -96,13 +96,15 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_NAME}
+      # Must not be "root": the image creates this as a regular user and exits if it is root.
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-change-me}
     volumes:
       - mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      # TCP (not the socket) so the check fails while the first-run init server is up with networking off.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
       interval: 10s
       timeout: 5s
       retries: 10
