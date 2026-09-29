@@ -13,6 +13,8 @@ Restroworks POS ──GRN / return / wastage──▶ middleware ──Celery─
 
 ## Endpoints
 
+The full contract, with request and response schemas, is in [`openapi.yaml`](openapi.yaml) (OpenAPI 3.1). Restroworks and the SRP team can load it into Swagger UI, Postman or Stoplight.
+
 ### Pushed by Restroworks
 
 Authentication is HTTP Basic, using a middleware service user in the Django group `restroworks`. Every reply is HTTP 200 with `{"Status": "Success"}`, or with `{"Status": "Fail", "Reason": "..."}` when the push was rejected, which is the format the Restroworks specification asks for. Sending the same document twice is safe: the second push is acknowledged and nothing is created again.

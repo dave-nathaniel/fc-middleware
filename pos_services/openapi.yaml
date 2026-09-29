@@ -1,0 +1,830 @@
+openapi: 3.1.0
+info:
+  title: FC Middleware - POS (Restroworks) integration
+  version: 1.0.0
+  summary: Endpoints the FC middleware exposes to the Restroworks POS and the Store Requisition Portal.
+  description: |
+    Implemented in `pos_services` (branch `feature/restroworks-integration` of fc-middleware).
+
+    **Restroworks webhooks** (`/api/v1/pos/...` except `/link`) always answer HTTP 200 once the
+    caller is authenticated and authorised. The outcome is in the body:
+    `{"Status": "Success"}`, or `{"Status": "Fail", "Reason": "..."}` when the document was
+    not accepted, as the Restroworks "ERP PO Process" specification requires. A document
+    that was already accepted is acknowledged again with `Success` and nothing new is
+    created, so retries are always safe.
+
+    Accepted GRNs, returns and wastage are posted to SAP ByD in the background. Their ByD
+    status is not part of the webhook response. It shows in the middleware admin.
+
+    **Store Requisition Portal (SRP)** endpoints: the `/srp-feed` pair copies the ICG
+    `token` and `StoreRequest/{date}` interface SRP already reads, so SRP only changes its
+    base URL. `/api/v1/pos/purchase-orders/link` reports the ByD document SRP created.
+
+    **Access**
+    - Webhooks: a user in the Django group `restroworks`.
+    - SRP endpoints: a user in the group `store_requisition`.
+    - Superusers may call everything.
+
+    Request bodies may carry extra fields. They are ignored for processing and kept in the
+    stored copy of the request.
+
+    **Types:** identifiers declared as strings also accept JSON numbers (they are converted to
+    text). Quantities and amounts accept a JSON number or a numeric string, with at most
+    4 decimal places and 14 significant digits.
+servers:
+  - url: http://20.56.133.194
+    description: Middleware server (production HTTPS host to be confirmed)
+  - url: http://localhost:8000
+    description: Local development
+
+tags:
+  - name: Restroworks webhooks
+    description: Documents the Restroworks POS pushes to the middleware.
+  - name: Store Requisition Portal
+    description: Purchase order feed for demand planning, and the ByD document link-back.
+
+security:
+  - basicAuth: []
+  - bearerAuth: []
+
+paths:
+  /api/v1/pos/purchase-orders:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: submitPurchaseOrder
+      summary: Submit an approved POS purchase order
+      description: |
+        Stores the purchase order approved in the POS. The middleware does not create
+        anything in ByD at this point: SRP reads the order from the feed for demand planning.
+        That produces a ByD sales order (Warehouse, CK or PPU) or a purchase request (vendor).
+
+        Idempotency key: `poId`. A repeat push answers `Success` with the stored order's total.
+
+        `Fail` reasons:
+        - the `storeId` is not mapped to a store;
+        - the same `itemCode` appears twice;
+        - a field is missing or invalid.
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PurchaseOrderSubmission' }
+            examples:
+              restroworksSample:
+                summary: Sample from the Restroworks specification
+                value:
+                  storeId: "3727"
+                  customerKey: 630b9e49e5513ae61ffd43ec
+                  expectedDelivery: "2026-09-30T08:30:00.000Z"
+                  prefix: BP/O1-19-20/
+                  poNumber: 158
+                  poId: 5968917d3a46db083bc22bff
+                  updated: "2026-09-28T16:56:41.944Z"
+                  created: "2026-09-28T16:56:05.133Z"
+                  store: { name: MAIN STORE, storeUID: SA1, type: store }
+                  vendor: { name: DEMO VENDOR 1, code: "1011" }
+                  items:
+                    - { itemName: "OIL CORN 4*3.5ltr (Pcs)", itemCode: "10047", quantity: 10 }
+                    - { itemName: Tomato Ketchup, itemCode: "10048", quantity: 10 }
+      responses:
+        '200':
+          description: Outcome of the submission. Check `Status`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PurchaseOrderAccepted'
+                  - $ref: '#/components/schemas/PosFail'
+              examples:
+                accepted:
+                  value: { Status: Success, TotalCasesMessage: 20 }
+                unknownStore:
+                  value: { Status: Fail, Reason: "Unknown storeId '9999'. The outlet is not mapped to a store in the middleware." }
+                invalid:
+                  value: { Status: Fail, Reason: "items: This list may not be empty." }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /api/v1/pos/grns:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: submitGoodsReceipt
+      summary: Submit a GRN (stock entry)
+      description: |
+        Records goods received at the store against an invoice the middleware sent to the POS
+        (`invoiceNo`). Once stored, the GRN is posted to ByD in the background:
+        - **Direct vendor:** an inbound delivery referenced to the ByD PO, then goods receipt.
+        - **Warehouse, CK or PPU:** an inbound delivery from the dispatching location to the store, then goods receipt.
+
+        Lines with a zero quantity are stored but not posted.
+
+        Idempotency key: `storeId` + `transactionNumber`.
+
+        `Fail` reasons:
+        - the `storeId` is not mapped to a store;
+        - the `invoiceNo` was not issued by the middleware for this store;
+        - an item is not on that invoice;
+        - a field is missing or invalid.
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/GoodsReceipt' }
+            examples:
+              againstInvoice:
+                value:
+                  customerKey: 630ba40a53b0b17b3ec64f30
+                  invoiceDate: "2026-09-29T18:30:00.000Z"
+                  invoiceNo: PO7001-3727-158
+                  transactionNumber: 183
+                  storeId: "3727"
+                  transactionDate: "2026-09-30T17:20:16.098Z"
+                  items:
+                    - { quantity: 8, itemCode: "10047", itemName: "OIL CORN 4*3.5ltr (Pcs)" }
+      responses:
+        '200':
+          description: Outcome of the submission. Check `Status`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PosSuccess'
+                  - $ref: '#/components/schemas/PosFail'
+              examples:
+                accepted:
+                  value: { Status: Success }
+                unknownInvoice:
+                  value: { Status: Fail, Reason: "Unknown invoiceNo 'INV-1234' for this store. GRNs must reference an invoice sent by the middleware." }
+                itemNotOnInvoice:
+                  value: { Status: Fail, Reason: "Item(s) not on invoice PO7001-3727-158: 99999." }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /api/v1/pos/vendor-returns:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: submitVendorReturn
+      summary: Submit a local stock return (return to vendor)
+      description: |
+        Records stock returned against a POS purchase order (`poPrefix` + `poNumber`). It is
+        posted to ByD in the background as a reversing inbound delivery (negative quantities),
+        using the details of the latest posted GRN that received each item.
+
+        Idempotency key: `storeId` + `returnTransactionNo`.
+
+        `Fail` reasons:
+        - the `storeId` is not mapped to a store;
+        - the purchase order is unknown for this store;
+        - an item has no posted GRN against that order yet. Restroworks' automatic retry resolves this once the GRN has posted.
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/VendorReturn' }
+            examples:
+              restroworksSample:
+                value:
+                  storeId: "3727"
+                  poPrefix: BP/O1-19-20/
+                  poNumber: "158"
+                  returnPrefix: RE
+                  returnTransactionNo: 23
+                  items:
+                    - { name: "OIL CORN 4*3.5ltr (Pcs)", code: "10047", quantity: 2 }
+      responses:
+        '200':
+          description: Outcome of the submission. Check `Status`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PosSuccess'
+                  - $ref: '#/components/schemas/PosFail'
+              examples:
+                accepted:
+                  value: { Status: Success }
+                notReceivedYet:
+                  value: { Status: Fail, Reason: "Item(s) not yet received and posted against this purchase order: 10047." }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /api/v1/pos/wastage:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: submitWastage
+      summary: Submit a wastage record
+      description: |
+        Schema defined by the middleware (Restroworks has none). Posted to ByD in the
+        background as a goods consumption on the store's cost center, valued at weighted
+        average cost. Reason codes are kept in the middleware for reporting by cause.
+
+        Idempotency key: `storeId` + `wastagePrefix` + `wastageNumber`.
+
+        `Fail` reasons:
+        - the `storeId` is not mapped to a store;
+        - a field is missing or invalid (for example a line without `reasonCode`).
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Wastage' }
+            examples:
+              expiredChicken:
+                value:
+                  storeId: "3727"
+                  customerKey: 630b9e49e5513ae61ffd43ec
+                  wastagePrefix: WS
+                  wastageNumber: "41"
+                  wastageDate: "2026-09-30T05:00:00Z"
+                  tradingDate: "2026-09-29"
+                  recordedBy: store.manager@foodconceptsplc.com
+                  approvedBy: area.manager@foodconceptsplc.com
+                  items:
+                    - itemCode: RM1000072
+                      itemName: Chicken, whole
+                      quantity: 1.5
+                      unitCode: KGM
+                      unitCost: 4200
+                      subTotal: 6300
+                      reasonCode: EXP
+                      reasonDescription: Expired
+                      stage: raw
+                      batches:
+                        - { quantity: 1.5, expiryDate: "2026-09-29T00:00:00Z", batchNumber: L-12 }
+      responses:
+        '200':
+          description: Outcome of the submission. Check `Status`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PosSuccess'
+                  - $ref: '#/components/schemas/PosFail'
+              examples:
+                accepted:
+                  value: { Status: Success }
+                missingReason:
+                  value: { Status: Fail, Reason: "items[0].reasonCode: This field is required." }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /api/v1/pos/purchase-orders/link:
+    post:
+      tags: [Store Requisition Portal]
+      operationId: linkByDDocument
+      summary: Report the ByD document created for POS purchase order lines
+      description: |
+        Called by SRP after it syncs a processed order to ByD. Each line is matched to a
+        POS purchase order by store (`warehouse` = the store's ICG warehouse code),
+        `series` (POS prefix) and `orderID` (POS PO number).
+
+        Matched orders are linked to the ByD document. From then on the middleware
+        watches that document and sends the POS an invoice when goods are dispatched
+        (sales order) or the order is issued (purchase order).
+
+        Lines that match no POS purchase order are returned in `unmatched`. Reporting the
+        same document again replaces its lines.
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LinkRequest' }
+            examples:
+              salesOrder:
+                value:
+                  document_type: sales_order
+                  document_id: "5001"
+                  lines:
+                    - { warehouse: W101, series: BP/O1-19-20/, orderID: 158, reference: "10047", quantity: "10.00" }
+      responses:
+        '200':
+          description: Link recorded.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LinkResponse' }
+              examples:
+                linked:
+                  value:
+                    message: Linked 1 POS purchase order(s) to ByD 5001.
+                    data:
+                      linked: [BP/O1-19-20/158]
+                      unmatched: []
+                    status: success
+        '400':
+          description: The body is invalid.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ApiFailure' }
+              example: { message: "document_type: \"sales_orders\" is not a valid choice.", status: failed }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /srp-feed/token:
+    post:
+      tags: [Store Requisition Portal]
+      operationId: getFeedToken
+      summary: Get a feed token (ICG-compatible password grant)
+      description: |
+        Same contract as ICG's `/token`, which SRP already calls. Only users in the group
+        `store_requisition` get a token.
+
+        The token lasts 14 days and is accepted only by the StoreRequest feed; every other
+        endpoint rejects it. Limited to 30 requests per hour per client IP.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema: { $ref: '#/components/schemas/TokenRequest' }
+          application/json:
+            schema: { $ref: '#/components/schemas/TokenRequest' }
+      responses:
+        '200':
+          description: Token issued.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+              example: { access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..., token_type: bearer, expires_in: 1209600 }
+        '400':
+          description: Wrong grant type, wrong credentials, or the user is not in `store_requisition`.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenError' }
+              example: { error: invalid_grant, error_description: The user name or password is incorrect. }
+        '429': { $ref: '#/components/responses/Throttled' }
+
+  /srp-feed/api/FoodConcept/StoreRequest/{day}:
+    get:
+      tags: [Store Requisition Portal]
+      operationId: getStoreRequests
+      summary: POS purchase orders received on a day (ICG StoreRequest shape)
+      description: |
+        Returns the POS purchase orders the middleware received on `day`, in the
+        middleware's business time zone (Africa/Lagos by default). The shape matches ICG's
+        StoreRequest response, so SRP stores each line as an item line without code changes.
+
+        Lines arrive already approved (`is_declined: false`), because approval happened in
+        the POS. Prices are 0: POS purchase orders carry no price. Orders are listed in the
+        order they were received.
+      security:
+        - feedToken: []
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: Business date, `YYYY-MM-DD`.
+          schema: { type: string, format: date }
+          example: "2026-09-29"
+      responses:
+        '200':
+          description: Store requests for the day (an empty array when there are none).
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/StoreRequest' }
+              example:
+                - series: BP/O1-19-20/
+                  orderID: 158
+                  supplierID: "1011"
+                  itemLines:
+                    - lineId: 1
+                      itemId: 10047
+                      reference: "10047"
+                      description: "OIL CORN 4*3.5ltr (Pcs)"
+                      totalQuantity: 10.0
+                      unitPrice: 0
+                      totalPrice: 0
+                      warehouse: W101
+                      is_declined: false
+                      remark: Approved in POS (Restroworks PO BP/O1-19-20/158).
+        '400':
+          description: '`day` is not a valid date.'
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message]
+                properties:
+                  message: { type: string }
+              example: { message: The date must be YYYY-MM-DD. }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+webhooks:
+  purchaseOrderInvoice:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: sendPurchaseOrderInvoice
+      summary: Invoice the middleware sends to Restroworks (Dispatch / Invoice API)
+      description: |
+        Outbound call, hosted by Restroworks at `RESTROWORKS_INVOICE_URL`
+        (`.../api/v1/pos/save_purchase_order_invoice`), with the outlet's `customer_key`
+        as a query parameter and the `Authorization` header Restroworks issues.
+
+        When it is sent, and what it carries:
+        - **Warehouse, CK or PPU (sales order):** one invoice per released ByD outbound delivery, with the quantities shipped. The invoice number is `<delivery ID>-<storeId>-<poNumber>`.
+        - **Direct vendor (purchase order):** one invoice when the ByD PO is issued, with its final quantities and prices. The invoice number is `PO<ByD PO ID>-<storeId>-<poNumber>`.
+
+        The store books its GRN against `invoiceNo`. A non-2xx status, or a body with
+        `Status: Fail`, is retried with backoff and can be resent from the admin.
+      parameters:
+        - name: customer_key
+          in: query
+          required: true
+          description: The outlet key received on the original purchase order (`customerKey`).
+          schema: { type: string }
+        - name: Authorization
+          in: header
+          required: true
+          description: Credential issued by Restroworks, sent as configured (e.g. `Basic ...`).
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PurchaseOrderInvoice' }
+            example:
+              storeId: "3727"
+              prefix: BP/O1-19-20/
+              poNumber: 158
+              poId: 5968917d3a46db083bc22bff
+              invoiceDate: "2026-09-29T09:56:28.000Z"
+              invoiceNo: PO7001-3727-158
+              items:
+                - { name: Corn oil, code: "10047", quantity: 8.0, unitPrice: 25000.0, subTotal: 200000.0 }
+      responses:
+        '200':
+          description: Response expected from Restroworks.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PosSuccess'
+                  - $ref: '#/components/schemas/PosFail'
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Middleware service user. Restroworks uses a user in group `restroworks`; SRP uses its existing middleware user, placed in group `store_requisition`.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access token from the middleware's existing `POST /api/v1/authenticate` (5 hours). The same group rules apply.
+    feedToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token from `POST /srp-feed/token`. It is only valid on the StoreRequest feed.
+
+  responses:
+    Unauthenticated:
+      description: No credentials, or invalid credentials.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/DrfDetail' }
+          example: { detail: Authentication credentials were not provided. }
+    Forbidden:
+      description: Authenticated, but the user is not in the group this endpoint requires.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/DrfDetail' }
+          example: { detail: You do not have permission to perform this action. }
+    Throttled:
+      description: Too many token requests from this client.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/DrfDetail' }
+          example: { detail: Request was throttled. Expected available in 1200 seconds. }
+
+  schemas:
+    # ------------------------------------------------------------------
+    # Scalars
+    # ------------------------------------------------------------------
+    Identifier:
+      description: Text identifier. A JSON number is also accepted and converted to text.
+      type: [string, integer]
+      minLength: 1
+    Quantity:
+      description: Decimal quantity as a JSON number or numeric string. At most 4 decimal places and 14 significant digits.
+      type: [number, string]
+      examples: [10, "8.5"]
+
+    # ------------------------------------------------------------------
+    # Restroworks response envelope
+    # ------------------------------------------------------------------
+    PosSuccess:
+      type: object
+      required: [Status]
+      properties:
+        Status: { type: string, const: Success }
+    PosFail:
+      type: object
+      required: [Status, Reason]
+      properties:
+        Status: { type: string, const: Fail }
+        Reason: { type: string, description: Why the document was not accepted. Safe to show in the POS failed-transaction monitor. }
+    PurchaseOrderAccepted:
+      type: object
+      required: [Status, TotalCasesMessage]
+      properties:
+        Status: { type: string, const: Success }
+        TotalCasesMessage:
+          type: number
+          description: Sum of the quantities of all accepted lines (an integer when the sum is whole).
+
+    # ------------------------------------------------------------------
+    # Shared parts
+    # ------------------------------------------------------------------
+    Batch:
+      type: object
+      required: [quantity]
+      properties:
+        quantity: { $ref: '#/components/schemas/Quantity' }
+        expiryDate: { type: string, format: date-time }
+        batchNumber: { type: string }
+
+    # ------------------------------------------------------------------
+    # 1) Purchase order submission
+    # ------------------------------------------------------------------
+    PurchaseOrderSubmission:
+      type: object
+      required: [storeId, customerKey, poNumber, poId, vendor, items]
+      properties:
+        storeId:
+          allOf: [{ $ref: '#/components/schemas/Identifier' }]
+          description: Outlet code on the POS. Must match a store's `pos_store_id` in the middleware.
+        customerKey: { type: string, minLength: 1, description: Restroworks outlet key. It is sent back on every invoice for this order. }
+        expectedDelivery: { type: string, format: date-time }
+        prefix: { type: string, default: "", description: PO prefix generated by the POS. }
+        poNumber: { type: integer, minimum: 0, description: PO number generated by the POS. }
+        poId: { type: string, minLength: 1, description: Unique Restroworks PO identifier. This is the idempotency key. }
+        vendor:
+          type: object
+          required: [code]
+          properties:
+            code:
+              allOf: [{ $ref: '#/components/schemas/Identifier' }]
+              description: Vendor code. Codes listed in `POS_INTERNAL_VENDOR_CODES` mean Warehouse, CK or PPU supply; any other code is a direct vendor.
+            name: { type: string }
+        items:
+          type: array
+          minItems: 1
+          description: Each itemCode may appear only once.
+          items:
+            type: object
+            required: [itemCode, quantity]
+            properties:
+              itemCode: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: ByD product ID. }
+              itemName: { type: string }
+              quantity:
+                allOf: [{ $ref: '#/components/schemas/Quantity' }]
+                description: At least 0.0001.
+
+    # ------------------------------------------------------------------
+    # 3) GRN (stock entry)
+    # ------------------------------------------------------------------
+    GoodsReceipt:
+      type: object
+      required: [storeId, invoiceNo, transactionNumber, transactionDate, items]
+      properties:
+        customerKey: { type: string }
+        storeId: { $ref: '#/components/schemas/Identifier' }
+        invoiceNo: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: Invoice number the middleware sent to the POS. }
+        invoiceDate: { type: string, format: date-time }
+        transactionNumber: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: POS transaction number. Unique per store; this is the idempotency key. }
+        transactionDate: { type: string, format: date-time }
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [itemCode, quantity]
+            properties:
+              itemCode: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: Must be on the referenced invoice. }
+              itemName: { type: string }
+              quantity:
+                allOf: [{ $ref: '#/components/schemas/Quantity' }]
+                description: Quantity received, 0 or more. Lines with 0 are not posted.
+              batches:
+                type: array
+                items: { $ref: '#/components/schemas/Batch' }
+
+    # ------------------------------------------------------------------
+    # 4) Local stock return (return to vendor)
+    # ------------------------------------------------------------------
+    VendorReturn:
+      type: object
+      required: [storeId, poNumber, returnTransactionNo, items]
+      properties:
+        storeId: { $ref: '#/components/schemas/Identifier' }
+        poPrefix: { type: string, default: "" }
+        poNumber:
+          description: POS PO number the goods were received against. A numeric string is accepted.
+          type: [integer, string]
+          minimum: 0
+          pattern: '^[0-9]+$'
+        returnPrefix: { type: string, default: "" }
+        returnTransactionNo: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: Unique per store; this is the idempotency key. }
+        returnDate: { type: string, format: date-time, description: Defaults to the time received. }
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [code, quantity]
+            properties:
+              code: { $ref: '#/components/schemas/Identifier' }
+              name: { type: string }
+              quantity:
+                allOf: [{ $ref: '#/components/schemas/Quantity' }]
+                description: Quantity returned, at least 0.0001.
+              batches:
+                type: array
+                items: { $ref: '#/components/schemas/Batch' }
+
+    # ------------------------------------------------------------------
+    # 5) Wastage (middleware-defined)
+    # ------------------------------------------------------------------
+    Wastage:
+      type: object
+      required: [storeId, wastageNumber, wastageDate, recordedBy, items]
+      properties:
+        storeId: { $ref: '#/components/schemas/Identifier' }
+        customerKey: { type: string }
+        wastagePrefix: { type: string, default: "" }
+        wastageNumber: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: With wastagePrefix, unique per store. This is the idempotency key. }
+        wastageDate: { type: string, format: date-time, description: When the waste was recorded. }
+        tradingDate: { type: string, format: date, description: Business day the waste belongs to. }
+        recordedBy: { type: string, minLength: 1 }
+        approvedBy: { type: string }
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [itemCode, quantity, unitCode, reasonCode]
+            properties:
+              itemCode: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: ByD product ID. }
+              itemName: { type: string }
+              quantity:
+                allOf: [{ $ref: '#/components/schemas/Quantity' }]
+                description: At least 0.0001.
+              unitCode: { type: string, minLength: 1, description: ByD unit of measure code, e.g. KGM, EA, LTR. }
+              unitCost: { $ref: '#/components/schemas/Quantity' }
+              subTotal: { $ref: '#/components/schemas/Quantity' }
+              reasonCode: { type: string, minLength: 1 }
+              reasonDescription: { type: string }
+              stage: { type: string, enum: [raw, wip, finished] }
+              batches:
+                type: array
+                items: { $ref: '#/components/schemas/Batch' }
+
+    # ------------------------------------------------------------------
+    # SRP link-back
+    # ------------------------------------------------------------------
+    LinkRequest:
+      type: object
+      required: [document_type, document_id, lines]
+      properties:
+        document_type:
+          type: string
+          enum: [sales_order, purchase_request, purchase_order]
+          description: |
+            - `sales_order`: Warehouse, CK or PPU supply.
+            - `purchase_request`: a vendor purchase request. It is recorded, but no invoice is sent until the resulting purchase order is linked.
+            - `purchase_order`: a vendor purchase order.
+        document_id: { allOf: [{ $ref: '#/components/schemas/Identifier' }], description: ByD document ID. }
+        lines:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [warehouse, series, orderID, reference, quantity]
+            properties:
+              warehouse: { type: string, minLength: 1, description: The store's ICG warehouse code, as on the SRP item line. }
+              series: { type: string, description: POS PO prefix (SRP item line `series`). }
+              orderID: { type: integer, description: POS PO number (SRP item line `orderID`). }
+              reference: { type: string, minLength: 1, description: Item code. }
+              quantity: { $ref: '#/components/schemas/Quantity' }
+    LinkResponse:
+      type: object
+      required: [message, status, data]
+      properties:
+        message: { type: string }
+        status: { type: string, const: success }
+        data:
+          type: object
+          required: [linked, unmatched]
+          properties:
+            linked:
+              type: array
+              description: POS orders now linked, as prefix + PO number.
+              items: { type: string }
+            unmatched:
+              type: array
+              description: Lines that matched no POS purchase order, echoed back.
+              items: { type: object }
+    ApiFailure:
+      type: object
+      required: [message, status]
+      properties:
+        message: { type: string }
+        status: { type: string, const: failed }
+
+    # ------------------------------------------------------------------
+    # SRP feed (ICG-compatible)
+    # ------------------------------------------------------------------
+    TokenRequest:
+      type: object
+      required: [grant_type, username, password]
+      properties:
+        grant_type: { type: string, const: password }
+        username: { type: string }
+        password: { type: string, format: password }
+    TokenResponse:
+      type: object
+      required: [access_token, token_type, expires_in]
+      properties:
+        access_token: { type: string }
+        token_type: { type: string, const: bearer }
+        expires_in: { type: integer, description: Seconds (14 days). }
+    TokenError:
+      type: object
+      required: [error, error_description]
+      properties:
+        error: { type: string, const: invalid_grant }
+        error_description: { type: string }
+    StoreRequest:
+      type: object
+      required: [series, orderID, supplierID, itemLines]
+      properties:
+        series: { type: string, description: POS PO prefix. }
+        orderID: { type: integer, description: POS PO number. }
+        supplierID: { type: string, description: POS vendor code. In SRP it is matched against `Vendor.icg_code`, and against the WAREHOUSE, PPU and CK settings. }
+        itemLines:
+          type: array
+          items:
+            type: object
+            required: [lineId, itemId, reference, description, totalQuantity, unitPrice, totalPrice, warehouse, is_declined, remark]
+            properties:
+              lineId: { type: integer, description: 1-based line number within the PO. }
+              itemId: { type: integer, description: The item code as a number when it is numeric, otherwise 0. }
+              reference: { type: string, description: Item code (ByD product ID). }
+              description: { type: string }
+              totalQuantity: { type: number }
+              unitPrice: { type: number, const: 0 }
+              totalPrice: { type: number, const: 0 }
+              warehouse: { type: string, description: The store's ICG warehouse code. }
+              is_declined: { type: boolean, const: false }
+              remark: { type: string }
+
+    # ------------------------------------------------------------------
+    # Outbound invoice
+    # ------------------------------------------------------------------
+    PurchaseOrderInvoice:
+      type: object
+      required: [storeId, prefix, poNumber, poId, invoiceDate, invoiceNo, items]
+      properties:
+        storeId: { type: string }
+        prefix: { type: string }
+        poNumber: { type: integer }
+        poId: { type: string }
+        invoiceDate: { type: string, format: date-time }
+        invoiceNo: { type: string }
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [name, code, quantity, unitPrice, subTotal]
+            properties:
+              name: { type: string }
+              code: { type: string }
+              quantity: { type: number }
+              unitPrice: { type: number, description: 0 for Warehouse, CK and PPU invoices until a price source is agreed. }
+              subTotal: { type: number }
+
+    DrfDetail:
+      type: object
+      required: [detail]
+      properties:
+        detail: { type: string }
