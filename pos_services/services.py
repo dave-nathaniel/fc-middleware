@@ -9,13 +9,15 @@ creating anything new, so Restroworks can retry safely.
 import os
 import logging
 from collections import defaultdict
+from decimal import Decimal
 from zoneinfo import ZoneInfo
 
 from django.db import transaction, IntegrityError
+from django.db.models import F
 from django.utils import timezone
 
 from store_services.models import Store
-from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction
+from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction, PosSale
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +180,61 @@ def receive_wastage(data, payload, clean):
 	return _receive_transaction(
 		InventoryTransaction.WASTAGE, store, reference, clean, payload, transaction_date=data["wastageDate"],
 	)
+
+
+def receive_sales(data, payload, clean):
+	"""
+		Stores a store's sales for one business date. Each push carries the whole day,
+		so a later push for the same store and date replaces the earlier one.
+		Payment types are upper-cased, and repeated ones are added together.
+	"""
+	store = _store(data["storeId"])
+	if not store:
+		return _unknown_store(data["storeId"])
+
+	totals = {}
+	for tender in data["tenders"]:
+		payment_type = " ".join(tender["paymentType"].split()).upper()
+		totals[payment_type] = totals.get(payment_type, Decimal("0")) + tender["amount"]
+	tenders = [{"paymentType": name, "amount": str(amount)} for name, amount in totals.items()]
+
+	sale, created = PosSale.objects.update_or_create(
+		store=store, business_date=data["businessDate"], defaults={"tenders": tenders, "payload": payload},
+	)
+	if not created:
+		PosSale.objects.filter(pk=sale.pk).update(pushes=F("pushes") + 1)
+		logger.info(f"Sales for {store.store_name} on {data['businessDate']} replaced by a new push.")
+	return True, None, {}
+
+
+# ----------------------------------------------------------------------------
+# Blue Prism <-> middleware
+# ----------------------------------------------------------------------------
+def _icg_amount(value):
+	"""ICG sends amounts as text with no trailing zeros: "528300", "1250.5"."""
+	text = format(Decimal(value), "f")
+	return text.rstrip("0").rstrip(".") if "." in text else text
+
+
+def sales_for(date):
+	"""
+		POS sales for `date`, in the shape Blue Prism reads from ICG
+		(GET /api/FoodConcept/Sales/{date}): one row per store and payment type,
+		keyed by the store's ICG warehouse code. Zero amounts are left out, as ICG does.
+	"""
+	feed = []
+	for sale in PosSale.objects.filter(business_date=date).select_related("store").order_by("store__icg_warehouse_code"):
+		for tender in sale.tenders:
+			if Decimal(tender["amount"]) == 0:
+				continue
+			feed.append({
+				"warehouseCode": sale.store.icg_warehouse_code,
+				"warehouseName": sale.store.icg_warehouse_name or sale.store.store_name,
+				"date": date.isoformat(),
+				"paymentType": tender["paymentType"],
+				"amount": _icg_amount(tender["amount"]),
+			})
+	return feed
 
 
 # ----------------------------------------------------------------------------

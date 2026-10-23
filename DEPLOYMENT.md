@@ -43,8 +43,9 @@ Only NGINX publishes ports. Gunicorn, Redis and MySQL are reachable only on the 
 Then do the one-off admin setup for the POS integration, in the Django admin:
 
 - enter each store's Restroworks `storeId` in **Store → Pos store id**;
-- create the groups `restroworks` and `store_requisition`;
-- create a service user for Restroworks and one for the Store Requisition Portal, and put each in its group.
+- create the groups `restroworks`, `store_requisition` and `blue_prism`;
+- create a service user for Restroworks, one for the Store Requisition Portal and one for Blue Prism, and put each in its group;
+- point Blue Prism's ICG base URL at `https://<host>/sales-feed`, with the Blue Prism user's credentials.
 
 The POS settings in `.env` (`POS_*` and `RESTROWORKS_*`) are explained in `.env.example`.
 

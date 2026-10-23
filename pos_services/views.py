@@ -6,6 +6,7 @@ POS -> middleware (Restroworks webhooks, HTTP Basic auth, user in group "restrow
 	POST /api/v1/pos/grns
 	POST /api/v1/pos/vendor-returns
 	POST /api/v1/pos/wastage
+	POST /api/v1/pos/sales
 	Every reply is HTTP 200 with {"Status": "Success"} or {"Status": "Fail", "Reason": "..."},
 	as the Restroworks specification requires.
 
@@ -13,6 +14,10 @@ SRP -> middleware (user in group "store_requisition"):
 	POST /api/v1/pos/purchase-orders/link          (Basic or JWT) ByD document created for POS POs
 	POST /srp-feed/token                            ICG-compatible token endpoint
 	GET  /srp-feed/api/FoodConcept/StoreRequest/<date>  ICG-compatible store requests feed
+
+Blue Prism -> middleware (user in group "blue_prism"):
+	POST /sales-feed/token                          ICG-compatible token endpoint
+	GET  /sales-feed/api/FoodConcept/Sales/<date>   ICG-compatible sales feed
 """
 import logging
 from datetime import date, timedelta
@@ -30,7 +35,8 @@ from rest_framework_simplejwt.tokens import AccessToken
 from overrides.rest_framework import APIResponse
 from . import services
 from .serializers import (
-	PurchaseOrderSerializer, GRNSerializer, VendorReturnSerializer, WastageSerializer, LinkSerializer, first_error,
+	PurchaseOrderSerializer, GRNSerializer, VendorReturnSerializer, WastageSerializer, SalesSerializer, LinkSerializer,
+	first_error,
 )
 
 logger = logging.getLogger(__name__)
@@ -41,6 +47,7 @@ FEED_TOKEN_LIFETIME = timedelta(days=14)
 # Django groups that may call each side of the integration (superusers always may).
 RESTROWORKS_GROUP = "restroworks"
 SRP_GROUP = "store_requisition"
+BLUE_PRISM_GROUP = "blue_prism"
 
 
 def _in_group(user, group):
@@ -57,10 +64,16 @@ class IsStoreRequisitionPortal(BasePermission):
 		return _in_group(request.user, SRP_GROUP)
 
 
+class IsBluePrism(BasePermission):
+	def has_permission(self, request, view):
+		return _in_group(request.user, BLUE_PRISM_GROUP)
+
+
 class FeedToken(AccessToken):
 	"""
-		A token that only opens the SRP feed. Its own token type means the default
-		JWT authentication (which accepts access tokens only) rejects it everywhere else.
+		A token that only opens the ICG-compatible feeds (SRP and sales). Its own token type
+		means the default JWT authentication (which accepts access tokens only) rejects it
+		everywhere else. Each feed also checks the caller's group.
 	"""
 	token_type = "srp_feed"
 	lifetime = FEED_TOKEN_LIFETIME
@@ -127,6 +140,12 @@ def wastage(request):
 
 
 @api_view(["POST"])
+@permission_classes([IsRestroworks])
+def sales(request):
+	return _pos_webhook(SalesSerializer, services.receive_sales, request)
+
+
+@api_view(["POST"])
 @permission_classes([IsStoreRequisitionPortal])
 def link_purchase_orders(request):
 	serializer = LinkSerializer(data=request.data)
@@ -141,16 +160,12 @@ def link_purchase_orders(request):
 
 
 # ----------------------------------------------------------------------------
-# ICG-compatible feed for the Store Requisition Portal
+# ICG-compatible feeds: store requests for the SRP, sales for Blue Prism
 # ----------------------------------------------------------------------------
-@api_view(["POST"])
-@authentication_classes([])
-@permission_classes([AllowAny])
-@throttle_classes([FeedTokenThrottle])
-def feed_token(request):
-	"""OAuth2 password-grant style token endpoint, matching what SRP sends to ICG's /token."""
+def _issue_feed_token(request, group):
+	"""OAuth2 password-grant style token endpoint, matching what callers send to ICG's /token."""
 	user = authenticate(username=request.data.get("username"), password=request.data.get("password"))
-	if request.data.get("grant_type") != "password" or user is None or not user.is_active or not _in_group(user, SRP_GROUP):
+	if request.data.get("grant_type") != "password" or user is None or not user.is_active or not _in_group(user, group):
 		return Response({"error": "invalid_grant", "error_description": "The user name or password is incorrect."}, status=status.HTTP_400_BAD_REQUEST)
 	token = FeedToken.for_user(user)
 	return Response({
@@ -160,12 +175,39 @@ def feed_token(request):
 	})
 
 
-@api_view(["GET"])
-@authentication_classes([FeedTokenAuthentication])
-@permission_classes([IsStoreRequisitionPortal])
-def store_requests(request, day):
+def _feed_for_day(day, build):
 	try:
 		requested = date.fromisoformat(day)
 	except ValueError:
 		return Response({"message": "The date must be YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
-	return Response(services.store_requests_for(requested))
+	return Response(build(requested))
+
+
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+@throttle_classes([FeedTokenThrottle])
+def feed_token(request):
+	return _issue_feed_token(request, SRP_GROUP)
+
+
+@api_view(["GET"])
+@authentication_classes([FeedTokenAuthentication])
+@permission_classes([IsStoreRequisitionPortal])
+def store_requests(request, day):
+	return _feed_for_day(day, services.store_requests_for)
+
+
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+@throttle_classes([FeedTokenThrottle])
+def sales_feed_token(request):
+	return _issue_feed_token(request, BLUE_PRISM_GROUP)
+
+
+@api_view(["GET"])
+@authentication_classes([FeedTokenAuthentication])
+@permission_classes([IsBluePrism])
+def sales_feed(request, day):
+	return _feed_for_day(day, services.sales_for)

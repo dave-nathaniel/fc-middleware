@@ -4,7 +4,7 @@ its ByD document and posting status, and every invoice sent back to the POS.
 """
 from django.contrib import admin, messages
 
-from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction
+from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction, PosSale
 
 
 class PurchaseOrderLinkInline(admin.TabularInline):
@@ -74,3 +74,12 @@ class InventoryTransactionAdmin(admin.ModelAdmin):
 			post_transaction.delay(txn.pk)
 			count += 1
 		messages.info(request, f"Queued {count} transaction(s) for posting.")
+
+
+@admin.register(PosSale)
+class PosSaleAdmin(admin.ModelAdmin):
+	list_display = ["store", "business_date", "total", "pushes", "received_at", "updated_at"]
+	list_filter = ["business_date", "store"]
+	search_fields = ["store__store_name", "store__pos_store_id", "store__icg_warehouse_code"]
+	date_hierarchy = "business_date"
+	readonly_fields = [f.name for f in PosSale._meta.fields]

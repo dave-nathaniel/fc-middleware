@@ -17,7 +17,7 @@ from django.utils import timezone
 from rest_framework.test import APIClient
 
 from store_services.models import Store
-from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction
+from .models import PurchaseOrder, PurchaseOrderLink, Dispatch, InventoryTransaction, PosSale
 from . import dispatch as dispatching
 
 User = get_user_model()
@@ -454,6 +454,111 @@ class PosIntegrationTests(TestCase):
 		invoice.refresh_from_db()
 		self.assertEqual(txn.status, InventoryTransaction.POSTED)
 		self.assertEqual(invoice.status, Dispatch.SENT)
+
+
+SALES_PAYLOAD = {
+	"storeId": "3727",
+	"businessDate": "2026-10-22",
+	"tenders": [
+		{"paymentType": "CASH", "amount": 528300},
+		{"paymentType": "Debit Card", "amount": "541700.50"},
+		{"paymentType": "BANK TRANSFER", "amount": 148700},
+		{"paymentType": "BANK  TRANSFER", "amount": 1000},
+		{"paymentType": "CREDIT", "amount": 0},
+	],
+}
+
+
+class SalesTests(TestCase):
+	"""POS sales pushed by Restroworks and served to Blue Prism in ICG's format."""
+
+	def setUp(self):
+		restroworks = User.objects.create_user(username="restroworks", password="secret")
+		restroworks.groups.add(Group.objects.create(name="restroworks"))
+		blue_prism = User.objects.create_user(username="bp", password="bp-secret")
+		blue_prism.groups.add(Group.objects.create(name="blue_prism"))
+		srp = User.objects.create_user(username="srp", password="srp-secret")
+		srp.groups.add(Group.objects.create(name="store_requisition"))
+		self.client = APIClient()
+		self.client.credentials(HTTP_AUTHORIZATION="Basic cmVzdHJvd29ya3M6c2VjcmV0")  # restroworks:secret
+		self.store = Store.objects.create(
+			store_name="CR Adeniran", icg_warehouse_name="LAG, ADENIRAN", icg_warehouse_code="W101",
+			byd_cost_center_code="4100003-17", pos_store_id="3727",
+		)
+		Store.objects.create(store_name="CR Ajah", icg_warehouse_code="I3", byd_cost_center_code="4100003-18", pos_store_id="3728")
+
+	def push(self, **overrides):
+		response = self.client.post("/api/v1/pos/sales", {**SALES_PAYLOAD, **overrides}, format="json")
+		self.assertEqual(response.status_code, 200)
+		return response.json()
+
+	def feed(self, day, username="bp", password="bp-secret"):
+		token = APIClient().post("/sales-feed/token", {"grant_type": "password", "username": username, "password": password})
+		self.assertEqual(token.status_code, 200)
+		reader = APIClient()
+		reader.credentials(HTTP_AUTHORIZATION=f"Bearer {token.json()['access_token']}")
+		return reader.get(f"/sales-feed/api/FoodConcept/Sales/{day}")
+
+	def test_sales_are_stored_per_store_and_day(self):
+		self.assertEqual(self.push(), {"Status": "Success"})
+		sale = PosSale.objects.get()
+		self.assertEqual(sale.store, self.store)
+		self.assertEqual(sale.tenders, [
+			{"paymentType": "CASH", "amount": "528300.00"},
+			{"paymentType": "DEBIT CARD", "amount": "541700.50"},
+			{"paymentType": "BANK TRANSFER", "amount": "149700.00"},
+			{"paymentType": "CREDIT", "amount": "0.00"},
+		])
+
+	def test_a_later_push_replaces_the_day(self):
+		self.push()
+		self.push(tenders=[{"paymentType": "CASH", "amount": 600000}])
+		sale = PosSale.objects.get()
+		self.assertEqual(sale.tenders, [{"paymentType": "CASH", "amount": "600000.00"}])
+		self.assertEqual(sale.pushes, 2)
+		self.push(businessDate="2026-10-23")
+		self.assertEqual(PosSale.objects.count(), 2)
+
+	def test_unknown_store_and_bad_payload_fail_with_reason(self):
+		body = self.push(storeId="9999")
+		self.assertEqual(body["Status"], "Fail")
+		self.assertIn("Unknown storeId", body["Reason"])
+		body = self.push(businessDate="22/10/2026")
+		self.assertEqual(body["Status"], "Fail")
+		self.assertIn("businessDate", body["Reason"])
+		self.assertEqual(PosSale.objects.count(), 0)
+
+	def test_feed_matches_icg_sales_format(self):
+		self.push()
+		self.push(storeId="3728", tenders=[{"paymentType": "CASH", "amount": 305050}])
+		response = self.feed("2026-10-22")
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.json(), [
+			{"warehouseCode": "I3", "warehouseName": "CR Ajah", "date": "2026-10-22", "paymentType": "CASH", "amount": "305050"},
+			{"warehouseCode": "W101", "warehouseName": "LAG, ADENIRAN", "date": "2026-10-22", "paymentType": "CASH", "amount": "528300"},
+			{"warehouseCode": "W101", "warehouseName": "LAG, ADENIRAN", "date": "2026-10-22", "paymentType": "DEBIT CARD", "amount": "541700.5"},
+			{"warehouseCode": "W101", "warehouseName": "LAG, ADENIRAN", "date": "2026-10-22", "paymentType": "BANK TRANSFER", "amount": "149700"},
+		])
+		self.assertEqual(self.feed("2026-10-21").json(), [])
+		self.assertEqual(self.feed("21-10-2026").status_code, 400)
+
+	def test_each_feed_is_limited_to_its_caller(self):
+		# Only Blue Prism gets a sales feed token, and the SRP's token does not open the sales feed.
+		self.assertEqual(APIClient().post("/sales-feed/token", {"grant_type": "password", "username": "srp", "password": "srp-secret"}).status_code, 400)
+		self.assertEqual(APIClient().post("/sales-feed/token", {"grant_type": "password", "username": "bp", "password": "wrong"}).status_code, 400)
+		srp_token = APIClient().post("/srp-feed/token", {"grant_type": "password", "username": "srp", "password": "srp-secret"}).json()["access_token"]
+		reader = APIClient()
+		reader.credentials(HTTP_AUTHORIZATION=f"Bearer {srp_token}")
+		self.assertEqual(reader.get("/sales-feed/api/FoodConcept/Sales/2026-10-22").status_code, 403)
+		# Blue Prism's token does not open the SRP feed or the rest of the API, and it cannot push sales.
+		bp_token = APIClient().post("/sales-feed/token", {"grant_type": "password", "username": "bp", "password": "bp-secret"}).json()["access_token"]
+		reader.credentials(HTTP_AUTHORIZATION=f"Bearer {bp_token}")
+		self.assertEqual(reader.get("/srp-feed/api/FoodConcept/StoreRequest/2026-10-22").status_code, 403)
+		self.assertEqual(reader.get("/api/v1/stores").status_code, 401)
+		self.assertEqual(APIClient().post("/api/v1/pos/sales", SALES_PAYLOAD, format="json").status_code, 401)
+		blue_prism = APIClient()
+		blue_prism.force_authenticate(User.objects.get(username="bp"))
+		self.assertEqual(blue_prism.post("/api/v1/pos/sales", SALES_PAYLOAD, format="json").status_code, 403)
 
 
 class ByDClientTests(TestCase):

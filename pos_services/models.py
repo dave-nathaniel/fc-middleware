@@ -9,6 +9,8 @@ Dispatch           an invoice/dispatch we sent back to the POS for a purchase
                    order. The store's GRN is received against it.
 InventoryTransaction  GRNs, returns to vendor and wastage pushed by the POS,
                    with their ByD posting status. This is our reconciliation log.
+PosSale            a store's sales for one business date, by payment type, as
+                   pushed by the POS. Blue Prism reads them through the sales feed.
 """
 from django.db import models
 
@@ -146,3 +148,33 @@ class InventoryTransaction(models.Model):
 
 	def __str__(self):
 		return f"{self.get_kind_display()} {self.reference} | {self.store.store_name}"
+
+
+class PosSale(models.Model):
+	"""
+		A store's sales for one business date, by payment type, as last pushed by the POS.
+		This is the raw sales record that replaces ICG as Blue Prism's source. Validated
+		sales come back separately through POST /api/v1/sales (sales_aggregation).
+	"""
+	store = models.ForeignKey(Store, on_delete=models.PROTECT, related_name="pos_sales")
+	business_date = models.DateField()
+	tenders = models.JSONField(help_text='[{"paymentType": "CASH", "amount": "528300.00"}], one entry per payment type.')
+	payload = models.JSONField(help_text="The latest request exactly as received.")
+	pushes = models.PositiveIntegerField(default=1, help_text="How many times the POS has sent this store and date. A later push replaces the earlier one.")
+	received_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		ordering = ["-business_date", "store__icg_warehouse_code"]
+		constraints = [
+			models.UniqueConstraint(fields=["store", "business_date"], name="unique_pos_sale"),
+		]
+		indexes = [models.Index(fields=["business_date"])]
+
+	@property
+	def total(self):
+		from decimal import Decimal
+		return sum((Decimal(t["amount"]) for t in self.tenders), Decimal("0"))
+
+	def __str__(self):
+		return f"{self.store.store_name} | {self.business_date}"

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: FC Middleware - POS (Restroworks) integration
   version: 1.0.0
-  summary: Endpoints the FC middleware exposes to the Restroworks POS and the Store Requisition Portal.
+  summary: Endpoints the FC middleware exposes to the Restroworks POS, the Store Requisition Portal and Blue Prism.
   description: |
     Implemented in `pos_services` (branch `feature/restroworks-integration` of fc-middleware).
 
@@ -20,9 +20,15 @@ info:
     `token` and `StoreRequest/{date}` interface SRP already reads, so SRP only changes its
     base URL. `/api/v1/pos/purchase-orders/link` reports the ByD document SRP created.
 
+    **Blue Prism** endpoints: the `/sales-feed` pair copies the ICG `token` and `Sales/{date}`
+    interface Blue Prism already reads, so Blue Prism only changes its base URL and
+    credentials. The sales come from `POST /api/v1/pos/sales`. Validated sales still
+    return through the existing `POST /api/v1/sales`, which is not part of this definition.
+
     **Access**
     - Webhooks: a user in the Django group `restroworks`.
     - SRP endpoints: a user in the group `store_requisition`.
+    - Sales feed: a user in the group `blue_prism`.
     - Superusers may call everything.
 
     Request bodies may carry extra fields. They are ignored for processing and kept in the
@@ -42,6 +48,8 @@ tags:
     description: Documents the Restroworks POS pushes to the middleware.
   - name: Store Requisition Portal
     description: Purchase order feed for demand planning, and the ByD document link-back.
+  - name: Blue Prism
+    description: Sales feed that replaces ICG as the source for Blue Prism and Sales Validation.
 
 security:
   - basicAuth: []
@@ -280,6 +288,63 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/Forbidden' }
 
+  /api/v1/pos/sales:
+    post:
+      tags: [Restroworks webhooks]
+      operationId: submitSales
+      summary: Submit a store's sales for one business date
+      description: |
+        Schema defined by the middleware. One push carries a store's whole business day, as
+        totals by payment type. A later push for the same `storeId` and `businessDate`
+        replaces the earlier one, so a store can resend a corrected day.
+
+        `paymentType` must be the tender name Blue Prism reconciles on, as ICG sends it:
+        `CASH`, `DEBIT CARD`, `CREDIT`, `BANK TRANSFER`, `STAFF MEAL`. Names are upper-cased
+        and repeated whitespace is collapsed. Repeated payment types are added together.
+        Amounts are in naira, with at most 2 decimal places.
+
+        Nothing is posted to ByD from this push. Blue Prism reads it through the sales feed,
+        Sales Validation reconciles it, and the validated sales are posted as today.
+
+        `Fail` reasons:
+        - the `storeId` is not mapped to a store;
+        - a field is missing or invalid (for example `businessDate` not in `YYYY-MM-DD`).
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DailySales' }
+            examples:
+              oneDay:
+                value:
+                  storeId: "3727"
+                  customerKey: 630b9e49e5513ae61ffd43ec
+                  businessDate: "2026-10-22"
+                  tenders:
+                    - { paymentType: CASH, amount: 528300 }
+                    - { paymentType: DEBIT CARD, amount: 541700 }
+                    - { paymentType: BANK TRANSFER, amount: 148700 }
+                    - { paymentType: CREDIT, amount: 3500 }
+      responses:
+        '200':
+          description: Outcome of the submission. Check `Status`.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/PosSuccess'
+                  - $ref: '#/components/schemas/PosFail'
+              examples:
+                accepted:
+                  value: { Status: Success }
+                unknownStore:
+                  value: { Status: Fail, Reason: "Unknown storeId '9999'. The outlet is not mapped to a store in the middleware." }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
   /api/v1/pos/purchase-orders/link:
     post:
       tags: [Store Requisition Portal]
@@ -426,6 +491,83 @@ paths:
         '401': { $ref: '#/components/responses/Unauthenticated' }
         '403': { $ref: '#/components/responses/Forbidden' }
 
+  /sales-feed/token:
+    post:
+      tags: [Blue Prism]
+      operationId: getSalesFeedToken
+      summary: Get a sales feed token (ICG-compatible password grant)
+      description: |
+        Same contract as ICG's `/token`, which Blue Prism already calls. Only users in the
+        group `blue_prism` get a token.
+
+        The token lasts 14 days and is accepted only by the Sales feed; every other endpoint
+        rejects it. Limited to 30 requests per hour per client IP.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema: { $ref: '#/components/schemas/TokenRequest' }
+          application/json:
+            schema: { $ref: '#/components/schemas/TokenRequest' }
+      responses:
+        '200':
+          description: Token issued.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+              example: { access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..., token_type: bearer, expires_in: 1209600 }
+        '400':
+          description: Wrong grant type, wrong credentials, or the user is not in `blue_prism`.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenError' }
+              example: { error: invalid_grant, error_description: The user name or password is incorrect. }
+        '429': { $ref: '#/components/responses/Throttled' }
+
+  /sales-feed/api/FoodConcept/Sales/{day}:
+    get:
+      tags: [Blue Prism]
+      operationId: getSales
+      summary: POS sales for a business date (ICG Sales shape)
+      description: |
+        Returns the sales the POS pushed for `day`, in the shape of ICG's
+        `/api/FoodConcept/Sales/{date}`: one row per store and payment type, with the store's
+        ICG warehouse code and amounts as text. Rows are ordered by warehouse code. Zero
+        amounts are left out, as ICG does.
+      security:
+        - feedToken: []
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: Business date, `YYYY-MM-DD`.
+          schema: { type: string, format: date }
+          example: "2026-10-22"
+      responses:
+        '200':
+          description: Sales for the day (an empty array when no store has pushed it).
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/IcgSale' }
+              example:
+                - { warehouseCode: I3, warehouseName: "LAG, AJAH", date: "2026-10-22", paymentType: CASH, amount: "305050" }
+                - { warehouseCode: I3, warehouseName: "LAG, AJAH", date: "2026-10-22", paymentType: DEBIT CARD, amount: "473200.5" }
+        '400':
+          description: '`day` is not a valid date.'
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message]
+                properties:
+                  message: { type: string }
+              example: { message: The date must be YYYY-MM-DD. }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
 webhooks:
   purchaseOrderInvoice:
     post:
@@ -493,7 +635,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: Token from `POST /srp-feed/token`. It is only valid on the StoreRequest feed.
+      description: Token from `POST /srp-feed/token` (StoreRequest feed) or `POST /sales-feed/token` (Sales feed). It is only valid on its own feed.
 
   responses:
     Unauthenticated:
@@ -796,6 +938,38 @@ components:
               warehouse: { type: string, description: The store's ICG warehouse code. }
               is_declined: { type: boolean, const: false }
               remark: { type: string }
+
+    # ------------------------------------------------------------------
+    # Sales
+    # ------------------------------------------------------------------
+    DailySales:
+      type: object
+      required: [storeId, businessDate, tenders]
+      properties:
+        storeId: { $ref: '#/components/schemas/Identifier' }
+        customerKey: { type: string }
+        businessDate: { type: string, format: date, description: Business day the sales belong to. With storeId, this is the key; a later push replaces the earlier one. }
+        tenders:
+          type: array
+          description: Totals for the day by payment type. An empty list records a day with no sales.
+          items:
+            type: object
+            required: [paymentType, amount]
+            properties:
+              paymentType: { type: string, minLength: 1, examples: [CASH, DEBIT CARD, CREDIT, BANK TRANSFER, STAFF MEAL] }
+              amount:
+                description: Naira, as a JSON number or numeric string, at most 2 decimal places.
+                type: [number, string]
+                examples: [528300, "541700.50"]
+    IcgSale:
+      type: object
+      required: [warehouseCode, warehouseName, date, paymentType, amount]
+      properties:
+        warehouseCode: { type: string, description: The store's ICG warehouse code. Validated sales are sent back with it as `icg_warehouse_code`. }
+        warehouseName: { type: string, description: The store's ICG warehouse name, or its store name when none is set. }
+        date: { type: string, format: date }
+        paymentType: { type: string }
+        amount: { type: string, description: Amount as text without trailing zeros, as ICG sends it. }
 
     # ------------------------------------------------------------------
     # Outbound invoice

@@ -110,6 +110,21 @@ class WastageSerializer(serializers.Serializer):
 
 
 # ----------------------------------------------------------------------------
+# 6) Daily sales (schema defined by the middleware)
+# ----------------------------------------------------------------------------
+class SaleTenderSerializer(serializers.Serializer):
+	paymentType = serializers.CharField(help_text="Tender name as Blue Prism knows it from ICG: CASH, DEBIT CARD, CREDIT, BANK TRANSFER, STAFF MEAL.")
+	amount = serializers.DecimalField(max_digits=16, decimal_places=2)
+
+
+class SalesSerializer(serializers.Serializer):
+	storeId = serializers.CharField()
+	customerKey = serializers.CharField(required=False, allow_blank=True)
+	businessDate = serializers.DateField()
+	tenders = SaleTenderSerializer(many=True, allow_empty=True)
+
+
+# ----------------------------------------------------------------------------
 # SRP -> middleware: ByD documents created by demand planning
 # ----------------------------------------------------------------------------
 class LinkLineSerializer(serializers.Serializer):
